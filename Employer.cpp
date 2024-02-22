@@ -7,7 +7,7 @@
 #include <cstring>
 using namespace std;
 
-Employer::Employer(char *id, char *password, char *forgetPass) {
+Employer::Employer(char *id, char *password, char* forgetPassQ, char* forgetPassA) {
 
     this-> id = new char [strlen(id)+1];
     strcpy(this->id, id);
@@ -15,8 +15,11 @@ Employer::Employer(char *id, char *password, char *forgetPass) {
     this-> password = new char [strlen(password)+1];
     strcpy(this->password, password);
 
-    this-> forgetPass = new char [strlen(forgetPass)+1];
-    strcpy(this->forgetPass, forgetPass);
+    this-> forgetPassQ = new char [strlen(forgetPassQ)+1];
+    strcpy(this->forgetPassQ, forgetPassQ);
+
+    this-> forgetPassA = new char [strlen(forgetPassA)+1];
+    strcpy(this->forgetPassA, forgetPassA);
 
     this->jobs = nullptr;
     this-> jobsNum = 0;
@@ -29,8 +32,11 @@ Employer:: Employer(const Employer& employer ){
     this-> password = new char [strlen(employer.password)+1];
     strcpy(this->password, employer.password);
 
-    this-> forgetPass = new char [strlen(employer.forgetPass)+1];
-    strcpy(this->forgetPass, employer.forgetPass);
+    this-> forgetPassQ = new char [strlen(employer.forgetPassQ)+1];
+    strcpy(this->forgetPassQ, employer.forgetPassQ);
+
+    this-> forgetPassA = new char [strlen(employer.forgetPassA)+1];
+    strcpy(this->forgetPassA, employer.forgetPassA);
 
     this->jobsNum = employer.jobsNum;
 
@@ -45,7 +51,8 @@ Employer::~Employer(){
 
     delete [] id;
     delete [] password;
-    delete [] forgetPass ;
+    delete [] forgetPassQ ;
+    delete [] forgetPassA ;
 //    for( int i = 0; i< jobsNum; ++i){
 //        delete jobs[i];
 //
@@ -57,4 +64,10 @@ void Employer::printJobs(){
     for(int i = 0; i < jobsNum; ++i){
         jobs[i].print();
     }
+}
+
+void Employer:: printDetails(){
+    cout<< "Id: " << id << endl;
+    cout<< "Password: " << password << endl;
+    cout << "";
 }

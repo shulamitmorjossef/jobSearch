@@ -9,15 +9,17 @@
 
 class Employer {
 public:
-    Employer(char* id, char* password, char* forgetPass);
+    Employer(char* id, char* password, char* forgetPassQ, char* forgetPassA );
     Employer(const Employer& employer );
     ~Employer();
     void printJobs();
+    void printDetails();
 
 private:
     char* id ;
     char* password ;
-    char* forgetPass ;
+    char* forgetPassQ ;
+    char* forgetPassA ;
     int jobsNum;
     Job* jobs ;
 

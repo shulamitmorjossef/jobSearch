@@ -16,7 +16,8 @@ public:
 private:
     char* id ;
     char* password ;
-    char* forgetPass ;
+    char* forgetPassQ ;
+    char* forgetPassA ;
     char* fName;
     char* lName;
     char* email;
