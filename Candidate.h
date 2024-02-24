@@ -14,9 +14,19 @@ public:
 
     Candidate(const Candidate& candidate);
     ~Candidate();
-    void printSub();
+    void printSub();                // sahar
     void printProfile();
     void printDetails();
+
+    bool signUp();              //rina
+    bool logIn(char* id, char* password, Candidate* arr);
+    bool forgetPassword(char* id, Candidate* arr);
+    void searchJob();
+    bool addApply(int id);          // sahar
+    void sortSub();
+    bool deleteApply(int id);        // sahar
+    void updateDetails();
+
 
 
 

@@ -15,10 +15,10 @@ public:
     void printJobs();
     void printDetails();
 
-    bool signUp();
+    bool signUp();         //rina
     bool logIn(char* id, char* password, Employer* arr);
     bool forgetPassword(char* id, Employer* arr);
-    bool addJob();
+    bool addJob();          // aderet
     void sortJobs();
     bool deleteJob(int id);
     void updateJob(int id);

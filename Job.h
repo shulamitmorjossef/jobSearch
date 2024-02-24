@@ -15,7 +15,7 @@ public:
     ~Job();
     void printForEmp();
     void printForCand();
-    //void printSubPro(Candidate* candidate);
+    void printSubPro(Candidate* candidate);
 
 private:
     int id;

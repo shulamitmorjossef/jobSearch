@@ -116,9 +116,13 @@ Candidate::~Candidate(){
 }
 
 void Candidate::printSub() {
-    for(int i = 0; i < numOfSub; ++i){
-        submissions[i].print();
-    }
+    if(numOfSub == 0)
+        cout << "You have not applied yet\n";
+    else
+        for(int i = 0; i < numOfSub; ++i){
+            cout << i << ".\n";
+            submissions[i].print();
+        }
 }
 
 void Candidate::printProfile() {
