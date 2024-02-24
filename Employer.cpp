@@ -53,26 +53,61 @@ Employer::~Employer(){
     delete [] password;
     delete [] forgetPassQ ;
     delete [] forgetPassA ;
-    delete [] jobs ;
+//    for( int i = 0; i< jobsNum; ++i){
+//        delete jobs[i];
+//
+//    }
 
 }
 
 void Employer::printJobs(){
-    if(this->jobsNum == 0)
-        cout << "No jobs have been posted yet\n";
-    else
-        for(int i = 0; i < jobsNum; ++i){
-            cout << i << ".\n";
-            jobs[i].printForEmp();
-        }
+    for(int i = 0; i < jobsNum; ++i){
+        jobs[i].print();
+    }
 }
 
-void Employer:: printDetails() {
-    cout << "Id: " << id << endl;
-    cout << "Password: " << password << endl;
-    cout << "Question: " << forgetPassQ << endl;
-    cout << "Answer: " << forgetPassA << endl;
-    cout << "Jobs:\n";
-    this->printJobs();
+void Employer:: printDetails(){
+    cout<< "Id: " << id << endl;
+    cout<< "Password: " << password << endl;
+    cout << "";
+}
+
+
+
+
+
+void Employer::setID(char* id)
+{
+    delete[]this->id;
+    this->id=new char[strlen(id)+1];
+    strcpy(this->id,id);
+}
+void Employer::setPassword (char* password)
+{
+    delete[]this->password;
+    this->id=new char[strlen(password)+1];
+    strcpy(this->password,password);
+}
+
+void Employer::setForgetPassQ (char* forgetPassQ)
+{
+    delete[]this->forgetPassQ;
+    this->id=new char[strlen(forgetPassQ)+1];
+    strcpy(this->forgetPassQ,forgetPassQ);
+}
+void Employer::setForgetPassA(char* forgetPassA)
+{
+    delete[]this->forgetPassA;
+    this->id=new char[strlen(forgetPassA)+1];
+    strcpy(this->forgetPassA,forgetPassA);
+
+}
+void Employer::setJobsNum(int jobsNum)
+{
+    this->jobsNum=jobsNum;
+
+}
+void Employer::setJobs(Job* jobs)
+{
 
 }

@@ -4,20 +4,17 @@
 
 #ifndef JOBSEARCH_APPLY_H
 #define JOBSEARCH_APPLY_H
-
+#include "Job.h"
 
 class Apply {
 public:
-    Apply();
     Apply(int id);
     Apply(const Apply & apply);
-    void print();
-
+    void setStatus(bool status);
+    void setIdOfJob(int idOfJob);
 private:
     bool status;
     int idOfJob;
-
-};
 
 
 #endif //JOBSEARCH_APPLY_H
