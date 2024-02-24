@@ -1,5 +1,5 @@
 //
-// Created by Student on 2/19/2024.
+// Created by Student on 2/25/2024.
 //
 
 #include "Job.h"
@@ -25,6 +25,7 @@ Job::Job(){
     bool status = false;
     int numOfSub = 0;
 }
+
 Job::Job(char* idOfSub, int id, char* businessName, char* jobType, char* jobHours, char* jobProfession, char* experience, char* jobArea, char* address, char* age, char* jobFor, char* jobRange, char* salary, char* about){
     this->idOfSub = nullptr;
     this->id = id;
@@ -68,6 +69,7 @@ Job::Job(char* idOfSub, int id, char* businessName, char* jobType, char* jobHour
 
     this->numOfSub = 0;
 }
+
 Job:: Job( const Job& job){
 
     this->id = job.id;
@@ -117,6 +119,7 @@ Job:: Job( const Job& job){
         this->idOfSub[i] = job.idOfSub[i];
     }
 }
+
 Job:: ~Job(){
     delete [] businessName;
     delete [] jobType;
@@ -131,98 +134,29 @@ Job:: ~Job(){
     delete [] salary;
     delete [] about;
 }
-void Job::print(){
+
+void Job::printForCand(){
+    cout << "Business Name: " << businessName << ".\n";
+    cout << "Type of job: " << jobType << ".\n";
+    cout << "Hours of job: " << jobHours << ".\n";
+    cout << "Profession: " << jobProfession << ".\n";
+    cout << "Experience required: " << experience << ".\n";
+    cout << "Area of job: " << jobArea << ".\n";
+    cout << "Address: " << address << ".\n";
+    cout << "Age required: " << age << ".\n";
+    cout << "Suitable for: " << jobFor << ".\n";
+    cout << "Range: " << jobRange << ".\n";
+    cout << "salary: " << salary << ".\n";
+    cout << "About the job: \n" << about << ".\n";
+
 
 }
 
-void Job::setId(int id)
-{
-
-}
-void Job::setBusinessName( char* businessName)
-{
-    delete[]this->businessName;
-    this->id=new char[strlen(businessName)+1];
-    strcpy(this->businessName,businessName);
-}
-void Job::setJobType(char* jobType)
-{
-    delete[]this->jobType;
-    this->id=new char[strlen(jobType)+1];
-    strcpy(this->jobType,jobType);
-}
-void Job::setJobHours(char* jobHours)
-{
-    delete[]this->jobHours;
-    this->id=new char[strlen(jobHours)+1];
-    strcpy(this->jobHours,jobHours);
+void Job::printForEmp() {
+    cout << "Status: " << status << ".\n";
+    this->printForCand();
 }
 
-void Job::setJobProfession (char* jobProfession)
-{
-    delete[]this->jobProfession;
-    this->id=new char[strlen(jobProfession)+1];
-    strcpy(this->jobProfession,jobProfession);
-}
-void Job::setExperience(char* experience)
-{
-    delete[]this->experience;
-    this->id=new char[strlen(experience)+1];
-    strcpy(this->experience,experience);
-}
-void Job::setJobArea (char* jobArea)
-{
-    delete[]this->jobArea;
-    this->id=new char[strlen(jobArea)+1];
-    strcpy(this->jobArea,jobArea);
-}
-void Job::setAddress (char* address)
-{
-    delete[]this->address;
-    this->id=new char[strlen(address)+1];
-    strcpy(this->address,address);
-}
-void Job::setAge (char* age)
-{
-    delete[]this->age;
-    this->id=new char[strlen(age)+1];
-    strcpy(this->age,age);
-}
-void Job::setJobFor(char* jobFor)
-{
-    delete[]this->jobFor;
-    this->id=new char[strlen(jobFor)+1];
-    strcpy(this->jobFor,jobFor);
-}
-void Job::setJobRange(char* jobRange)
-{
-    delete[]this->jobRange;
-    this->id=new char[strlen(jobRange)+1];
-    strcpy(this->jobRange,jobRange);
-}
-void Job::setSalary(char* salary)
-{
-    delete[]this->salary;
-    this->id=new char[strlen(salary)+1];
-    strcpy(this->salary,salary);
-}
-void Job::setAbout(char* about)
-{
-    delete[]this->about;
-    this->id=new char[strlen(about)+1];
-    strcpy(this->about,about);
-}
-void Job::setStatus(bool status)
-{
-    this->status=status;
-}
-void Job::setNumOfSub(int numOfSub)
-{
-    this->numOfSub=numOfSub;
-}
-void Job::setIdOfSub (char* idOfSub)
-{
-    delete[]this->idOfSub;
-    this->id=new char[strlen(idOfSub)+1];
-    strcpy(this->idOfSub,idOfSub);
-}
+//void Job::printSubPro(Candidate* candidate) {
+//    candidate->printProfile();
+//}
