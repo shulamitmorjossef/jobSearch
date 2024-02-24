@@ -4,9 +4,11 @@
 
 #include "Candidate.h"
 #include <cstring>
+#include <iostream>
 using namespace std;
 
-Candidate::Candidate(char* id, char* password, char* forgetPass, char* fName, char* lName, char* email, char* phone, int age, char* address, char* profession, char* about){
+Candidate::Candidate(char* id, char* password, char* forgetPassQ, char* forgetPassA, char* fName, char* lName,
+                     char* email, char* phone, int age, char* address, char* profession, char* about){
 
     this-> id = new char [strlen(id)+1];
     strcpy(this->id, id);
@@ -14,8 +16,11 @@ Candidate::Candidate(char* id, char* password, char* forgetPass, char* fName, ch
     this-> password = new char [strlen(password)+1];
     strcpy(this->password, password);
 
-    this-> forgetPass = new char [strlen(forgetPass)+1];
-    strcpy(this->forgetPass, forgetPass);
+    this-> forgetPassQ = new char [strlen(forgetPassQ)+1];
+    strcpy(this->forgetPassQ, forgetPassQ);
+
+    this-> forgetPassA = new char [strlen(forgetPassA)+1];
+    strcpy(this->forgetPassA, forgetPassA);
 
     this-> fName = new char [strlen(fName)+1];
     strcpy(this->fName, fName);
@@ -43,6 +48,8 @@ Candidate::Candidate(char* id, char* password, char* forgetPass, char* fName, ch
     this->submissions = nullptr;
 
     this->numOfSub = 0;
+
+    this->CV = nullptr;
 }
 
 Candidate::Candidate(const Candidate& candidate){
@@ -52,8 +59,11 @@ Candidate::Candidate(const Candidate& candidate){
     this-> password = new char [strlen(candidate.password)+1];
     strcpy(this->password, candidate.password);
 
-    this-> forgetPass = new char [strlen(candidate.forgetPass)+1];
-    strcpy(this->forgetPass, candidate.forgetPass);
+    this-> forgetPassQ = new char [strlen(candidate.forgetPassQ)+1];
+    strcpy(this->forgetPassQ, candidate.forgetPassQ);
+
+    this-> forgetPassA = new char [strlen(candidate.forgetPassA)+1];
+    strcpy(this->forgetPassA, candidate.forgetPassA);
 
     this-> fName = new char [strlen(candidate.fName)+1];
     strcpy(this->fName, candidate.fName);
@@ -76,6 +86,9 @@ Candidate::Candidate(const Candidate& candidate){
     this-> about = new char [strlen(candidate.about)+1];
     strcpy(this->about, candidate.about);
 
+    this-> CV = new char [strlen(candidate.CV)+1];
+    strcpy(this->CV, candidate.CV);
+
     this-> age = age;
 
     this->numOfSub = candidate.numOfSub;
@@ -90,7 +103,8 @@ Candidate::Candidate(const Candidate& candidate){
 Candidate::~Candidate(){
     delete [] id;
     delete [] password;
-    delete [] forgetPass;
+    delete [] forgetPassQ;
+    delete [] forgetPassA;
     delete [] fName;
     delete [] lName;
     delete [] email;
@@ -98,5 +112,41 @@ Candidate::~Candidate(){
     delete [] address;
     delete [] profession;
     delete [] about;
-    //delete [] submissions;
+    delete [] submissions;
 }
+
+void Candidate::printSub() {
+    for(int i = 0; i < numOfSub; ++i){
+        submissions[i].print();
+    }
+}
+
+void Candidate::printProfile() {
+
+    cout << "First name: " << fName << endl;
+    cout << "Last name: " << lName << endl;
+    cout << "Email: " << email << endl;
+    cout << "Phone: " << phone << endl;
+    cout << "Age: " << age << endl;
+    cout << "Address: " << address << endl;
+    cout << "Profession: " << profession << endl;
+    cout << "About: " << about << endl;
+}
+
+void Candidate::printDetails() {
+    cout << "Id: " << id << endl;
+    cout << "Password: " << password << endl;
+    cout << "Question: " << forgetPassQ << endl;
+    cout << "Answer: " << forgetPassA << endl;
+    cout << "First name: " << fName << endl;
+    cout << "Last name: " << lName << endl;
+    cout << "Email: " << email << endl;
+    cout << "Phone: " << phone << endl;
+    cout << "Age: " << age << endl;
+    cout << "Address: " << address << endl;
+    cout << "Profession: " << profession << endl;
+    cout << "About: " << about << endl;
+    cout << "Submissions: \n";
+    this->printSub();
+}
+

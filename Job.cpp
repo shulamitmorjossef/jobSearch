@@ -25,6 +25,7 @@ Job::Job(){
     bool status = false;
     int numOfSub = 0;
 }
+
 Job::Job(char* idOfSub, int id, char* businessName, char* jobType, char* jobHours, char* jobProfession, char* experience, char* jobArea, char* address, char* age, char* jobFor, char* jobRange, char* salary, char* about){
     this->idOfSub = nullptr;
     this->id = id;
@@ -68,6 +69,7 @@ Job::Job(char* idOfSub, int id, char* businessName, char* jobType, char* jobHour
 
     this->numOfSub = 0;
 }
+
 Job:: Job( const Job& job){
 
     this->id = job.id;
@@ -117,6 +119,7 @@ Job:: Job( const Job& job){
         this->idOfSub[i] = job.idOfSub[i];
     }
 }
+
 Job:: ~Job(){
     delete [] businessName;
     delete [] jobType;
@@ -131,6 +134,29 @@ Job:: ~Job(){
     delete [] salary;
     delete [] about;
 }
-void Job::print(){
+
+void Job::printForCand(){
+    cout << "Business Name: " << businessName << ".\n";
+    cout << "Type of job: " << jobType << ".\n";
+    cout << "Hours of job: " << jobHours << ".\n";
+    cout << "Profession: " << jobProfession << ".\n";
+    cout << "Experience required: " << experience << ".\n";
+    cout << "Area of job: " << jobArea << ".\n";
+    cout << "Address: " << address << ".\n";
+    cout << "Age required: " << age << ".\n";
+    cout << "Suitable for: " << jobFor << ".\n";
+    cout << "Range: " << jobRange << ".\n";
+    cout << "salary: " << salary << ".\n";
+    cout << "About the job: \n" << about << ".\n";
+
 
 }
+
+void Job::printForEmp() {
+    cout << "Status: " << status << ".\n";
+    this->printForCand();
+}
+
+//void Job::printSubPro(Candidate* candidate) {
+//    candidate->printProfile();
+//}

@@ -5,6 +5,7 @@
 #ifndef JOBSEARCH_JOB_H
 #define JOBSEARCH_JOB_H
 #include "Apply.h"
+#include "Candidate.h"
 
 class Job {
 public:
@@ -12,9 +13,9 @@ public:
     Job(char* idOfSub, int id, char* businessName, char* jobType, char* jobHours, char* jobProfession, char* experience, char* jobArea, char* address, char* age, char* jobFor, char* jobRange, char* salary, char* about);
     Job( const Job& job);
     ~Job();
-    void print();
-
-
+    void printForEmp();
+    void printForCand();
+    //void printSubPro(Candidate* candidate);
 
 private:
     int id;

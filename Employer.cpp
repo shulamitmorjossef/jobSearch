@@ -53,21 +53,26 @@ Employer::~Employer(){
     delete [] password;
     delete [] forgetPassQ ;
     delete [] forgetPassA ;
-//    for( int i = 0; i< jobsNum; ++i){
-//        delete jobs[i];
-//
-//    }
+    delete [] jobs ;
 
 }
 
 void Employer::printJobs(){
-    for(int i = 0; i < jobsNum; ++i){
-        jobs[i].print();
-    }
+    if(this->jobsNum == 0)
+        cout << "No jobs have been posted yet\n";
+    else
+        for(int i = 0; i < jobsNum; ++i){
+            cout << i << ".\n";
+            jobs[i].printForEmp();
+        }
 }
 
-void Employer:: printDetails(){
-    cout<< "Id: " << id << endl;
-    cout<< "Password: " << password << endl;
-    cout << "";
+void Employer:: printDetails() {
+    cout << "Id: " << id << endl;
+    cout << "Password: " << password << endl;
+    cout << "Question: " << forgetPassQ << endl;
+    cout << "Answer: " << forgetPassA << endl;
+    cout << "Jobs:\n";
+    this->printJobs();
+
 }

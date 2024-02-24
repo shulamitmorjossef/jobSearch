@@ -15,6 +15,16 @@ public:
     void printJobs();
     void printDetails();
 
+    bool signUp();
+    bool logIn(char* id, char* password, Employer* arr);
+    bool forgetPassword(char* id, Employer* arr);
+    bool addJob();
+    void sortJobs();
+    bool deleteJob(int id);
+    void updateJob(int id);
+    void subOfJOb(int id);
+
+
 private:
     char* id ;
     char* password ;
