@@ -153,3 +153,94 @@ void Candidate::printDetails() {
     cout << "Submissions: \n";
     this->printSub();
 }
+
+void Candidate::setID(char* id)
+{
+    delete[]this->id;
+    this->id=new char[strlen(id)+1];
+    strcpy(this->id,id);
+}
+
+void Candidate::setPasswotd(char* password)
+{
+    delete[]this->password;
+    this->password=new char[strlen(password)+1];
+    strcpy(this->password,password);
+}
+void Candidate::setForgetPassQ(char* forgetPassQ)
+{
+    delete[]this->forgetPassQ;
+    this->forgetPassQ=new char[strlen(forgetPassQ)+1];
+    strcpy(this->forgetPassQ,forgetPassQ);
+}
+
+void Candidate::setForgetPassA (char* forgetPassA)
+{
+    delete[]this->forgetPassA;
+    this->forgetPassA=new char[strlen(forgetPassA)+1];
+    strcpy(this->forgetPassA,forgetPassA);
+
+}
+void Candidate::setFName(char* fName)
+{
+    delete[]this->fName;
+    this->fName=new char[strlen(fName)+1];
+    strcpy(this->fName,fName);
+}
+void Candidate::setLName(char* lName)
+{
+    delete[]this->lName;
+    this->lName=new char[strlen(lName)+1];
+    strcpy(this->lName,lName);
+}
+void Candidate::setEmail(char* email)
+{
+    delete[]this->email;
+    this->email=new char[strlen(email)+1];
+    strcpy(this->email,email);
+}
+void Candidate::setPhone(char* phone)
+{
+    delete[]this->phone;
+    this->phone=new char[strlen(phone)+1];
+    strcpy(this->phone,phone);
+
+}
+void Candidate::setAge(int age)
+{
+    this->age=age;
+}
+void Candidate::setAddress(char* address)
+{
+    delete[]this->address;
+    this->address=new char[strlen(address)+1];
+    strcpy(this->address,address);
+
+}
+void Candidate::setProfession(char* profession)
+{
+    delete[]this->profession;
+    this->profession=new char[strlen(profession)+1];
+    strcpy(this->profession,profession);
+
+}
+void Candidate::setAbout(char* about)
+{
+    delete[]this->about;
+    this->about=new char[strlen(about)+1];
+    strcpy(this->about,about);
+
+}
+//void Candidate::setSubmissions (Apply* submissions)
+//{
+//    delete[]this->submissions;
+//    this->submissions=new Apply[numOfSub];
+//    for(int i=0;i<numOfSub;++i)
+//    {
+//        this->submissions[i]=submissions[i];
+//    }
+//}
+//void Candidate::setNumOfSub(int numOfSub)
+//{
+//    this->numOfSub=numOfSub;
+//}

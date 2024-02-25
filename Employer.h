@@ -23,6 +23,14 @@ public:
     void updateJob(int id);
     void subOfJOb(int id);
 
+    void setID(char* id);
+    void setPassword (char* password);
+    void setForgetPassQ (char* forgetPassQ);
+    void setForgetPassA(char* forgetPassA);
+    void setJobsNum(int jobsNum);
+    void setJobs(Job* jobs);
+
+
 
 private:
     char* id ;

@@ -29,6 +29,23 @@ public:
     bool deleteApply(int id);        // sahar
     void updateDetails();
 
+    void setID(char* id);
+    void setPasswotd(char* password);
+    void setForgetPassQ(char* forgetPassQ);
+    void setForgetPassA (char* forgetPassA);
+    void setFName(char* fName);
+    void setLName(char* lName);
+    void setEmail(char* email);
+    void setPhone(char* phone);
+    void setAge(int age);
+    void setAddress(char* address);
+    void setProfession(char* profession);
+    void setAbout(char* about);
+    void setSubmissions (Apply* submissions);
+    void setNumOfSub(int numOfSub);
+
+
+
 
 
 

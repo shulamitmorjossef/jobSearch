@@ -76,3 +76,40 @@ void Employer:: printDetails() {
     this->printJobs();
 
 }
+
+
+void Employer::setID(char* id)
+{
+    delete[]this->id;
+    this->id=new char[strlen(id)+1];
+    strcpy(this->id,id);
+}
+void Employer::setPassword (char* password)
+{
+    delete[]this->password;
+    this->password=new char[strlen(password)+1];
+    strcpy(this->password,password);
+}
+
+void Employer::setForgetPassQ (char* forgetPassQ)
+{
+    delete[]this->forgetPassQ;
+    this->forgetPassQ=new char[strlen(forgetPassQ)+1];
+    strcpy(this->forgetPassQ,forgetPassQ);
+}
+void Employer::setForgetPassA(char* forgetPassA)
+{
+    delete[]this->forgetPassA;
+    this->forgetPassA=new char[strlen(forgetPassA)+1];
+    strcpy(this->forgetPassA,forgetPassA);
+
+}
+void Employer::setJobsNum(int jobsNum)
+{
+    this->jobsNum=jobsNum;
+
+}
+//void Employer::setJobs(Job* jobs)
+//{
+//
+//}

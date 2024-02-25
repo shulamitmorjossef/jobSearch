@@ -12,10 +12,15 @@ public:
     Apply(int id);
     Apply(const Apply & apply);
     void print();
+    void setStatus(bool status);
+    void setIdOfJob(int idOfJob);
 
 private:
     bool status;
     int idOfJob;
+
+
+
 };
 
 

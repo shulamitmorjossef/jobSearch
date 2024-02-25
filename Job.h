@@ -17,6 +17,22 @@ public:
     void printForEmp();
     void printForCand();
     void printSubPro(Candidate* candidate);
+    void setJobHours(char* jobHours);
+    void setId(int id);
+    void setBusinessName( char* businessName);
+    void setJobType(char* jobType);
+    void setJobProfession (char* jobProfession);
+    void setExperience(char* experience);
+    void setJobArea (char* jobArea);
+    void setAddress (char* address);
+    void setAge (char* age);
+    void setJobFor(char* jobFor);
+    void setJobRange(char* jobRange);
+    void setSalary(char* salary);
+    void setAbout(char* about);
+    void setStatus(bool status);
+    void setNumOfSub(int numOfSub);
+    void setIdOfSub (char* idOfSub);
 
 private:
     int id;

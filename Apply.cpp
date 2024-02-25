@@ -21,7 +21,6 @@ Apply::Apply(int id) {
 Apply::Apply(const Apply & apply){
     this->status = apply.status;
     this->idOfJob = apply.idOfJob;
-
 }
 
 void Apply::print(){
@@ -33,6 +32,13 @@ void Apply::print(){
         cout << "Postponed";
     }
     cout << "Job details: \n";
+}
 
-
+void Apply::setStatus(bool status)
+{
+    this->status=status;
+}
+void Apply::setIdOfJob(int idOfJob)
+{
+    this->idOfJob=idOfJob;
 }

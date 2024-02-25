@@ -160,3 +160,96 @@ void Job::printForEmp() {
 //void Job::printSubPro(Candidate* candidate) {
 //    candidate->printProfile();
 //}
+
+void Job::setId(int id)
+{
+    this->id=id;
+
+}
+void Job::setBusinessName( char* businessName)
+{
+    delete[]this->businessName;
+    this->businessName=new char[strlen(businessName)+1];
+    strcpy(this->businessName,businessName);
+}
+void Job::setJobType(char* jobType)
+{
+    delete[]this->jobType;
+    this->jobType=new char[strlen(jobType)+1];
+    strcpy(this->jobType,jobType);
+}
+void Job::setJobHours(char* jobHours)
+{
+    delete[]this->jobHours;
+    this->jobHours=new char[strlen(jobHours)+1];
+    strcpy(this->jobHours,jobHours);
+}
+
+void Job::setJobProfession (char* jobProfession)
+{
+    delete[]this->jobProfession;
+    this->jobProfession=new char[strlen(jobProfession)+1];
+    strcpy(this->jobProfession,jobProfession);
+}
+void Job::setExperience(char* experience)
+{
+    delete[]this->experience;
+    this->experience=new char[strlen(experience)+1];
+    strcpy(this->experience,experience);
+}
+void Job::setJobArea (char* jobArea)
+{
+    delete[]this->jobArea;
+    this->jobArea=new char[strlen(jobArea)+1];
+    strcpy(this->jobArea,jobArea);
+}
+void Job::setAddress (char* address)
+{
+    delete[]this->address;
+    this->address=new char[strlen(address)+1];
+    strcpy(this->address,address);
+}
+void Job::setAge (char* age)
+{
+    delete[]this->age;
+    this->age=new char[strlen(age)+1];
+    strcpy(this->age,age);
+}
+void Job::setJobFor(char* jobFor)
+{
+    delete[]this->jobFor;
+    this->jobFor=new char[strlen(jobFor)+1];
+    strcpy(this->jobFor,jobFor);
+}
+void Job::setJobRange(char* jobRange)
+{
+    delete[]this->jobRange;
+    this->jobRange=new char[strlen(jobRange)+1];
+    strcpy(this->jobRange,jobRange);
+}
+void Job::setSalary(char* salary)
+{
+    delete[]this->salary;
+    this->salary=new char[strlen(salary)+1];
+    strcpy(this->salary,salary);
+}
+void Job::setAbout(char* about)
+{
+    delete[]this->about;
+    this->about=new char[strlen(about)+1];
+    strcpy(this->about,about);
+}
+void Job::setStatus(bool status)
+{
+    this->status=status;
+}
+void Job::setNumOfSub(int numOfSub)
+{
+    this->numOfSub=numOfSub;
+}
+void Job::setIdOfSub (char* idOfSub)
+{
+    delete[]this->idOfSub;
+    this->idOfSub=new char[strlen(idOfSub)+1];
+    strcpy(this->idOfSub,idOfSub);
+}
