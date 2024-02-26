@@ -8,6 +8,7 @@
 
 class Employer {
 public:
+    Employer();
     Employer(char* id, char* password, char* forgetPassQ, char* forgetPassA );
     Employer(const Employer& employer );
     ~Employer();

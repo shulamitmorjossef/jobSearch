@@ -7,6 +7,10 @@
 #include <cstring>
 using namespace std;
 
+Employer:: Employer(){
+
+}
+
 Employer::Employer(char *id, char *password, char* forgetPassQ, char* forgetPassA) {
 
     this-> id = new char [strlen(id)+1];

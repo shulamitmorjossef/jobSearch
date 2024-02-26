@@ -11,46 +11,55 @@
 class Job {
 public:
     Job();
-    Job(char* idOfSub, int id, char* businessName, char* jobType, char* jobHours, char* jobProfession, char* experience, char* jobArea, char* address, char* age, char* jobFor, char* jobRange, char* salary, char* about);
+    Job(char** idOfSub, int id, char* businessName, int jobType, int jobHours, char* jobProfession,
+        int experience, int jobArea, char* address, int age, int jobFor, int jobRange, char* salary,
+        char* about);
     Job( const Job& job);
+    Job& operator= (const Job& job);
     ~Job();
+
     void printForEmp();
     void printForCand();
     void printSubPro(Candidate* candidate);
-    void setJobHours(char* jobHours);
+
+    void setJobHours(int jobHours);
     void setId(int id);
     void setBusinessName( char* businessName);
-    void setJobType(char* jobType);
+    void setJobType(int jobType);
     void setJobProfession (char* jobProfession);
-    void setExperience(char* experience);
-    void setJobArea (char* jobArea);
+    void setExperience(int experience);
+    void setJobArea (int jobArea);
     void setAddress (char* address);
-    void setAge (char* age);
-    void setJobFor(char* jobFor);
-    void setJobRange(char* jobRange);
+    void setAge (int age);
+    void setJobFor(int jobFor);
+    void setJobRange(int jobRange);
     void setSalary(char* salary);
     void setAbout(char* about);
     void setStatus(bool status);
     void setNumOfSub(int numOfSub);
-    void setIdOfSub (char* idOfSub);
+    void setIdOfSub (char** idOfSub);
 
+    friend void searchJob(Job* jobs, int len);
+    friend void findJob(int id);
 private:
     int id;
     char* businessName;
-    char* jobType;
-    char* jobHours;
     char* jobProfession;
-    char* experience;
-    char* jobArea;
     char* address;
-    char* age;
-    char* jobFor;
-    char* jobRange;
     char* salary;
     char* about;
+
+    int jobType;
+    int jobHours;
+    int experience;
+    int jobArea;
+    int age;
+    int jobFor;
+    int jobRange;
+
     bool status;
     int numOfSub;
-    char* idOfSub;
+    char** idOfSub;
 };
 
 

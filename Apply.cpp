@@ -8,6 +8,7 @@
 #include <cstring>
 using namespace std;
 
+
 Apply::Apply() {
     idOfJob = 0;
     status = false;
@@ -32,7 +33,10 @@ void Apply::print(){
         cout << "Postponed";
     }
     cout << "Job details: \n";
+    findJob(idOfJob);
+
 }
+
 
 void Apply::setStatus(bool status)
 {

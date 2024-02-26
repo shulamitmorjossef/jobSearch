@@ -7,6 +7,10 @@
 #include <iostream>
 using namespace std;
 
+
+Candidate::Candidate(){
+
+}
 Candidate::Candidate(char* id, char* password, char* forgetPassQ, char* forgetPassA, char* fName, char* lName,
                      char* email, char* phone, int age, char* address, char* profession, char* about){
 

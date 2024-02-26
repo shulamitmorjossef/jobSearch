@@ -10,6 +10,7 @@
 
 class Candidate {
 public:
+    Candidate();
     Candidate(char* id, char* password, char* forgetPassQ, char* forgetPassA, char* fName = nullptr,
               char* lName = nullptr, char* email = nullptr, char* phone = nullptr, int age = 0,
               char* address = nullptr, char* profession = nullptr, char* about = nullptr);

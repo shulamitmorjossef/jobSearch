@@ -5,7 +5,6 @@
 #ifndef JOBSEARCH1_APPLY_H
 #define JOBSEARCH1_APPLY_H
 
-
 class Apply {
 public:
     Apply();
@@ -15,6 +14,9 @@ public:
     void setStatus(bool status);
     void setIdOfJob(int idOfJob);
 
+
+
+
 private:
     bool status;
     int idOfJob;
@@ -23,5 +25,5 @@ private:
 
 };
 
-
+void findJob(int id);
 #endif //JOBSEARCH1_APPLY_H
