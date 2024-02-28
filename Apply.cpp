@@ -13,6 +13,10 @@ Apply::Apply() {
     idOfJob = 0;
     status = false;
 }
+Apply::Apply(int id,bool status){
+    this->idOfJob = id;
+    this->status = true;
+}
 
 Apply::Apply(int id) {
     this->idOfJob = id;
@@ -45,4 +49,12 @@ void Apply::setStatus(bool status)
 void Apply::setIdOfJob(int idOfJob)
 {
     this->idOfJob=idOfJob;
+}
+
+bool Apply::isStatus() const {
+    return status;
+}
+
+int Apply::getIdOfJob() const {
+    return idOfJob;
 }

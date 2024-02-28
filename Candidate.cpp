@@ -294,3 +294,51 @@ void Candidate::setAbout(char* about)
 //{
 //    this->numOfSub=numOfSub;
 //}
+
+void Candidate::applying(int id){//פונקציה שסהר עשתה העתקה של המערכים בהוספת אןבייקט
+
+    Apply a1;
+    a1=(id, true);
+    this->submissions;
+    Apply* tmp= new Apply [numOfSub + 1 ];
+    for (int i = 0; i <numOfSub ; ++i) {
+        tmp[i] = submissions[i];
+    }
+    delete [] submissions;
+    submissions=tmp;
+    submissions[numOfSub]=a1;
+    submissions++;
+    for (int i = 0; i <2 ; ++i) {
+        cout<<"The Apply "<<i+1<<" is : \n";
+        submissions[i].print();
+    }
+}
+
+void Candidate:: printSort(){
+    for (int i = 0; i <numOfSub ; ++i) {
+        if (submissions->isStatus()){
+            cout<<" The apply In process: \n";
+            submissions->print();
+        } else {
+            cout << "The apply Postponed: ";
+            submissions->print();
+        }
+
+    }
+}//sahar
+
+void Candidate::deletApply(int id){
+
+    Apply* newArr = new Apply[numOfSub- 1];
+    this->submissions;
+
+    for (int i = 0; i < numOfSub; i++) {
+        if (submissions->getIdOfJob()!=id) {
+            newArr[i] = submissions[i];
+        }
+    }
+    delete[] submissions;
+    submissions = newArr;
+    numOfSub--;
+
+}//sahar

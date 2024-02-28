@@ -48,6 +48,9 @@ public:
 
     friend class ManagementSystem;
 
+    void applying(int id);//sahar
+    void printSort();//sahar
+    void deletApply(int id);
 
 
 
