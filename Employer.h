@@ -9,34 +9,35 @@
 class Employer {
 public:
     Employer();
-    Employer(char* id, char* password, char* forgetPassQ, char* forgetPassA );
+    Employer(char* id, char* password, int forgetPassQ, char* forgetPassA );
     Employer(const Employer& employer );
+    Employer& operator= (const Employer& employer);
     ~Employer();
-    void printJobs();
     void printDetails();
 
-    bool signUp();         //rina
-    bool logIn(char* id, char* password, Employer* arr);
-    bool forgetPassword(char* id, Employer* arr);
-    bool addJob();          // aderet
+    void printJobs();
+    bool addJob(int id);          // aderet
     void sortJobs();
-    bool deleteJob(int id);
+
+    bool deleteJob(int index);
+
     void updateJob(int id);
     void subOfJOb(int id);
 
     void setID(char* id);
     void setPassword (char* password);
-    void setForgetPassQ (char* forgetPassQ);
+    void setForgetPassQ (int forgetPassQ);
     void setForgetPassA(char* forgetPassA);
     void setJobsNum(int jobsNum);
     void setJobs(Job* jobs);
 
+    friend class ManagementSystem;
 
 
 private:
     char* id ;
     char* password ;
-    char* forgetPassQ ;
+    int forgetPassQ ;
     char* forgetPassA ;
     int jobsNum;
     Job* jobs ;

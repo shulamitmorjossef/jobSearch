@@ -8,10 +8,16 @@
 using namespace std;
 
 Employer:: Employer(){
+    this->id = nullptr;
+    this->password = nullptr;
+    this->forgetPassQ = 0;
+    this->forgetPassA = nullptr;
+    this->jobsNum = 0;
+    this->jobs = nullptr;
 
 }
 
-Employer::Employer(char *id, char *password, char* forgetPassQ, char* forgetPassA) {
+Employer::Employer(char *id, char *password, int forgetPassQ, char* forgetPassA) {
 
     this-> id = new char [strlen(id)+1];
     strcpy(this->id, id);
@@ -19,14 +25,34 @@ Employer::Employer(char *id, char *password, char* forgetPassQ, char* forgetPass
     this-> password = new char [strlen(password)+1];
     strcpy(this->password, password);
 
-    this-> forgetPassQ = new char [strlen(forgetPassQ)+1];
-    strcpy(this->forgetPassQ, forgetPassQ);
+    this-> forgetPassQ = forgetPassQ;
 
     this-> forgetPassA = new char [strlen(forgetPassA)+1];
     strcpy(this->forgetPassA, forgetPassA);
 
     this->jobs = nullptr;
     this-> jobsNum = 0;
+}
+
+Employer &Employer::operator=(const Employer &employer) {
+    delete [] id;
+    this-> id = new char [strlen(employer.id)+1];
+    strcpy(this->id, employer.id);
+    delete [] password;
+    this-> password = new char [strlen(employer.password)+1];
+    strcpy(this->password, employer.password);
+
+    this-> forgetPassQ = employer.forgetPassQ;
+    delete [] forgetPassA;
+    this-> forgetPassA = new char [strlen(employer.forgetPassA)+1];
+    strcpy(this->forgetPassA, employer.forgetPassA);
+
+    this->jobsNum = employer.jobsNum;
+    delete [] jobs;
+    this->jobs = new Job [employer.jobsNum];
+    for(int i = 0; i < jobsNum; ++i){
+        this->jobs[i] = employer.jobs[i];
+    }
 }
 
 Employer:: Employer(const Employer& employer ){
@@ -36,8 +62,7 @@ Employer:: Employer(const Employer& employer ){
     this-> password = new char [strlen(employer.password)+1];
     strcpy(this->password, employer.password);
 
-    this-> forgetPassQ = new char [strlen(employer.forgetPassQ)+1];
-    strcpy(this->forgetPassQ, employer.forgetPassQ);
+    this-> forgetPassQ = employer.forgetPassQ;
 
     this-> forgetPassA = new char [strlen(employer.forgetPassA)+1];
     strcpy(this->forgetPassA, employer.forgetPassA);
@@ -55,21 +80,13 @@ Employer::~Employer(){
 
     delete [] id;
     delete [] password;
-    delete [] forgetPassQ ;
+
     delete [] forgetPassA ;
     delete [] jobs ;
 
 }
 
-void Employer::printJobs(){
-    if(this->jobsNum == 0)
-        cout << "No jobs have been posted yet\n";
-    else
-        for(int i = 0; i < jobsNum; ++i){
-            cout << i << ".\n";
-            jobs[i].printForEmp();
-        }
-}
+
 
 void Employer:: printDetails() {
     cout << "Id: " << id << endl;
@@ -80,6 +97,94 @@ void Employer:: printDetails() {
     this->printJobs();
 
 }
+
+void Employer::printJobs(){
+    if(this->jobsNum == 0)
+        cout << "No jobs have been posted yet\n";
+    else
+        for(int i = 0; i < jobsNum; ++i){
+            cout << i+1 << ".\n";
+            jobs[i].printForEmp();
+        }
+}
+bool Employer:: addJob(int num){
+    int id;
+    char businessName [20];
+    char jobProfession [20];
+    char address [20];
+    char salary [20];
+    char about [200];
+    int jobType;
+    int jobHours;
+    int experience;
+    int jobArea;
+    int age;
+    int jobFor;
+    int jobRange;
+    bool status;
+    id = num + 1;
+    cout << "Enter business name:\n";
+    cin.get(businessName, 20);
+    cout << "Enter job profession:\n";
+    cin.get(jobProfession, 20);
+    cout << "Enter business address:\n";
+    cin.get(address, 20);
+    cout << "Enter job's salary:\n";
+    cin.get(salary, 20);
+    cout << "Tell about the job:\n";
+    cin.get(about, 200);
+    cout << "The job is:\nFull time job (1)\nPart time job (2)\n";
+    cin >> jobType;
+    cout << "The job is:\nIn the morning hours (1)\nIn the evening hours (2)\n";
+    cin >> jobHours;
+    cout << "The position requires experience of:\nInexperienced (1)\nUp to three years (2)\nThree years or more (3)\n";
+    cin >> experience;
+    cout << "The job is in the:\nNorth (1)\nCenter (2)\nSouth (3)\n";
+    cin >> jobArea;
+    cout << "The job for ages:\nUp to 18 (1)\n18-24 (2)\n24 and above (3)\n";
+    cin >> age;
+    cout << "The job is suitable for:\nStudents (1)\nSoldiers (2)\nPupils (3)\nElse (4)\n";
+    cin >> jobFor;
+    cout << "The job is:\nShort term job (1)\nLong term job (2)\n";
+    cin >> jobRange;
+    status = true;
+    Job job(id, businessName, jobProfession, address, salary, about, jobType, jobHours, experience, jobArea, age, jobFor, jobRange);
+    Job* tmp = new Job[jobsNum+1];
+    for(int i = 0; i < jobsNum; ++i)
+        tmp[i] = this->jobs[i];
+    tmp[jobsNum] = job;
+    delete this->jobs;
+    this->jobs = tmp;
+    jobsNum++;
+    return true;
+}
+void Employer::  sortJobs() {
+    if (this->jobsNum == 0)
+        cout << "No jobs have been posted yet\n";
+    else {
+        cout << "Available jobs:\n";
+        for (int i = 0; i < jobsNum; ++i) {
+            if (jobs[i].getStatus())
+                jobs[i].printForCand();
+        }
+        cout << "Unavailable jobs:\n";
+        for (int i = 0; i < jobsNum; ++i) {
+            if (!jobs[i].getStatus())
+                jobs[i].printForCand();
+        }
+    }
+}
+bool Employer:: deleteJob(int index){
+    Job *tmp = new Job[jobsNum - 1];
+    for (int i = 0; i < index; ++i)
+        tmp[i] = jobs[i];
+    for (int i = index + 1; i < jobsNum; ++i)
+        tmp[i] = jobs[i];
+    delete[] jobs;
+    jobs = tmp;
+    return true;
+}
+
 
 
 void Employer::setID(char* id)
@@ -94,12 +199,9 @@ void Employer::setPassword (char* password)
     this->password=new char[strlen(password)+1];
     strcpy(this->password,password);
 }
-
-void Employer::setForgetPassQ (char* forgetPassQ)
+void Employer::setForgetPassQ (int forgetPassQ)
 {
-    delete[]this->forgetPassQ;
-    this->forgetPassQ=new char[strlen(forgetPassQ)+1];
-    strcpy(this->forgetPassQ,forgetPassQ);
+    this->forgetPassQ= forgetPassQ;
 }
 void Employer::setForgetPassA(char* forgetPassA)
 {

@@ -3,8 +3,10 @@
 //
 
 #include "Job.h"
+#include <string>
 #include <iostream>
 #include <cstring>
+#include <limits>
 using namespace std;
 
 
@@ -27,9 +29,8 @@ Job::Job(){
     numOfSub = 0;
 }
 
-Job:: Job(char** idOfSub, int id, char* businessName, int jobType, int jobHours, char* jobProfession,
-    int experience, int jobArea, char* address, int age, int jobFor, int jobRange, char* salary,
-    char* about){
+Job:: Job(int id, char* businessName, char* jobProfession, char* address,  char* salary, char* about,
+          int jobType, int jobHours, int experience, int jobArea, int age, int jobFor, int jobRange){
 
     this->idOfSub = nullptr;
     this->id = id;
@@ -277,20 +278,197 @@ Job:: ~Job(){
 }
 
 void Job::printForCand(){
-    cout << "Business Name: " << businessName << ".\n";
-    cout << "Type of job: " << jobType << ".\n";
-    cout << "Hours of job: " << jobHours << ".\n";
+    cout << "Business Name: " << businessName <<".\n";
     cout << "Profession: " << jobProfession << ".\n";
-    cout << "Experience required: " << experience << ".\n";
-    cout << "Area of job: " << jobArea << ".\n";
     cout << "Address: " << address << ".\n";
-    cout << "Age required: " << age << ".\n";
-    cout << "Suitable for: " << jobFor << ".\n";
-    cout << "Range: " << jobRange << ".\n";
     cout << "salary: " << salary << ".\n";
     cout << "About the job: \n" << about << ".\n";
+    cout << "Type of job: ";
+    if(jobType == 1)
+        cout << "Full time job.\n";
+    else
+        cout << "Part time job.\n";
+    cout << "Hours of job: " ;
+    if(jobHours == 1)
+        cout << "Morning hours.\n";
+    else
+        cout << "Evening hours.\n";
+    cout << "Experience required: ";
+    if(experience == 1)
+        cout << "Inexperienced.\n";
+    else if(experience == 2)
+        cout << "Up to three years.\n";
+    else
+        cout << "Three years or more.\n";
+    cout << "Area of job: ";
+    if(jobArea == 1)
+        cout << "North.\n";
+    else if(jobArea == 2)
+        cout << "Center.\n";
+    else
+        cout << "South.\n";
+    cout << "Age required: " ;
+    if(jobArea == 1)
+        cout << "Up to 18.\n";
+    else if(jobArea == 2)
+        cout << "18-24.\n";
+    else
+        cout << "24 and above.\n";
+    cout << "Suitable for: " ;
+    if(jobFor == 1)
+    cout << "Students.\n";
+    else if(jobFor == 2)
+        cout << "Soldiers.\n";
+    else if(jobFor == 3)
+        cout << "Pupils.\n";
+    else
+        cout << "Not a special job.\n";
+    cout << "Range: " ;
+    if(jobRange == 1)
+        cout << "Short term job.\n";
+    else
+        cout << "Long term job.\n";
 
 
+
+}
+
+bool Job:: getStatus(){
+    return status;
+}
+
+void Job::updateJob(){
+    string newValue;
+    cout << "For each field enter a new value (or press Enter to skip): \n";
+    cout << "Business Name: " << businessName;
+    getline(cin, newValue);
+    if(!newValue.empty()) {
+        businessName = new char[newValue.size() + 1];
+        strcpy(businessName, newValue.c_str());
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+    cout << "Profession: " << jobProfession;
+    getline(cin, newValue);
+    if(!newValue.empty()) {
+        jobProfession = new char[newValue.size() + 1];
+        strcpy(jobProfession, newValue.c_str());
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+    cout << "Address: " << address;
+    getline(cin, newValue);
+    if(!newValue.empty()) {
+        address = new char[newValue.size() + 1];
+        strcpy(address, newValue.c_str());
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+    cout << "Salary: " << salary;
+    getline(cin, newValue);
+    if(!newValue.empty()) {
+        salary= new char[newValue.size() + 1];
+        strcpy(salary, newValue.c_str());
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+    cout << "About the job: " << about;
+    getline(cin, newValue);
+    if(!newValue.empty()) {
+        about = new char[newValue.size() + 1];
+        strcpy(about, newValue.c_str());
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+    cout << "The job is: ";
+    if(jobType == 1)
+        cout << "Full time job.\n";
+    else
+        cout << "Part time job.\n";
+    cout << "Press 1/2/enter\nFull time job (1)\nPart time job (2)\n";
+    getline(cin, newValue);
+    if(!newValue.empty()) {
+        jobType =  stoi(newValue);
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+    cout << "Hours of job: " ;
+    if(jobHours == 1)
+        cout << "Morning hours.\n";
+    else
+        cout << "Evening hours.\n";
+    cout << "Press 1/2/enter\nMorning hours (1)\nEvening hours (2)\n";
+    getline(cin, newValue);
+    if(!newValue.empty()) {
+        jobHours =  stoi(newValue);
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+    cout << "Experience required: ";
+    if(experience == 1)
+        cout << "Inexperienced.\n";
+    else if(experience == 2)
+        cout << "Up to three years.\n";
+    else
+        cout << "Three years or more.\n";
+    cout << "Press 1/2/3/enter\nInexperienced (1)\nUp to three years (2)\nThree years or more (3)\n";
+    getline(cin, newValue);
+    if(!newValue.empty()) {
+        experience =  stoi(newValue);
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+    cout << "Area of job: ";
+    if(jobArea == 1)
+        cout << "North.\n";
+    else if(jobArea == 2)
+        cout << "Center.\n";
+    else
+        cout << "South.\n";
+    cout << "Press 1/2/3/enter\nNorth (1)\nCenter (2)\nSouth (3)\n";
+    getline(cin, newValue);
+    if(!newValue.empty()) {
+        jobArea =  stoi(newValue);
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+    cout << "Age required: " ;
+    if(jobArea == 1)
+        cout << "Up to 18.\n";
+    else if(jobArea == 2)
+        cout << "18-24.\n";
+    else
+        cout << "24 and above.\n";
+    cout << "Press 1/2/3/enter\nUp to 18 (1)\n18-24 (2)\n24 and above (3)\n";
+    getline(cin, newValue);
+    if(!newValue.empty()) {
+        age =  stoi(newValue);
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+    cout << "Suitable for: " ;
+    if(jobFor == 1)
+        cout << "Students.\n";
+    else if(jobFor == 2)
+        cout << "Soldiers.\n";
+    else if(jobFor == 3)
+        cout << "Pupils.\n";
+    else
+        cout << "Not a special job.\n";
+    cout << "Press 1/2/3/4/enter\nStudents (1)\nSoldiers (2)\nPupils (3)\nElse (4)\n";
+    getline(cin, newValue);
+    if(!newValue.empty()) {
+        jobFor =  stoi(newValue);
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+    cout << "Range: " ;
+    if(jobRange == 1)
+        cout << "Short term job.\n";
+    else
+        cout << "Long term job.\n";
+    cout << "Press 1/2/enter\nShort term job (1)\nLong term job (2)\n";
+    getline(cin, newValue);
+    if(!newValue.empty()) {
+        jobRange =  stoi(newValue);
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+    if(!status) {
+        cout << "The job is not available, click 1 to post it again or enter to continue\n";
+        getline(cin, newValue);
+        if(!newValue.empty()) {
+            status = true;
+        }
+    }
 }
 
 void Job::printForEmp() {
@@ -298,8 +476,13 @@ void Job::printForEmp() {
     this->printForCand();
 }
 
-void Job::printSubPro(Candidate* candidate) {
-    candidate->printProfile();
+void Job::printSubPro(Candidate* candidate, int len) {
+    for(int i = 0; i < numOfSub; ++i)
+        for(int j = 0; j < len; ++j)
+            if(strcmp(idOfSub[i], candidate[j].getId()) == 0) {
+                cout << i + 1 << ".\n";
+                candidate[j].printProfile();
+            }
 }
 
 void Job::setId(int id)

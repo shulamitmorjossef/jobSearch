@@ -14,6 +14,9 @@ public:
     void setStatus(bool status);
     void setIdOfJob(int idOfJob);
 
+    friend class ManagementSystem;
+
+
 
 
 

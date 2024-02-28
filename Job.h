@@ -11,16 +11,19 @@
 class Job {
 public:
     Job();
-    Job(char** idOfSub, int id, char* businessName, int jobType, int jobHours, char* jobProfession,
-        int experience, int jobArea, char* address, int age, int jobFor, int jobRange, char* salary,
-        char* about);
+    Job(int id, char* businessName, char* jobProfession, char* address,  char* salary, char* about,
+        int jobType, int jobHours, int experience, int jobArea, int age, int jobFor, int jobRange);
     Job( const Job& job);
     Job& operator= (const Job& job);
     ~Job();
 
     void printForEmp();
     void printForCand();
-    void printSubPro(Candidate* candidate);
+    void printSubPro(Candidate* candidate, int len);
+
+    void updateJob();
+
+    bool getStatus();
 
     void setJobHours(int jobHours);
     void setId(int id);
@@ -39,6 +42,8 @@ public:
     void setNumOfSub(int numOfSub);
     void setIdOfSub (char** idOfSub);
 
+
+    friend class ManagementSystem;
     friend void searchJob(Job* jobs, int len);
     friend void findJob(int id);
 private:

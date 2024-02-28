@@ -33,7 +33,7 @@ void Apply::print(){
         cout << "Postponed";
     }
     cout << "Job details: \n";
-    findJob(idOfJob);
+//    findJob(idOfJob);
 
 }
 
