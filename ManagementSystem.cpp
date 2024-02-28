@@ -260,27 +260,34 @@ void ManagementSystem:: signUpCan(){
 }
 void ManagementSystem:: logIn(int type){
     int ch = 0;
-    char passs [17];
+    char pass [17];
     char id [11];
     bool exists = false;
     int index;
     cout << "Enter your ID:\n";
     cin >> id;
     cout << "Enter your password:\n";
-    cin >> passs ;
-    char* pass = new char [strlen(passs)+1];
-    strcpy(pass, passs);
+    cin >> pass ;
+
+
+//    char* pass = new char [strlen(passs)+1];
+//    strcpy(pass, passs);
+
 
     if(type == 1) {
         for (int i = 0; i < numOfEmp; ++i) {
             if (strcmp(employers[i].id, id) == 0) {
                 exists = true;
                 index = i;
-                i = numOfEmp;
+//                cout<< employers[i].id <<endl;
+//                cout << employers[i].password<<endl;
+//                cout << pass <<endl;
+////                employers[i].printDetails();
                 if (strcmp(employers[i].password, pass) == 0) {
                     mainEmp(employers[i]);
                     return;
                 }
+                i = numOfEmp;
             }
         }
     }
