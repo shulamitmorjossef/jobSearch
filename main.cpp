@@ -3,23 +3,76 @@
 #include <string>
 #include <cstring>
 #include "ManagementSystem.h"
-
+#include "Employer.h"
+#include <cmath>
 using namespace std;
-//
-//static Job* jobs = new Job [1];
-//static int lenJ = 1;
-//
-//static Candidate* cands = new Candidate [1];
-//static int lenC = 1;
-//
-//static Employer* emps = new Employer [1];
-//static int lenE = 1;
-//
-//static Apply* apps = new Apply [1];
-//static int lenA = 1;
 #include <limits>
 
 int main() {
+
+//    Employer e("1", "1", 1, "1");
+//    e.addJob(0);
+//    e.addJob(1);
+//
+//    ofstream oEmpFile("Employers.csv");
+//    if (!oEmpFile) {
+//        cout << "The system have a big problem" << endl;
+//    }
+//    oEmpFile << 1 << endl;
+//    oEmpFile << e.id << ",";
+//    oEmpFile << e.password << ",";
+//    oEmpFile << e.forgetPassQ << ",";
+//    oEmpFile << e.forgetPassA << ",";
+//    oEmpFile << e.jobsNum << endl;
+//    for(int j = 0; j < e.jobsNum; ++j) {
+//        oEmpFile << e.jobs[j].id << ",";
+//        oEmpFile << e.jobs[j].businessName << ",";
+//        oEmpFile << e.jobs[j].jobProfession << ",";
+//        oEmpFile << e.jobs[j].address << ",";
+//        oEmpFile << e.jobs[j].salary << ",";
+//        oEmpFile << e.jobs[j].about << ",";
+//        oEmpFile << e.jobs[j].jobType << ",";
+//        oEmpFile << e.jobs[j].jobHours << ",";
+//        oEmpFile << e.jobs[j].experience << ",";
+//        oEmpFile << e.jobs[j].jobArea << ",";
+//        oEmpFile << e.jobs[j].jobRange << ",";
+//        oEmpFile << e.jobs[j].status << ",";
+//        oEmpFile << e.jobs[j].numOfSub << endl;
+//    }
+//    oEmpFile.close();
+//    Employer e("1", "1", 1, "1");
+//    e.addJob(0);
+//    e.addJob(1);
+//
+//    ofstream oEmpFile("Employers.csv");
+//    if (!oEmpFile) {
+//        cout << "The system have a big problem" << endl;
+//    }
+//    oEmpFile << 1 << endl;
+//    oEmpFile << e.id << "\n";
+//    oEmpFile << e.password << "\n";
+//    oEmpFile << e.forgetPassQ << "\n";
+//    oEmpFile << e.forgetPassA << "\n";
+//    oEmpFile << e.jobsNum << endl;
+//    for(int j = 0; j < e.jobsNum; ++j) {
+//        oEmpFile << e.jobs[j].id << "\n";
+//        oEmpFile << e.jobs[j].businessName << "\n";
+//        oEmpFile << e.jobs[j].jobProfession << "\n";
+//        oEmpFile << e.jobs[j].address << "\n";
+//        oEmpFile << e.jobs[j].salary << "\n";
+//        oEmpFile << e.jobs[j].about << "\n";
+//        oEmpFile << e.jobs[j].jobType << "\n";
+//        oEmpFile << e.jobs[j].jobHours << "\n";
+//        oEmpFile << e.jobs[j].experience << "\n";
+//        oEmpFile << e.jobs[j].jobArea << "\n";
+//        oEmpFile << e.jobs[j].jobRange << "\n";
+//        oEmpFile << e.jobs[j].status << "\n";
+//        oEmpFile << e.jobs[j].numOfSub << endl;
+//    }
+//    oEmpFile.close();
+
+
+
 
 //    string s;
 //    cin >> s;
@@ -41,9 +94,43 @@ int main() {
 //    jobs[0] = j1;
 //  //  Job j3 = j1;
 //   // j2 = j1;
+//    char businessName [20];
+
+//    cout << "Enter business name:\n";
+//    cin.get(businessName, 20);
+//    cout << businessName;
+
+
 
     ManagementSystem m;
     m.mainMenu();
+
+
+//
+//    int i = 0;
+//    while (i != 2) {
+//        if(!(cin >> i)) {
+//            cin.clear();
+//            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+//        }
+//    }
+
+
+
+//    switch (i) {
+//        case 1:
+//            cout<< "1";
+//            break;
+//        case 2:
+//            cout<< "2";
+//            break;
+//        default:
+//            cout <<"bla\n";
+//    }
+
+
+
+
 //    char b [10];
 //   cout <<"a\n";
 //    cin >> b;

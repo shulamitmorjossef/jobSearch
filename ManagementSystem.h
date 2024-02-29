@@ -25,6 +25,7 @@ public:
     void signUpCan();
     void logIn(int type);
     bool forgetPassword(int type, bool exists, int index);
+    int searchJob();
 
 
 
@@ -35,10 +36,6 @@ private:
     int numOfCan;
     Job* jobs;
     int numOfJobs;
-    Apply* sub;
-    int numOfSub;
-
-
 
 };
 

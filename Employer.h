@@ -8,28 +8,24 @@
 
 class Employer {
 public:
+
     Employer();
     Employer(char* id, char* password, int forgetPassQ, char* forgetPassA );
     Employer(const Employer& employer );
     Employer& operator= (const Employer& employer);
     ~Employer();
     void printDetails();
-
     void printJobs();
-    bool addJob(int id);          // aderet
+    bool addJob(int id);
     void sortJobs();
-
     bool deleteJob(int index);
+    void setPassword (char* password);
 
-    void updateJob(int id);
-    void subOfJOb(int id);
 
     void setID(char* id);
-    void setPassword (char* password);
     void setForgetPassQ (int forgetPassQ);
     void setForgetPassA(char* forgetPassA);
     void setJobsNum(int jobsNum);
-    void setJobs(Job* jobs);
 
     friend class ManagementSystem;
 

@@ -123,16 +123,20 @@ bool Employer:: addJob(int num){
     int jobRange;
     bool status;
     id = num + 1;
+
     cout << "Enter business name:\n";
-    cin.get(businessName, 20);
+    cin >> businessName;
+
     cout << "Enter job profession:\n";
-    cin.get(jobProfession, 20);
+    cin >> jobProfession;
+
     cout << "Enter business address:\n";
-    cin.get(address, 20);
+    cin >> address ;
+
     cout << "Enter job's salary:\n";
-    cin.get(salary, 20);
+    cin >> salary ;
     cout << "Tell about the job:\n";
-    cin.get(about, 200);
+    cin >> about ;
     cout << "The job is:\nFull time job (1)\nPart time job (2)\n";
     cin >> jobType;
     cout << "The job is:\nIn the morning hours (1)\nIn the evening hours (2)\n";
@@ -153,9 +157,12 @@ bool Employer:: addJob(int num){
     for(int i = 0; i < jobsNum; ++i)
         tmp[i] = this->jobs[i];
     tmp[jobsNum] = job;
-    delete this->jobs;
+//    for(int i = 0 ; i < jobsNum; ++i)
+//        delete jobs[i];
+    delete [] this->jobs;
     this->jobs = tmp;
     jobsNum++;
+    job.printForCand();
     return true;
 }
 void Employer::  sortJobs() {
@@ -173,15 +180,16 @@ void Employer::  sortJobs() {
                 jobs[i].printForCand();
         }
     }
-}
+}            //0 1 2 3     0 1 3
 bool Employer:: deleteJob(int index){
     Job *tmp = new Job[jobsNum - 1];
     for (int i = 0; i < index; ++i)
         tmp[i] = jobs[i];
     for (int i = index + 1; i < jobsNum; ++i)
-        tmp[i] = jobs[i];
-    delete[] jobs;
+        tmp[i-1] = jobs[i];
+    delete [] jobs;
     jobs = tmp;
+    jobsNum--;
     return true;
 }
 

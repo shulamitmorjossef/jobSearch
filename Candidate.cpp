@@ -4,6 +4,8 @@
 
 #include "Candidate.h"
 #include <cstring>
+#include <string>
+#include <limits>
 #include <iostream>
 using namespace std;
 
@@ -152,7 +154,6 @@ Candidate& Candidate::operator=(const Candidate &candidate) {
 Candidate::~Candidate(){
     delete [] id;
     delete [] password;
-
     delete [] forgetPassA;
     delete [] fName;
     delete [] lName;
@@ -164,14 +165,149 @@ Candidate::~Candidate(){
     delete [] submissions;
 }
 
+void Candidate::updateDetails() {
+    string newValue;
+
+    cout << "For each field enter a new value (or press Enter to skip): \n";
+    cout << "First name: " << fName ;
+    getline(cin, newValue);
+    if(!newValue.empty()) {
+        delete [] fName;
+        fName = new char[newValue.size() + 1];
+        strcpy(fName, newValue.c_str());
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+    cout << "Last name: " << lName;
+    getline(cin, newValue);
+    if(!newValue.empty()) {
+        delete [] lName;
+        lName = new char[newValue.size() + 1];
+        strcpy(lName, newValue.c_str());
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+    cout << "Email: " << email;
+    getline(cin, newValue);
+    if(!newValue.empty()) {
+        delete [] email;
+        email = new char[newValue.size() + 1];
+        strcpy(email, newValue.c_str());
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+    cout << "Phone: " << phone;
+    getline(cin, newValue);
+    if(!newValue.empty()) {
+        delete [] phone;
+        phone= new char[newValue.size() + 1];
+        strcpy(phone, newValue.c_str());
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+    cout << "Address: " << address;
+    getline(cin, newValue);
+    if(!newValue.empty()) {
+        delete [] address;
+        address = new char[newValue.size() + 1];
+        strcpy(address, newValue.c_str());
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+    cout << "Profession: " << profession;
+    getline(cin, newValue);
+    if(!newValue.empty()) {
+        delete [] profession;
+        profession = new char[newValue.size() + 1];
+        strcpy(profession, newValue.c_str());
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+
+    cout << "About: " << about;
+    getline(cin, newValue);
+    if(!newValue.empty()) {
+        delete [] about;
+        about = new char[newValue.size() + 1];
+        strcpy(about, newValue.c_str());
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+
+    cout << "CV: " << CV;
+    getline(cin, newValue);
+    if(!newValue.empty()) {
+        delete [] CV;
+        CV = new char[newValue.size() + 1];
+        strcpy(CV, newValue.c_str());
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+    cout << "Age: " << age;
+    getline(cin, newValue);
+    if(!newValue.empty()) {
+        age =  stoi(newValue);
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+}
+bool Candidate::addApply(int id) {
+    Apply a1(id);
+    Apply* tmp= new Apply [numOfSub + 1];
+    for (int i = 0; i <numOfSub ; ++i) {
+        tmp[i] = submissions[i];
+    }
+    delete [] submissions;
+    submissions=tmp;
+    submissions[numOfSub]=a1;
+    submissions++;
+    for (int i = 0; i <2 ; ++i) {
+        cout<<"The Apply "<<i+1<<" is : \n";
+        submissions[i].print();
+    }
+}
+
+int Candidate::deleteApply(int index){
+
+    int id = submissions[index].getIdOfJob();
+    numOfSub--;
+    Apply* tmp = new Apply[numOfSub];
+
+
+    for (int i = 0; i < index; i++) {
+        tmp[i] = submissions[i];
+    }
+
+    for (int i = index; i < numOfSub; i++) {
+            tmp[i] = submissions[i+1];
+    }
+
+    delete[] submissions;
+    submissions = tmp;
+
+    return id;
+
+}
+
 void Candidate::printSub() {
     if(numOfSub == 0)
         cout << "You have not applied yet\n";
     else
         for(int i = 0; i < numOfSub; ++i){
-            cout << i << ".\n";
+            cout << i +1 << ".\n";
             submissions[i].print();
         }
+}
+
+void Candidate:: printSortSub(){
+    if(numOfSub == 0){
+//    if (submissions==NULL){
+        cout<<"You have no submissions \n";
+    }
+
+    cout << "The apply In process: \n";
+    for (int i = 0; i < numOfSub ; ++i) {
+        if (submissions[i].isStatus()) {
+            submissions[i].print();
+        }
+    }
+    cout << "The apply Postponed: \n";
+    for (int i = 0; i < numOfSub ; ++i) {
+        if (!submissions[i].isStatus()) {
+            submissions[i].print();
+        }
+    }
 }
 
 void Candidate::printProfile() {
@@ -212,7 +348,6 @@ void Candidate::setID(char* id)
     this->id=new char[strlen(id)+1];
     strcpy(this->id,id);
 }
-
 void Candidate::setPassword(char* password)
 {
     delete[]this->password;
@@ -223,7 +358,6 @@ void Candidate::setForgetPassQ(int forgetPassQ)
 {
     this->forgetPassQ= forgetPassQ;
 }
-
 void Candidate::setForgetPassA (char* forgetPassA)
 {
     delete[]this->forgetPassA;
@@ -281,64 +415,3 @@ void Candidate::setAbout(char* about)
     strcpy(this->about,about);
 
 }
-//void Candidate::setSubmissions (Apply* submissions)
-//{
-//    delete[]this->submissions;
-//    this->submissions=new Apply[numOfSub];
-//    for(int i=0;i<numOfSub;++i)
-//    {
-//        this->submissions[i]=submissions[i];
-//    }
-//}
-//void Candidate::setNumOfSub(int numOfSub)
-//{
-//    this->numOfSub=numOfSub;
-//}
-
-void Candidate::applying(int id){//פונקציה שסהר עשתה העתקה של המערכים בהוספת אןבייקט
-
-    Apply a1;
-    a1=(id, true);
-    this->submissions;
-    Apply* tmp= new Apply [numOfSub + 1 ];
-    for (int i = 0; i <numOfSub ; ++i) {
-        tmp[i] = submissions[i];
-    }
-    delete [] submissions;
-    submissions=tmp;
-    submissions[numOfSub]=a1;
-    submissions++;
-    for (int i = 0; i <2 ; ++i) {
-        cout<<"The Apply "<<i+1<<" is : \n";
-        submissions[i].print();
-    }
-}
-
-void Candidate:: printSort(){
-    for (int i = 0; i <numOfSub ; ++i) {
-        if (submissions->isStatus()){
-            cout<<" The apply In process: \n";
-            submissions->print();
-        } else {
-            cout << "The apply Postponed: ";
-            submissions->print();
-        }
-
-    }
-}//sahar
-
-void Candidate::deletApply(int id){
-
-    Apply* newArr = new Apply[numOfSub- 1];
-    this->submissions;
-
-    for (int i = 0; i < numOfSub; i++) {
-        if (submissions->getIdOfJob()!=id) {
-            newArr[i] = submissions[i];
-        }
-    }
-    delete[] submissions;
-    submissions = newArr;
-    numOfSub--;
-
-}//sahar

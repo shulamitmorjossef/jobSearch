@@ -17,13 +17,15 @@ public:
     Job& operator= (const Job& job);
     ~Job();
 
+    void addSub(char* id);
+    void deleteSub(char* id);
     void printForEmp();
     void printForCand();
     void printSubPro(Candidate* candidate, int len);
-
     void updateJob();
-
     bool getStatus();
+    void setStatus(bool status);
+
 
     void setJobHours(int jobHours);
     void setId(int id);
@@ -38,14 +40,13 @@ public:
     void setJobRange(int jobRange);
     void setSalary(char* salary);
     void setAbout(char* about);
-    void setStatus(bool status);
     void setNumOfSub(int numOfSub);
     void setIdOfSub (char** idOfSub);
 
 
     friend class ManagementSystem;
-    friend void searchJob(Job* jobs, int len);
-    friend void findJob(int id);
+
+
 private:
     int id;
     char* businessName;

@@ -18,21 +18,17 @@ public:
     Candidate(const Candidate& candidate);
     Candidate& operator= (const Candidate& candidate);
     ~Candidate();
-    void printSub();                // sahar
+    void printSub();
     void printProfile();
     void printDetails();
-
-    bool signUp();              //rina
-    void searchJob();
-    bool addApply(int id);          // sahar
-    void sortSub();
-    bool deleteApply(int id);        // sahar
+    bool addApply(int id);
+    void printSortSub();
+    int deleteApply(int index);
     void updateDetails();
-
+    void setPassword(char* password);
     char* getId();
 
     void setID(char* id);
-    void setPassword(char* password);
     void setForgetPassQ(int forgetPassQ);
     void setForgetPassA (char* forgetPassA);
     void setFName(char* fName);
@@ -43,19 +39,9 @@ public:
     void setAddress(char* address);
     void setProfession(char* profession);
     void setAbout(char* about);
-    void setSubmissions (Apply* submissions);
-    void setNumOfSub(int numOfSub);
+
 
     friend class ManagementSystem;
-
-    void applying(int id);//sahar
-    void printSort();//sahar
-    void deletApply(int id);
-
-
-
-
-
 
 private:
     char* id ;

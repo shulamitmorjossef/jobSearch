@@ -13,10 +13,6 @@ Apply::Apply() {
     idOfJob = 0;
     status = false;
 }
-Apply::Apply(int id,bool status){
-    this->idOfJob = id;
-    this->status = true;
-}
 
 Apply::Apply(int id) {
     this->idOfJob = id;
@@ -37,7 +33,7 @@ void Apply::print(){
         cout << "Postponed";
     }
     cout << "Job details: \n";
-//    findJob(idOfJob);
+//    finJob(idOfJob);
 
 }
 
@@ -51,10 +47,10 @@ void Apply::setIdOfJob(int idOfJob)
     this->idOfJob=idOfJob;
 }
 
-bool Apply::isStatus() const {
-    return status;
-}
-
 int Apply::getIdOfJob() const {
     return idOfJob;
+}
+
+bool Apply::isStatus() const {
+    return status;
 }

@@ -12,19 +12,22 @@ using namespace std;
 
 Job::Job(){
     id = 1;
-    businessName = nullptr;
+    businessName = NULL;
     jobType = 1;
     jobHours = 1;
-    jobProfession = nullptr;
+    jobProfession = NULL;
     experience = 1;
     jobArea = 1;
-    address = nullptr;
+    address = NULL;
     age = 1;
     jobFor = 1;
     jobRange = 1;
-    salary = nullptr;
-    about = nullptr;
-    idOfSub = nullptr;
+    salary = NULL;
+    about = NULL;
+    for (int i = 0; i < numOfSub; ++i) {
+        idOfSub[i] = NULL;
+    }
+    idOfSub = NULL;
     status = false;
     numOfSub = 0;
 }
@@ -208,7 +211,8 @@ Job:: Job( const Job& job){
 Job& Job:: operator= (const Job& job){
     this->id = job.id;
 
-    delete [] businessName;
+    if(businessName != nullptr)
+        delete [] businessName;
     this-> businessName = new char [strlen(job.businessName)+1];
     strcpy(this->businessName, job.businessName);
 
@@ -216,8 +220,8 @@ Job& Job:: operator= (const Job& job){
 
     this-> jobHours = job.jobHours;
 
-    delete [] jobProfession;
-
+    if(jobProfession != nullptr)
+        delete [] jobProfession;
     this-> jobProfession = new char [strlen(job.jobProfession)+1];
     strcpy(this->jobProfession, job.jobProfession);
 
@@ -227,20 +231,21 @@ Job& Job:: operator= (const Job& job){
 
     this-> jobFor = job.jobFor;
 
-    delete [] address;
-
+    if(address != nullptr)
+        delete [] address;
     this-> address = new char [strlen(job.address)+1];
     strcpy(this->address, job.address);
 
     this-> jobRange = job.jobRange;
 
-    delete [] salary;
-
+    if(salary != nullptr)
+        delete [] salary;
     this->salary = new char [strlen(job.salary)+1];
     strcpy(this->salary,job.salary);
 
-    delete [] about;
 
+    if(about != nullptr)
+        delete [] about;
     this-> about = new char [strlen(job.about)+1];
     strcpy(this->about, job.about);
 
@@ -250,12 +255,14 @@ Job& Job:: operator= (const Job& job){
 
     this->numOfSub = job.numOfSub;
 
-    for(int i = 0; i < numOfSub; ++i)
-        delete [] idOfSub[i];
+    for (int i = 0; i < this->numOfSub; ++i) {
+        delete[] this->idOfSub[i];
+    }
+    delete[] this->idOfSub;
 
-
-    this->idOfSub = new char* [numOfSub];
-    for(int i = 0; i< numOfSub; ++i){
+    this->idOfSub = new char*[this->numOfSub];
+    for (int i = 0; i < this->numOfSub; ++i) {
+        this->idOfSub[i] = new char[strlen(job.idOfSub[i]) + 1];
         strcpy(this->idOfSub[i], job.idOfSub[i]);
     }
 
@@ -264,15 +271,8 @@ Job& Job:: operator= (const Job& job){
 
 Job:: ~Job(){
     delete [] businessName;
-//    delete [] jobType;
-//    delete [] jobHours;
     delete [] jobProfession;
-//    delete [] experience;
-//    delete [] jobArea;
     delete [] address;
-//    delete [] age;
-//    delete [] jobFor;
-//    delete [] jobRange;
     delete [] salary;
     delete [] about;
 }
@@ -343,6 +343,7 @@ void Job::updateJob(){
     cout << "Business Name: " << businessName;
     getline(cin, newValue);
     if(!newValue.empty()) {
+        delete [] businessName;
         businessName = new char[newValue.size() + 1];
         strcpy(businessName, newValue.c_str());
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -350,6 +351,7 @@ void Job::updateJob(){
     cout << "Profession: " << jobProfession;
     getline(cin, newValue);
     if(!newValue.empty()) {
+        delete [] jobProfession;
         jobProfession = new char[newValue.size() + 1];
         strcpy(jobProfession, newValue.c_str());
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -357,6 +359,7 @@ void Job::updateJob(){
     cout << "Address: " << address;
     getline(cin, newValue);
     if(!newValue.empty()) {
+        delete [] address;
         address = new char[newValue.size() + 1];
         strcpy(address, newValue.c_str());
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -364,6 +367,7 @@ void Job::updateJob(){
     cout << "Salary: " << salary;
     getline(cin, newValue);
     if(!newValue.empty()) {
+        delete [] salary;
         salary= new char[newValue.size() + 1];
         strcpy(salary, newValue.c_str());
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -371,6 +375,7 @@ void Job::updateJob(){
     cout << "About the job: " << about;
     getline(cin, newValue);
     if(!newValue.empty()) {
+        delete [] about;
         about = new char[newValue.size() + 1];
         strcpy(about, newValue.c_str());
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -471,8 +476,46 @@ void Job::updateJob(){
     }
 }
 
+void Job::addSub(char *id) {
+    char** tmp = new char* [numOfSub + 1];
+    for (int i = 0; i < numOfSub; ++i) {
+        tmp[i] = new char [strlen(idOfSub[i])+1];
+        strcpy(tmp[i], idOfSub[i]);
+    }
+    tmp[numOfSub] = new char [strlen(id)+1];
+    strcpy(tmp[numOfSub], id);
+    delete [] idOfSub;
+    idOfSub = tmp;
+    numOfSub++;
+}
+
+void Job::deleteSub(char *id) {
+
+    char** tmp = new char* [numOfSub -1];
+    int index = 0;
+    while (strcmp(idOfSub[index], id) != 0) {
+        tmp[index] = new char[strlen(idOfSub[index])];
+        strcpy(tmp[index], idOfSub[index]);
+        index++;
+    }
+
+    for(int i = index; i < numOfSub; ++i) {
+        if(strcmp(idOfSub[i], id) != 0) {
+            tmp[i] = new char[strlen(idOfSub[i+1])];
+            strcpy(tmp[i], idOfSub[i+1]);
+        }
+    }
+    delete [] idOfSub;
+    idOfSub = tmp;
+    numOfSub--;
+}
+
 void Job::printForEmp() {
-    cout << "Status: " << status << ".\n";
+    cout << "Status: " ;
+    if( status )
+        cout << "Available.\n";
+    else
+        cout << "Unavailable.\n";
     this->printForCand();
 }
 
@@ -558,7 +601,6 @@ void Job::setNumOfSub(int numOfSub)
 }
 void Job::setIdOfSub (char** idOfSub)
 {
-    delete[]this->idOfSub;
     this->idOfSub=new char*[numOfSub];
     for(int i = 0; i < numOfSub; ++i) {
         this->idOfSub[i] = new char[strlen(idOfSub[i])];
