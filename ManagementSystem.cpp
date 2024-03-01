@@ -195,17 +195,59 @@ void ManagementSystem::mainMenu() {
 void ManagementSystem:: signUpEmp(){
     char id [11];
     char pass [17];
+    char pass1[17];
     int Q ;
     char A [10];
 
     cout << "Enter ID:\n" ;
     cin >> id ;
 
+    for (int i = 0; id[i] != '\0'; i++) {
+        if (id[i] < '0' || id[i] > '9'||strlen(id) != 9 || cin.fail()) {
+            cout << "Invalid input. Please enter your ID including a check digit:" << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin >> id;
+            i = -1;
+        }
+    }
     //todo checking if id exising
 
     cout << "Enter password - At least 1 uppercase letter, 1 lowercase letter, number:\n" ;
     cin >> pass;
 
+    bool ifValid= false;
+    while (!ifValid){
+
+        bool uppercase = false;
+        bool lowercase = false;
+        bool digit = false;
+        for (int i=0;pass[i]!='\0';i++) {
+            if (pass[i]>='A'&& pass[i]<='Z') {
+                uppercase = true;
+            }
+            if (pass[i]>='a'&& pass[i]<='z') {
+                lowercase = true;
+            }
+            if (pass[i]>='0' && pass[i]<='9') {
+                digit = true;
+            }
+        }
+
+        ifValid = uppercase && lowercase && digit;
+
+        if (!ifValid) {
+            cout << "Invalid password. Try again." << endl;
+            cin>>pass;
+        }
+
+    }
+    cout << "Confirm password: \n";
+    cin >> pass1;
+    while (strcmp(pass,pass1) != 0) {
+        cout << "Passwords do not match. Please try again." << endl;
+        cin>>pass1;
+    }
     //todo Checking whether the password is according to the rules
     //todo input password again for verify
 
@@ -216,12 +258,18 @@ void ManagementSystem:: signUpEmp(){
             "4 = Your favorite color\n"
             "5 = The date of your wedding anniversary\n";
     cin >> Q;
-    while(Q < 1 || Q > 5){
-        cout << "Enter your choose:\n" ;
+
+    while (Q < 1 || Q > 5 || cin.fail()) {
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+        cout << "Try again, enter your choose:\n" ;
         cin >> Q;
     }
+
     //todo print the question
-    cout << "Enter your answer:\n";
+    cout << "Enter your answer:" <<endl;
     cin >> A;
 
     Employer e(id, pass, Q, A);
@@ -238,12 +286,13 @@ void ManagementSystem:: signUpEmp(){
 void ManagementSystem:: signUpCan(){
     char id [11];
     char pass [17];
+    char pass1[17];
     int Q ;
     char A [10];
     char fName [20] ;
     char lName [20];
     char email [40];
-    char phone [11];
+    char phone [12];
     char address [30];
     char profession [15];
     int age ;
@@ -252,11 +301,52 @@ void ManagementSystem:: signUpCan(){
     cout << "Enter ID:\n" ;
     cin >> id ;
 
+    for (int i = 0; id[i] != '\0'; i++) {
+        if (id[i] < '0' || id[i] > '9'||strlen(id) != 9 || cin.fail()) {
+            cout << "Invalid input. Please enter your ID including a check digit:" << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin >> id;
+            i = -1;
+        }
+    }
     //todo checking if id exising
 
     cout << "Enter password - At least 1 uppercase letter, 1 lowercase letter, number:\n" ;
     cin >> pass;
 
+    bool ifValid= false;
+       while (!ifValid){
+
+        bool uppercase = false;
+        bool lowercase = false;
+        bool digit = false;
+        for (int i=0;pass[i]!='\0';i++) {
+            if (pass[i]>='A'&& pass[i]<='Z') {
+                uppercase = true;
+            }
+            if (pass[i]>='a'&& pass[i]<='z') {
+                lowercase = true;
+            }
+            if (pass[i]>='0' && pass[i]<='9') {
+                digit = true;
+            }
+        }
+
+        ifValid = uppercase && lowercase && digit;
+
+        if (!ifValid) {
+            cout << "Invalid password. Try again." << endl;
+            cin>>pass;
+        }
+
+    }
+    cout << "Confirm password: \n";
+    cin >> pass1;
+    while (strcmp(pass,pass1) != 0) {
+        cout << "Passwords do not match. Please try again." << endl;
+        cin>>pass1;
+    }
     //todo Checking whether the password is according to the rules
     //todo input password again for verify
 
@@ -267,12 +357,18 @@ void ManagementSystem:: signUpCan(){
             "4 = Your favorite color\n"
             "5 = The date of your wedding anniversary\n";
     cin >> Q;
-    while(Q < 1 || Q > 5){
-        cout << "Enter your choose:\n" ;
+
+    while (Q < 1 || Q > 5 || cin.fail()) {
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+        cout << "Try again, enter your choose:\n" ;
         cin >> Q;
     }
+
     //todo print the question
-    cout << "Enter your answer:\n" <<endl;
+    cout << "Enter your answer:" <<endl;
     cin >> A;
 
     cout << "Your first name:" <<endl;
@@ -282,9 +378,28 @@ void ManagementSystem:: signUpCan(){
     cout << "Your email:" <<endl;
     cin >> email ;
     cout << "Your phone number:" <<endl;
-    cin >> phone ;
+    cin>>phone;
+
+    for (int i = 0; phone[i] != '\0'; i++) {
+        if (phone[i] < '0' || phone[i] > '9'||strlen(phone) != 10 || cin.fail()) {
+            cout << "Invalid input. Please enter your phone:" << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin >> phone;
+            i = -1;
+        }
+    }
     cout << "Your age:" <<endl;
-    cin >> age;
+    cin>>age;
+    while (age< 0 || age>200 || cin.fail()) {
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+        cout << "Try again, Your age:" <<endl;
+        cin >> age;
+    }
+
     cout << "Your address:" <<endl;
     cin >> address ;
     cout << "Your profession:" <<endl;

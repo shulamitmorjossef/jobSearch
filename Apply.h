@@ -13,6 +13,9 @@ public:
     void print();
     int getIdOfJob() const;
     bool isStatus() const;
+    void setStatus(bool status);
+    void setIdOfJob(int idOfJob);
+
 
     friend class ManagementSystem;
 
