@@ -41,13 +41,13 @@ public:
     void setSalary(char* salary);
     void setAbout(char* about);
     void setNumOfSub(int numOfSub);
-    void setIdOfSub (char** idOfSub);
 
+    void setIdOfSub(char **idOfSub);
 
     friend class ManagementSystem;
 
 
-private:
+//private:
     int id;
     char* businessName;
     char* jobProfession;

@@ -5,27 +5,38 @@
 #include "ManagementSystem.h"
 
 using namespace std;
+
+
 ManagementSystem:: ManagementSystem(){
 
-    candidates = nullptr;
-    jobs = nullptr;
     employers = nullptr;
+    candidates = nullptr;
     numOfEmp = 0;
-    numOfJobs = 0;
     numOfCan = 0;
 
+    getEmp();
+    getCan();
 
-    char id [10];
-    char pass [10];
+}
+ManagementSystem:: ~ManagementSystem(){
+    pushEmp();
+    pushCan();
+    delete [] employers;
+    delete [] candidates;
+}
+void ManagementSystem::getEmp() {
+    char id [20];
+    char pass [20];
     int q;
-    char a[10];
-    char w [20];
-    char b [20];
-    char c [20];
-    char d [20];
-    char e [200];
+    char a[100];
+    char f1 [20];
+    char f2 [20];
+    char f3 [20];
+    char f4 [20];
+    char f5 [200];
+    int status;
 
-    ifstream employersFile ("Employers.csv");
+    ifstream employersFile ("Employers.txt");
     if (!employersFile) {
         cout << "The system have a problem" << endl;
         return;
@@ -35,137 +46,211 @@ ManagementSystem:: ManagementSystem(){
         numOfEmp = 0;
     else
         employersFile >> numOfEmp;
+
     this->employers = new Employer[numOfEmp];
+
     for(int i = 0 ; i < numOfEmp; ++i) {
         employersFile >> id;
         employersFile >> pass;
         employersFile >> q;
         employersFile >> a;
 
-//        char *id = new char[strlen(is) + 1];
-//        strcpy(id, is);
-//        char *pass = new char[strlen(passs) + 1];
-//        strcpy(pass, passs);
-//        int q = qs;
-//        char *a = new char[strlen(as) + 1];
-//        strcpy(a, as);
         Employer employer(id, pass, q, a);
+
         employersFile >> employer.jobsNum;
+
         employer.jobs = new Job[employer.jobsNum];
+
         for (int j = 0; j < employer.jobsNum; ++j){
+
             employersFile >> employer.jobs[j].id;
-            employersFile >> w ;
-            char *B = new char[strlen(w) + 1];
-            strcpy(B, w);
-            employer.jobs[j].businessName = B;
-            employersFile >> b ;
-            char *A = new char[strlen(b) + 1];
-            strcpy(A, b);
-            employer.jobs[j].jobProfession = A;
-            employersFile >> c ;
-            char *C = new char[strlen(c) + 1];
-            strcpy(C, c);
-            employer.jobs[j].address = C;
-            employersFile >> d ;
-            char *D = new char[strlen(d) + 1];
-            strcpy(D, d);
-            employer.jobs[j].salary = D;
-            employersFile >> e ;
-            char *E = new char[strlen(e) + 1];
-            strcpy(E, e);
-            employer.jobs[j].about = E;
+
+            employersFile >> f1 ;
+            cout << f1 << endl;
+            employer.jobs[j].setBusinessName(f1);
+
+            employersFile >> f2 ;
+            employer.jobs[j].setAddress(f2);
+
+            employersFile >> f3 ;
+            employer.jobs[j].setSalary(f3);
+
+            employersFile >> f4 ;
+            employer.jobs[j].setAbout(f4);
+
+            employersFile >> f5 ;
+            employer.jobs[j].setJobProfession(f5);
+
             employersFile >> employer.jobs[j].jobType ;
             employersFile >> employer.jobs[j].jobHours ;
             employersFile >> employer.jobs[j].experience ;
             employersFile >> employer.jobs[j].jobArea ;
+            employersFile >> employer.jobs[j].age ;
+            employersFile >> employer.jobs[j].jobFor ;
             employersFile >> employer.jobs[j].jobRange ;
-            employersFile >> employer.jobs[j].status ;
+
+            employersFile >> status;
+            if(status == 1)
+                employer.jobs[j].status = true ;
+            else
+                employer.jobs[j].status = false ;
+
             employersFile >> employer.jobs[j].numOfSub ;
+            employer.jobs[j].idOfSub = new char* [employer.jobs[j].numOfSub];
+
+            for (int k = 0; k < employer.jobs[j].numOfSub; ++k) {
+                char id [20];
+                employersFile >> id;
+//                delete [] employer.jobs[j].idOfSub[k];
+                employer.jobs[j].idOfSub[k] = new char [strlen(id)+1];
+                strcpy(employer.jobs[j].idOfSub[k], id);
+            }
         }
         employers[i] = employer;
     }
     employersFile.close();
-    for(int i = 0 ; i <numOfEmp; ++i){
-        employers[i].printDetails();
-    }
-
-//    char ic [10];
-//    char pacss [10];
-//    char qc[10];
-//    char ac[10];
-//
-//    ifstream CandidateFile ("Candidate.csv");
-//    if (!CandidateFile) {
-//        cout << "The system have a problem" << endl;
-//        return;
-//    }
-//    if(CandidateFile.eof())
-//        numOfCan = 0;
-//    else
-//        CandidateFile >> numOfCan;
-//    this->candidates = new Candidate[numOfCan];
-//    for(int i = 0 ; i < numOfCan; ++i) {
-//        CandidateFile >> ic;
-//        CandidateFile >> pacss;
-//        CandidateFile >> qc;
-//        CandidateFile >> ac;
-//
-//        char *idC = new char[strlen(ic) + 1];
-//        strcpy(idC, ic);
-//        char *passC = new char[strlen(pacss) + 1];
-//        strcpy(passC, pacss);
-//        char *qC = new char[strlen(qc) + 1];
-//        strcpy(qC, qc);
-//        char *aC = new char[strlen(ac) + 1];
-//        strcpy(aC, ac);
-////        Candidate candidate(idC, passC, qC, aC);
-////        candidates[i] = candidate;
-//        candidates[i].printDetails();
-//    }
-//    candidates[0].printDetails();
-//    CandidateFile.close();
-
 }
-ManagementSystem:: ~ManagementSystem(){
+void ManagementSystem::getCan() {
 
+
+    char id [20];
+    char pass [20];
+    int q;
+    char a[100];
+    char f1 [20];
+    char f2 [20];
+    char f3 [20];
+    char f4 [20];
+    int age;
+    char f5 [200];
+    char f6 [20];
+    char f7 [20];
+    char f8 [200];
+    int status;
+    char f9 [200];
+
+    int idJ;
+
+
+    ifstream CandidateFile ("Candidate.csv");
+    if (!CandidateFile) {
+        cout << "The system have a problem" << endl;
+        return;
+    }
+    if(CandidateFile.eof())
+        numOfCan = 0;
+    else
+        CandidateFile >> numOfCan;
+    this->candidates = new Candidate[numOfCan];
+    for(int i = 0 ; i < numOfCan; ++i) {
+        CandidateFile >> id;
+        CandidateFile >> pass;
+        CandidateFile >> q;
+        CandidateFile >> a;
+        CandidateFile >> f1 ;
+        CandidateFile >> f2 ;
+        CandidateFile >> f3 ;
+        CandidateFile >> f4 ;
+        int age;
+        CandidateFile >> f5 ;
+        CandidateFile >> f6 ;
+        CandidateFile >> f7 ;
+        CandidateFile >> f8 ;
+
+
+        Candidate candidate(id, pass, q, a, f1,f2, f3, f4, age, f5, f6, f7);
+        candidate.CV = NULL;
+
+        CandidateFile >> status;
+        if(status == 1)
+            candidate.isCv = true ;
+        else
+            candidate.isCv = false ;
+        if(candidate.isCv){
+            CandidateFile >> f9;
+            candidate.setCv(f9);
+        }
+
+        CandidateFile >> candidate.numOfSub;
+        candidate.submissions = new Apply[candidate.numOfSub];
+        for (int j = 0; j < candidate.numOfSub; ++j) {
+            CandidateFile >> idJ;
+            CandidateFile >> status;
+
+            candidate.submissions[j].setStatus(status);
+            candidate.submissions[j].setIdOfJob(idJ);
+        }
+        candidates[i] = candidate;
+    }
+    CandidateFile.close();
+}
+void ManagementSystem::pushEmp() {
+//    this->print();
     ofstream oEmpFile("Employers.txt");
     if (!oEmpFile) {
         cout << "The system have a big problem" << endl;
-        return;
     }
     oEmpFile << numOfEmp << endl;
     for(int i = 0; i < numOfEmp; ++i){
-        oEmpFile << employers[i].id <<" ";
-        oEmpFile << employers[i].password;
-        oEmpFile << employers[i].forgetPassQ;
-        oEmpFile << employers[i].forgetPassA;
-        oEmpFile << employers[i].jobsNum;
+        oEmpFile << employers[i].id <<"\n";
+        oEmpFile << employers[i].password<<"\n";
+        oEmpFile << employers[i].forgetPassQ<<"\n";
+        oEmpFile << employers[i].forgetPassA<<"\n";
+        oEmpFile << employers[i].jobsNum<<"\n";
         for(int j = 0; j < employers[i].jobsNum; ++j) {
-            oEmpFile << employers[i].jobs[j].id;
-            oEmpFile << employers[i].jobs[j].businessName;
-            oEmpFile << employers[i].jobs[j].jobProfession;
-            oEmpFile << employers[i].jobs[j].address;
-            oEmpFile << employers[i].jobs[j].salary;
-            oEmpFile << employers[i].jobs[j].about;
-            oEmpFile << employers[i].jobs[j].jobType;
-            oEmpFile << employers[i].jobs[j].jobHours;
-            oEmpFile << employers[i].jobs[j].experience;
-            oEmpFile << employers[i].jobs[j].jobArea;
-            oEmpFile << employers[i].jobs[j].jobRange;
-            oEmpFile << employers[i].jobs[j].status;
-            oEmpFile << employers[i].jobs[j].numOfSub;
+            oEmpFile << employers[i].jobs[j].id<<"\n";
+            oEmpFile << employers[i].jobs[j].businessName<<"\n";
+            oEmpFile << employers[i].jobs[j].jobProfession<<"\n";
+            oEmpFile << employers[i].jobs[j].address<<"\n";
+            oEmpFile << employers[i].jobs[j].salary<<"\n";
+            oEmpFile << employers[i].jobs[j].about<<"\n";
+            oEmpFile << employers[i].jobs[j].jobType<<"\n";
+            oEmpFile << employers[i].jobs[j].jobHours<<"\n";
+            oEmpFile << employers[i].jobs[j].experience<<"\n";
+            oEmpFile << employers[i].jobs[j].jobArea<<"\n";
+            oEmpFile << employers[i].jobs[j].age<<"\n";
+            oEmpFile << employers[i].jobs[j].jobFor<<"\n";
+            oEmpFile << employers[i].jobs[j].jobRange<<"\n";
+            oEmpFile << employers[i].jobs[j].status<<"\n";
+            oEmpFile << employers[i].jobs[j].numOfSub<<"\n";
             for(int k = 0; k < employers[i].jobs[j].numOfSub; ++k){
-                oEmpFile << employers[i].jobs[j].idOfSub[k];
-
+                oEmpFile << employers[i].jobs[j].idOfSub[k]<<"\n";
             }
         }
     }
     oEmpFile.close();
-    delete [] employers;
-    delete [] candidates;
-    delete [] jobs;
 }
+void ManagementSystem::pushCan() {
+    this->print();
+    ofstream oCanFile("Candidates.txt");
+    if (!oCanFile) {
+        cout << "The system have a big problem" << endl;
 
+    }
+    oCanFile << numOfCan << endl;
+    for(int i = 0; i < numOfCan; ++i){
+        oCanFile << candidates[i].id <<"\n";
+        oCanFile << candidates[i].password<<"\n";
+        oCanFile << candidates[i].forgetPassQ<<"\n";
+        oCanFile << candidates[i].forgetPassA<<"\n";
+        oCanFile << candidates[i].fName<<"\n";
+        oCanFile << candidates[i].lName<<"\n";
+        oCanFile << candidates[i].email<<"\n";
+        oCanFile << candidates[i].phone<<"\n";
+        oCanFile << candidates[i].age<<"\n";
+        oCanFile << candidates[i].address<<"\n";
+        oCanFile << candidates[i].profession<<"\n";
+        oCanFile << candidates[i].about<<"\n";
+        oCanFile << candidates[i].isCv<<"\n";
+        oCanFile << candidates[i].CV<<"\n";
+        oCanFile << candidates[i].numOfSub<<"\n";
+        for(int j = 0; j < candidates[i].numOfSub; ++j) {
+            oCanFile << candidates[i].submissions[j].idOfJob<<"\n";
+            oCanFile << candidates[i].submissions[j].status<<"\n";
+         }
+    }
+    oCanFile.close();
+}
 void ManagementSystem::mainMenu() {
     int choice = 0;
     while (choice != 1 && choice != 2) {
@@ -537,26 +622,36 @@ bool ManagementSystem:: forgetPassword(int type, bool exists, int index) {
         mainMenu();
     }
 }
-void ManagementSystem:: mainEmp(Employer employer) {
-    int choice = 0;
+void ManagementSystem:: mainEmp(Employer& employer) {
+    int choice = 4;
     int choose;
     int index;
-    while (choice != 1 && choice != 2 && choice != 3) {
-        cout << "Add job (1)\nJobs history from the old to the new (2)\nJobs history sorted by status (3)\n ";
+    while (choice != 1 && choice != 2 && choice != 3 && choice != 0) {
+        cout << "Add job (1)\nJobs history from the old to the new (2)\nJobs history sorted by status (3)\nExit (0)\n ";
         cin >> choice;
     }
+    if(choice == 0)
+        return;
     if (choice == 1) {
-        if (employer.addJob(numOfJobs)) {
-            Job *tmp = new Job[numOfJobs + 1];
-            for (int i = 0; i < numOfJobs; ++i)
-                tmp[i] = jobs[i];
-            tmp[numOfJobs] = employer.jobs[employer.jobsNum - 1];
-            numOfJobs++;
-            delete[] jobs;
-            jobs = tmp;
-            mainEmp(employer);
-            return;
-        }
+//        if (employer.addJob(numOfJobs)) { //todo send id
+//            cout <<"xcvgh\n";
+//            Job *tmp = new Job[numOfJobs + 1];
+//            cout <<"xcvgh\n";
+//            for (int i = 0; i < numOfJobs; ++i)
+//                tmp[i] = jobs[i];
+//            cout <<"xcvgh\n";
+//            tmp[numOfJobs] = employer.jobs[employer.jobsNum - 1];
+//            cout <<"xcvgh\n";
+//            numOfJobs++;
+//            cout <<"xcvgh\n";
+//            delete[] jobs;
+//            cout <<"xcvgh\n";
+//            jobs = tmp;
+//            cout <<"xcvgh\n";
+//            mainEmp(employer);
+//            cout <<"xcvgh\n";
+//        }
+        mainEmp(employer);
     }
     else if (choice == 2)
             employer.printJobs();  //todo fix printforcand
@@ -602,19 +697,19 @@ void ManagementSystem:: mainEmp(Employer employer) {
                     mainEmp(employer);
             }
             else {
-                employer.jobs[index].setStatus(false);
-                for (int i = 0; i < numOfJobs; ++i)
-                    if (jobs[i].id == employer.jobs[index].id)
-                        jobs[i].status = false;
-                mainEmp(employer);
+//                employer.jobs[index].setStatus(false);   todo chang status of job
+//                for (int i = 0; i < numOfJobs; ++i)
+//                    if (jobs[i].id == employer.jobs[index].id)
+//                        jobs[i].status = false;
+//                mainEmp(employer);
             }
         }
         else if (choice == 2) {
                 employer.jobs[index].updateJob();
-                for (int i = 0; i < numOfJobs; ++i)
-                    if (jobs[i].id == employer.jobs[index].id)
-                        jobs[i] = employer.jobs[index];
-                mainEmp(employer);
+//                for (int i = 0; i < numOfJobs; ++i)
+//                    if (jobs[i].id == employer.jobs[index].id)
+//                        jobs[i] = employer.jobs[index];
+//                mainEmp(employer);
             }
         else if (choice == 3) {
             int prof;
@@ -640,7 +735,7 @@ void ManagementSystem:: mainEmp(Employer employer) {
 
     }
 }
-void ManagementSystem:: mainCan(Candidate candidate){
+void ManagementSystem:: mainCan(Candidate& candidate){
     int choice = 0;
     int choose = -1;
     int index = -1;
@@ -653,7 +748,7 @@ void ManagementSystem:: mainCan(Candidate candidate){
         }
     }
     if(choice == 1){
-        int sum = searchJob();
+        int sum = 0;// searchJob();
         while (index <= 0 || index >= sum) {
             cout << "Enter ID of job to apply or 0 to exit:\n";
             if (!(cin >> index)) {
@@ -664,13 +759,14 @@ void ManagementSystem:: mainCan(Candidate candidate){
         if(index == 0)
             mainCan(candidate);
         else{
-            for (int i = 0; i < numOfJobs; ++i) {
-                if (jobs[i].id == index) {
-                    candidate.addApply(index);
-                    jobs[i].addSub(candidate.id);
-                    i = numOfJobs;
-                }
-            }
+//            todo add apply
+//            for (int i = 0; i < numOfJobs; ++i) {
+//                if (jobs[i].id == index) {
+//                    candidate.addApply(index);
+//                    jobs[i].addSub(candidate.id);
+//                    i = numOfJobs;
+//                }
+//            }
         }
     }
     else if(choice == 4){
@@ -703,91 +799,77 @@ void ManagementSystem:: mainCan(Candidate candidate){
             if(safe == 2)
                 mainCan(candidate);
             else {
-                choose--;
-                int id = candidate.deleteApply(choose);
-                for (int i = 0; i < numOfJobs; ++i) {
-                    if (jobs[i].id == id)
-                        jobs[i].deleteSub(candidate.id);
-                }
+//                todo delete sub
+//                choose--;
+//                int id = candidate.deleteApply(choose);
+//                for (int i = 0; i < numOfJobs; ++i) {
+//                    if (jobs[i].id == id)
+//                        jobs[i].deleteSub(candidate.id);
+//                }
             }
         }
     }
 }
-int ManagementSystem:: searchJob(){
-    int t, h, e, a, age, s, r;
-
-    cout << "For each field select the desired filter, if you do not want to filter this field, press 0\n";
-
-    cout<< "Are you interested in a full-time (1) or part-time (2) job? (1/2)\n";
-    cin >> t;
-    if(t != 1 && t != 2)
-        t = 0;
-    cout<< "Are you interested in a morning (1) or evening (2) job? (1/2)\n";
-    cin >> h;
-    if(h != 1 && h != 2)
-        h = 0;
-    cout<< "Are you interested in a job that requires no experience (1), "
-           "requires little experience (less than three years) (2)"
-           " or requires more than 3 years of experience (3)? (1/2/3)\n";
-    cin >> e;
-    if(e != 1 && e != 2 && e != 3)
-        e = 0;
-    cout<< "Are you interested in a job in the north (1), south (2) or center (3)? (1/2/3)\n";
-    cin >> a;
-    if(a != 1 && a != 2 && a != 3)
-        a = 0;
-    cout<< "You are interested in a job for ages up to 18 (1), 18-24 (2) or over 24 (3)?  (1/2/3)\n";
-    cin >> age;
-    if(age != 1 && age != 2 && age != 3)
-        age = 0;
-    cout<< "Are you interested in a job for a specific audience (soldier (1) /student (2) /pupil (3))? (1/2/3)\n";
-    cin >> s;
-    if(s != 1 && s != 2 && s != 3)
-        s = 0;
-    cout<< "Are you interested in a short (1) or long (2) term job? (1/2)\n";
-    cin >> r;
-    if(r != 1 && r != 2)
-        r = 0;
-
-    int index = 0;
-
-    for (int i = 0; i < numOfJobs ; ++i) {
-        if(jobs[i].status){
-            if((jobs[i].jobType == t || t == 0) && (jobs[i].age == age || age == 0) && (jobs[i].experience == e || e == 0)){
-                if((jobs[i].jobArea == a || a == 0) && (jobs[i].jobFor == s || s == 0) && (jobs[i].jobHours == h || h == 0) && (jobs[i].jobRange == r || r == 0)){
-                    cout << index + 1 << ".\n";
-                    jobs->printForCand();
-                    ++index;
-                }
-            }
-        }
+//int ManagementSystem:: searchJob(){
+//    int t, h, e, a, age, s, r;
+//
+//    cout << "For each field select the desired filter, if you do not want to filter this field, press 0\n";
+//
+//    cout<< "Are you interested in a full-time (1) or part-time (2) job? (1/2)\n";
+//    cin >> t;
+//    if(t != 1 && t != 2)
+//        t = 0;
+//    cout<< "Are you interested in a morning (1) or evening (2) job? (1/2)\n";
+//    cin >> h;
+//    if(h != 1 && h != 2)
+//        h = 0;
+//    cout<< "Are you interested in a job that requires no experience (1), "
+//           "requires little experience (less than three years) (2)"
+//           " or requires more than 3 years of experience (3)? (1/2/3)\n";
+//    cin >> e;
+//    if(e != 1 && e != 2 && e != 3)
+//        e = 0;
+//    cout<< "Are you interested in a job in the north (1), south (2) or center (3)? (1/2/3)\n";
+//    cin >> a;
+//    if(a != 1 && a != 2 && a != 3)
+//        a = 0;
+//    cout<< "You are interested in a job for ages up to 18 (1), 18-24 (2) or over 24 (3)?  (1/2/3)\n";
+//    cin >> age;
+//    if(age != 1 && age != 2 && age != 3)
+//        age = 0;
+//    cout<< "Are you interested in a job for a specific audience (soldier (1) /student (2) /pupil (3))? (1/2/3)\n";
+//    cin >> s;
+//    if(s != 1 && s != 2 && s != 3)
+//        s = 0;
+//    cout<< "Are you interested in a short (1) or long (2) term job? (1/2)\n";
+//    cin >> r;
+//    if(r != 1 && r != 2)
+//        r = 0;
+//
+//    int index = 0;
+//
+//    for (int i = 0; i < numOfJobs ; ++i) {
+//        if(jobs[i].status){
+//            if((jobs[i].jobType == t || t == 0) && (jobs[i].age == age || age == 0) && (jobs[i].experience == e || e == 0)){
+//                if((jobs[i].jobArea == a || a == 0) && (jobs[i].jobFor == s || s == 0) && (jobs[i].jobHours == h || h == 0) && (jobs[i].jobRange == r || r == 0)){
+//                    cout << index + 1 << ".\n";
+//                    jobs->printForCand();
+//                    ++index;
+//                }
+//            }
+//        }
+//    }
+//    if (index == 0)
+//        cout << "No suitable jobs were found for you\n";
+//    return index;
+//}
+void ManagementSystem::print() {
+    for (int i = 0; i < numOfEmp; ++i) {
+        candidates[i].printDetails();
     }
-    if (index == 0)
-        cout << "No suitable jobs were found for you\n";
-    return index;
+
+    for (int i = 0; i < numOfCan; ++i) {
+        candidates[i].printDetails();
+    }
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// 1. חיפוש משרה
-
-// להוסיף הגשה למשרה שבחר - סהר
-
-//  2. עריכת פרופיל
-// היסטוריית הגשות3ץ - סהר
-
-//   - מחיקת מועמדות סהר

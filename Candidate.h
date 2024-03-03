@@ -11,9 +11,9 @@
 class Candidate {
 public:
     Candidate();
-    Candidate(char* id, char* password, int forgetPassQ, char* forgetPassA, char* fName = "nullptr",
-              char* lName = "nullptr", char* email = "nullptr", char* phone = "nullptr", int age = 0,
-              char* address = "nullptr", char* profession = "nullptr", char* about = "nullptr");
+    Candidate(char* id, char* password, int forgetPassQ, char* forgetPassA, char* fName,
+              char* lName, char* email, char* phone , int age,
+              char* address, char* profession, char* about);
 
     Candidate(const Candidate& candidate);
     Candidate& operator= (const Candidate& candidate);
@@ -40,10 +40,11 @@ public:
     void setProfession(char* profession);
     void setAbout(char* about);
 
+    void setCv(char *cv);
 
     friend class ManagementSystem;
 
-private:
+//private:
     char* id ;
     char* password ;
     int forgetPassQ ;
@@ -56,9 +57,10 @@ private:
     char* address;
     char* profession;
     char* about;
+    bool isCv;
     char* CV;
-    Apply* submissions;
     int numOfSub;
+    Apply* submissions;
 
 };
 

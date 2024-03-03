@@ -32,6 +32,7 @@ Employer::Employer(char *id, char *password, int forgetPassQ, char* forgetPassA)
 
     this->jobs = nullptr;
     this-> jobsNum = 0;
+
 }
 
 Employer &Employer::operator=(const Employer &employer) {

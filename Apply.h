@@ -20,7 +20,7 @@ public:
     friend class ManagementSystem;
 
 
-private:
+//private:
     bool status;
     int idOfJob;
 

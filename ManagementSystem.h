@@ -18,14 +18,20 @@ public:
     ManagementSystem();
     ~ManagementSystem();
 
+    void getEmp();
+    void pushEmp();
+    void getCan();
+    void pushCan();
     void mainMenu();
-    void mainEmp(Employer employer);
-    void mainCan(Candidate candidate);
+    void mainEmp(Employer& employer);
+    void mainCan(Candidate& candidate);
     void signUpEmp();
     void signUpCan();
     void logIn(int type);
     bool forgetPassword(int type, bool exists, int index);
-    int searchJob();
+//    int searchJob();
+
+    void print();
 
 
 
@@ -34,9 +40,6 @@ private:
     int numOfEmp;
     Candidate* candidates;
     int numOfCan;
-    Job* jobs;
-    int numOfJobs;
-
 };
 
 

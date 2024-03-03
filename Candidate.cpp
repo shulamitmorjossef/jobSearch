@@ -11,7 +11,22 @@ using namespace std;
 
 
 Candidate::Candidate(){
-
+    id = NULL ;
+    password  = NULL;
+    forgetPassQ = 0 ;
+    forgetPassA  = NULL;
+    fName = NULL;
+    lName = NULL;
+    email = NULL;
+    phone = NULL;
+    age = 0;
+    address = NULL;
+    profession = NULL;
+    about = NULL;
+    isCv = false;
+    CV = NULL;
+    submissions = NULL;
+    numOfSub = 0;
 }
 Candidate::Candidate(char* id, char* password, int forgetPassQ, char* forgetPassA, char* fName, char* lName,
                      char* email, char* phone, int age, char* address, char* profession, char* about){
@@ -50,11 +65,13 @@ Candidate::Candidate(char* id, char* password, int forgetPassQ, char* forgetPass
 
     this-> age = age;
 
-    this->submissions = nullptr;
+    this->submissions = NULL;
 
     this->numOfSub = 0;
 
-    this->CV = nullptr;
+    this->CV = NULL;
+
+    isCv = false;
 }
 
 Candidate::Candidate(const Candidate& candidate){
@@ -90,6 +107,8 @@ Candidate::Candidate(const Candidate& candidate){
     this-> about = new char [strlen(candidate.about)+1];
     strcpy(this->about, candidate.about);
 
+    isCv = candidate.isCv;
+
     this-> CV = new char [strlen(candidate.CV)+1];
     strcpy(this->CV, candidate.CV);
 
@@ -105,46 +124,55 @@ Candidate::Candidate(const Candidate& candidate){
 }
 
 Candidate& Candidate::operator=(const Candidate &candidate) {
-//    delete [] id;
+    delete [] id;
     this-> id = new char [strlen(candidate.id)+1];
     strcpy(this->id, candidate.id);
-  //  delete[] password;
+    delete[] password;
     this-> password = new char [strlen(candidate.password)+1];
     strcpy(this->password, candidate.password);
-//    delete[]forgetPassQ;
+
     this-> forgetPassQ = candidate.forgetPassQ;
-//    delete[] forgetPassA;
+    delete[] forgetPassA;
     this-> forgetPassA = new char [strlen(candidate.forgetPassA)+1];
     strcpy(this->forgetPassA, candidate.forgetPassA);
-//    delete[] fName;
+    delete[] fName;
     this-> fName = new char [strlen(candidate.fName)+1];
     strcpy(this->fName, candidate.fName);
-//    delete[] lName;
+    delete[] lName;
     this-> lName = new char [strlen(candidate.lName)+1];
     strcpy(this->lName, candidate.lName);
-//    delete[] email;
+    delete[] email;
     this-> email = new char [strlen(candidate.email)+1];
     strcpy(this->email, candidate.email);
-//    delete[] phone;
+    delete[] phone;
     this-> phone = new char [strlen(candidate.phone)+1];
     strcpy(this->phone, candidate.phone);
-//    delete[] address;
+    delete[] address;
     this-> address = new char [strlen(candidate.address)+1];
     strcpy(this->address, candidate.address);
-//    delete[] profession;
+    delete[] profession;
     this-> profession = new char [strlen(candidate.profession)+1];
     strcpy(this->profession, candidate.profession);
-//    delete[] about;
+    delete[] about;
     this-> about = new char [strlen(candidate.about)+1];
     strcpy(this->about, candidate.about);
-//    delete[] CV;
-//    this-> CV = new char [strlen(candidate.CV)+1];
-//    strcpy(this->CV, candidate.CV);
-
-    this-> age = age;
+    if(candidate.isCv) {
+        if(this->isCv)
+            delete[] CV;
+        this->isCv = candidate.isCv;
+        this->CV = new char[strlen(candidate.CV) + 1];
+        strcpy(this->CV, candidate.CV);
+    } else{
+        if(this->isCv) {
+            delete[] CV;
+            this->CV = NULL;
+            this->isCv = false;
+        }
+    }
+    this-> age = candidate.age;
 
     this->numOfSub = candidate.numOfSub;
-//    delete[] submissions;
+    delete[] submissions;
     this->submissions = new Apply[numOfSub];
     for (int i = 0; i < numOfSub; ++i){
         this->submissions[i] = candidate.submissions[i];
@@ -163,6 +191,7 @@ Candidate::~Candidate(){
     delete [] profession;
     delete [] about;
     delete [] submissions;
+    delete [] CV;
 }
 
 void Candidate::updateDetails() {
@@ -339,6 +368,8 @@ void Candidate::printDetails() {
     cout << "Submissions: \n";
     this->printSub();
 }
+
+
 char* Candidate:: getId(){
     return id;
 }
@@ -414,4 +445,10 @@ void Candidate::setAbout(char* about)
     this->about=new char[strlen(about)+1];
     strcpy(this->about,about);
 
+}
+
+void Candidate::setCv(char *cv) {
+    delete [] CV;
+    CV = new char [strlen(cv)+1];
+    strcpy(this->CV, cv);
 }

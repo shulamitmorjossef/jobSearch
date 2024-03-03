@@ -30,7 +30,7 @@ public:
     friend class ManagementSystem;
 
 
-private:
+//private:
     char* id ;
     char* password ;
     int forgetPassQ ;

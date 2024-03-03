@@ -3,77 +3,127 @@
 #include <string>
 #include <cstring>
 #include "ManagementSystem.h"
-#include "Employer.h"
+//#include "Employer.h"
 #include <cmath>
 using namespace std;
 #include <limits>
 
 int main() {
-
 //    Employer e("1", "1", 1, "1");
-//    e.addJob(0);
-//    e.addJob(1);
-//
-//    ofstream oEmpFile("Employers.csv");
+//    Employer e1("6562", "szfdxgcvb", 2, "gfxcg5");
+//    Employer e2("206999999", "903", 3 , "this");
+//    int numOfEmp;
+//    numOfEmp = 3;
+//    Employer* employers = new Employer[3];
+//    employers[0] = e;
+//    employers[1] = e1;
+//    employers[2] = e2;
+//    ofstream oEmpFile("Employers.txt");
 //    if (!oEmpFile) {
 //        cout << "The system have a big problem" << endl;
 //    }
-//    oEmpFile << 1 << endl;
-//    oEmpFile << e.id << ",";
-//    oEmpFile << e.password << ",";
-//    oEmpFile << e.forgetPassQ << ",";
-//    oEmpFile << e.forgetPassA << ",";
-//    oEmpFile << e.jobsNum << endl;
-//    for(int j = 0; j < e.jobsNum; ++j) {
-//        oEmpFile << e.jobs[j].id << ",";
-//        oEmpFile << e.jobs[j].businessName << ",";
-//        oEmpFile << e.jobs[j].jobProfession << ",";
-//        oEmpFile << e.jobs[j].address << ",";
-//        oEmpFile << e.jobs[j].salary << ",";
-//        oEmpFile << e.jobs[j].about << ",";
-//        oEmpFile << e.jobs[j].jobType << ",";
-//        oEmpFile << e.jobs[j].jobHours << ",";
-//        oEmpFile << e.jobs[j].experience << ",";
-//        oEmpFile << e.jobs[j].jobArea << ",";
-//        oEmpFile << e.jobs[j].jobRange << ",";
-//        oEmpFile << e.jobs[j].status << ",";
-//        oEmpFile << e.jobs[j].numOfSub << endl;
+//    oEmpFile << numOfEmp << endl;
+//    for(int i = 0; i < numOfEmp; ++i){
+//        oEmpFile << employers[i].id <<"\n";
+//        oEmpFile << employers[i].password<<"\n";
+//        oEmpFile << employers[i].forgetPassQ<<"\n";
+//        oEmpFile << employers[i].forgetPassA<<"\n";
+//        oEmpFile << employers[i].jobsNum<<"\n";
+//        for(int j = 0; j < employers[i].jobsNum; ++j) {
+//            oEmpFile << employers[i].jobs[j].id<<"\n";
+//            oEmpFile << employers[i].jobs[j].businessName<<"\n";
+//            oEmpFile << employers[i].jobs[j].jobProfession<<"\n";
+//            oEmpFile << employers[i].jobs[j].address<<"\n";
+//            oEmpFile << employers[i].jobs[j].salary<<"\n";
+//            oEmpFile << employers[i].jobs[j].about<<"\n";
+//            oEmpFile << employers[i].jobs[j].jobType<<"\n";
+//            oEmpFile << employers[i].jobs[j].jobHours<<"\n";
+//            oEmpFile << employers[i].jobs[j].experience<<"\n";
+//            oEmpFile << employers[i].jobs[j].jobArea<<"\n";
+//            oEmpFile << employers[i].jobs[j].age<<"\n";
+//            oEmpFile << employers[i].jobs[j].jobFor<<"\n";
+//            oEmpFile << employers[i].jobs[j].jobRange<<"\n";
+//            oEmpFile << employers[i].jobs[j].status<<"\n";
+//            oEmpFile << employers[i].jobs[j].numOfSub<<"\n";
+//            for(int k = 0; k < employers[i].jobs[j].numOfSub; ++k){
+//                oEmpFile << employers[i].jobs[j].idOfSub[k]<<"\n";
+//            }
+//        }
 //    }
 //    oEmpFile.close();
-//    Employer e("1", "1", 1, "1");
-//    e.addJob(0);
+
+    Candidate c("1", "1", 1, "1", "1", "1", "1", "1", 1, "1", "1", "1");
+    Candidate c1("2", "2", 2, "2", "2", "2", "2", "2", 2, "2", "2", "2");
+    Candidate c2("2", "2", 2, "2", "2", "2", "2", "2", 2, "2", "2", "2");
+    Candidate* candidates = new Candidate[3];
+    int numOfCan = 3;
+    candidates[0] = c;
+    candidates[1] = c1;
+    candidates[2] = c2;
+
+//    c1.printDetails();
+    candidates[0].printDetails();
+    candidates[1].printDetails();
+    candidates[2].printDetails();
+
+//    cout << candidates[2].isCv;
+
+    fstream oCanFile ("C:\\Users\\Student\\SERetreats\\jobSearch3\\cmake-build-debug\\Candidates.txt", ios::out);
+//    ofstream oCanFile("Candidates.txt");
+    if (!oCanFile.is_open()) {
+        cout << "The system have a big problem" << endl;
+    }
+    oCanFile << numOfCan << endl;
+    for(int i = 0; i < numOfCan; ++i){
+        cout << i << endl;
+        oCanFile << " hi\n";
+        oCanFile << candidates[i].id << endl;
+        if (oCanFile.fail()) {
+            if (oCanFile.bad()) {
+                // Fatal error occurred, like disk failure
+                cout << "Fatal error occurred during file operation." << endl;
+            } else if (oCanFile.fail()) {
+                // Logical error occurred, like invalid data format
+                cout << "Logical error occurred during file operation." << endl;
+            } else if (oCanFile.eof()) {
+                // End-of-file reached unexpectedly
+                cout << "End-of-file reached unexpectedly." << endl;
+            }
+        }
+        oCanFile << candidates[i].password<<endl;
+        oCanFile << candidates[i].forgetPassQ<<"\n";
+        oCanFile << candidates[i].forgetPassA<<"\n";
+        oCanFile << candidates[i].fName<<"\n";
+        cout << i << endl;
+        oCanFile << candidates[i].lName<<"\n";
+        oCanFile << candidates[i].email<<"\n";
+        oCanFile << candidates[i].phone<<"\n";
+        oCanFile << candidates[i].age<<"\n";
+        oCanFile << candidates[i].address<<"\n";
+        oCanFile << candidates[i].profession<<"\n";
+        oCanFile << candidates[i].about<<"\n";
+        oCanFile << candidates[i].isCv<<"\n";
+        oCanFile << candidates[i].CV<<"\n";
+        oCanFile << candidates[i].numOfSub<<"\n";
+        for(int j = 0; j < candidates[i].numOfSub; ++j) {
+            oCanFile << candidates[i].submissions[j].idOfJob<<"\n";
+            oCanFile << candidates[i].submissions[j].status<<"\n";
+        }
+        candidates[i].printDetails();
+        oCanFile.flush();
+    }
+    oCanFile.close();
+
+
+
+////
+//    e1.addJob(0);
+//    e = e1;
 //    e.addJob(1);
 //
-//    ofstream oEmpFile("Employers.csv");
-//    if (!oEmpFile) {
-//        cout << "The system have a big problem" << endl;
-//    }
-//    oEmpFile << 1 << endl;
-//    oEmpFile << e.id << "\n";
-//    oEmpFile << e.password << "\n";
-//    oEmpFile << e.forgetPassQ << "\n";
-//    oEmpFile << e.forgetPassA << "\n";
-//    oEmpFile << e.jobsNum << endl;
-//    for(int j = 0; j < e.jobsNum; ++j) {
-//        oEmpFile << e.jobs[j].id << "\n";
-//        oEmpFile << e.jobs[j].businessName << "\n";
-//        oEmpFile << e.jobs[j].jobProfession << "\n";
-//        oEmpFile << e.jobs[j].address << "\n";
-//        oEmpFile << e.jobs[j].salary << "\n";
-//        oEmpFile << e.jobs[j].about << "\n";
-//        oEmpFile << e.jobs[j].jobType << "\n";
-//        oEmpFile << e.jobs[j].jobHours << "\n";
-//        oEmpFile << e.jobs[j].experience << "\n";
-//        oEmpFile << e.jobs[j].jobArea << "\n";
-//        oEmpFile << e.jobs[j].jobRange << "\n";
-//        oEmpFile << e.jobs[j].status << "\n";
-//        oEmpFile << e.jobs[j].numOfSub << endl;
-//    }
-//    oEmpFile.close();
+//    e1.addJob(2);
 
-
-
-
+//
 //    string s;
 //    cin >> s;
 //    cout << s;
@@ -81,13 +131,10 @@ int main() {
 //    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 //    getline(cin, s);
 //    cout << s;
+//
 
-//    Employer e("206576977", "123", "why", "becouse");
-//    Employer e2("206999999", "903", "what", "this");
-//    lenE = 2;
-//    emps[0] = e;
-//    emps[1] = e2;
-
+//
+//
 //    //Job* jobs = new Job [2];
 //    char** n = new char * [1];
 //    Job j1(n, 1, "e", 1, 1, "w", 1, 1, "w", 1, 1, 1, "10", "stam");
@@ -95,16 +142,21 @@ int main() {
 //  //  Job j3 = j1;
 //   // j2 = j1;
 //    char businessName [20];
-
+//
 //    cout << "Enter business name:\n";
 //    cin.get(businessName, 20);
 //    cout << businessName;
 
+//    ManagementSystem m;
+//    m.print();
+//    m.mainMenu();
+
+//cin>>
+//cin.get(c,c);
 
 
-    ManagementSystem m;
-    m.mainMenu();
-
+//char id [80];
+//cin.getline(id,60);
 
 //
 //    int i = 0;
@@ -115,28 +167,6 @@ int main() {
 //        }
 //    }
 
-
-
-//    switch (i) {
-//        case 1:
-//            cout<< "1";
-//            break;
-//        case 2:
-//            cout<< "2";
-//            break;
-//        default:
-//            cout <<"bla\n";
-//    }
-
-
-
-
-//    char b [10];
-//   cout <<"a\n";
-//    cin >> b;
-//    cout <<"a\n";
-//    cout << b;
-//    cout <<"a\n";
     std::cout << "Hello, World!" << std::endl;
     return 0;
 }
