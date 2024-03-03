@@ -99,7 +99,7 @@ void Employer:: printDetails() {
 
 }
 
-void Employer::printJobs(){
+void Employer:: printJobs(){
     if(this->jobsNum == 0)
         cout << "No jobs have been posted yet\n";
     else
@@ -166,7 +166,7 @@ bool Employer:: addJob(int num){
     job.printForCand();
     return true;
 }
-void Employer::  sortJobs() {
+void Employer:: sortJobs() {
     if (this->jobsNum == 0)
         cout << "No jobs have been posted yet\n";
     else {

@@ -184,6 +184,7 @@ Job:: ~Job(){
 }
 
 void Job::printForCand(){
+    cout << "ID: " << id;
     cout << "Business Name: " << businessName <<".\n";
     cout << "Profession: " << jobProfession << ".\n";
     cout << "Address: " << address << ".\n";
@@ -234,8 +235,6 @@ void Job::printForCand(){
         cout << "Short term job.\n";
     else
         cout << "Long term job.\n";
-
-
 
 }
 

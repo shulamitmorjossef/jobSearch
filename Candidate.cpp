@@ -199,6 +199,8 @@ void Candidate::updateDetails() {
 
     cout << "For each field enter a new value (or press Enter to skip): \n";
     cout << "First name: " << fName ;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
     getline(cin, newValue);
     if(!newValue.empty()) {
         delete [] fName;
@@ -271,7 +273,7 @@ void Candidate::updateDetails() {
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
 }
-bool Candidate::addApply(int id) {
+void Candidate::addApply(int id) {
     Apply a1(id);
     Apply* tmp= new Apply [numOfSub + 1];
     for (int i = 0; i <numOfSub ; ++i) {
@@ -280,7 +282,7 @@ bool Candidate::addApply(int id) {
     delete [] submissions;
     submissions=tmp;
     submissions[numOfSub]=a1;
-    submissions++;
+    numOfSub++;
     for (int i = 0; i <2 ; ++i) {
         cout<<"The Apply "<<i+1<<" is : \n";
         submissions[i].print();

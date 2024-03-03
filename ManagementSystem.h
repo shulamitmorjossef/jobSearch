@@ -29,7 +29,7 @@ public:
     void signUpCan();
     void logIn(int type);
     bool forgetPassword(int type, bool exists, int index);
-//    int searchJob();
+    int searchJob(int* arr);
 
     void print();
 
@@ -40,6 +40,7 @@ private:
     int numOfEmp;
     Candidate* candidates;
     int numOfCan;
+    int numOfJobs;
 };
 
 

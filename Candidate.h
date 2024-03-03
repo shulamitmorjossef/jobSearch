@@ -21,7 +21,7 @@ public:
     void printSub();
     void printProfile();
     void printDetails();
-    bool addApply(int id);
+    void addApply(int id);
     void printSortSub();
     int deleteApply(int index);
     void updateDetails();
@@ -44,7 +44,7 @@ public:
 
     friend class ManagementSystem;
 
-//private:
+private:
     char* id ;
     char* password ;
     int forgetPassQ ;

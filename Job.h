@@ -47,7 +47,7 @@ public:
     friend class ManagementSystem;
 
 
-//private:
+private:
     int id;
     char* businessName;
     char* jobProfession;
