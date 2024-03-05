@@ -370,7 +370,11 @@ void ManagementSystem:: signUpEmp(){
 
     //todo print the question
     cout << "Enter your answer:" <<endl;
-    cin >> A;
+    cin.getline(A,10);
+    if (!(cin.getline(A,10))) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
 
     Employer e(id, pass, Q, A);
     Employer* tmp = new Employer[numOfEmp+1];
@@ -391,7 +395,7 @@ void ManagementSystem:: signUpCan(){
     char A [10];
     char fName [20] ;
     char lName [20];
-    char email [40];
+    char email [20];
     char phone [12];
     char address [30];
     char profession [15];
@@ -450,7 +454,7 @@ void ManagementSystem:: signUpCan(){
     //todo Checking whether the password is according to the rules
     //todo input password again for verify
 
-    cout << "Choose a question for safety:\n "
+    cout << "Choose a question for safety:\n"
             "1 = The name of your paternal grandfather\n"
             "2 = Your favorite pet\n"
             "3 = Date of your birthday\n"
@@ -469,14 +473,59 @@ void ManagementSystem:: signUpCan(){
 
     //todo print the question
     cout << "Enter your answer:" <<endl;
-    cin >> A;
+    cin.getline(A,10);
+    if (!(cin.getline(A,10))) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
 
     cout << "Your first name:" <<endl;
-    cin >> fName;
+    fgets(fName, 20, stdin);
+    if (fName[strlen(fName) - 1] != '\n')
+        while (getchar() != '\n');
+    fName[strcspn(fName,"\n")]='\0';
+
+
     cout << "Your last name:" <<endl;
-    cin >>lName ;
-    cout << "Your email:" <<endl;
-    cin >> email ;
+    fgets(lName, 20, stdin);
+    if (lName[strlen(lName) - 1] != '\n')
+        while (getchar() != '\n');
+    lName[strcspn(lName,"\n")]='\0';
+
+
+
+    cout << "Enter your email:"<<endl;
+    cin.get(email, 20);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    bool isValid = false;
+
+    while (!isValid) {
+        bool hasAt = false;
+        bool hasDot = false;
+        bool noSpaces = true;
+
+        for (int i = 0; email[i] != '\0'; ++i) {
+            if (email[i] == '@') {
+                hasAt = true;
+            }
+            if (email[i] == '.') {
+                hasDot = true;
+            }
+            if (email[i] == ' ') {
+                noSpaces = false;
+            }
+        }
+
+        isValid = hasAt && hasDot && noSpaces;
+
+        if (!isValid) {
+            cout << "Invalid email. Try again:" << endl;
+            cin.get(email, 20);
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+    }
+
+
     cout << "Your phone number:" <<endl;
     cin>>phone;
 
@@ -500,14 +549,46 @@ void ManagementSystem:: signUpCan(){
         cin >> age;
     }
 
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     cout << "Your address:" <<endl;
-    cin >> address ;
+    fgets(address, 30, stdin);
+    if (address[strlen(address) - 1] != '\n')
+        while (getchar() != '\n');
+    address[strcspn(fName,"\n")]='\0';
+
+
     cout << "Your profession:" <<endl;
-    cin >> profession ;
+    fgets(profession, 15, stdin);
+    if (profession[strlen(profession) - 1] != '\n')
+        while (getchar() != '\n');
+    profession[strcspn(fName,"\n")]='\0';
+
+
     cout << "Tell a little about yourself:" <<endl;
-    cin >> about;
+    fgets(about, 200, stdin);
+    if (about[strlen(about) - 1] != '\n')
+        while (getchar() != '\n');
+    about[strcspn(fName,"\n")]='\0';
+
+
+
+
+
+
 
     Candidate c(id, pass, Q, A, fName, lName, email, phone, age, address, profession, about);
+
+    string cv;
+    cout << "If you want to submit your (or press Enter to skip): \n";
+    getline(cin, cv);
+    if(!cv.empty()) {
+        delete [] c.CV;
+        c.CV = new char[cv.size() + 1];
+        strcpy(c.CV, cv.c_str());
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        c.isCv= true;
+    }
+
     Candidate* tmp = new Candidate[numOfCan+1];
     for(int i = 0; i< numOfCan; ++i){
         tmp[i] = candidates[i];
@@ -802,6 +883,7 @@ void ManagementSystem:: mainCan(Candidate& candidate){
          else if (choice == 3) {
             candidate.printSortSub();
         }
+         if(candidate.numOfSub!=0){
         while (choose < 0 || choose > candidate.numOfSub) {
             cout << "Enter number of submission to delete it or 0 to exit:\n";
             if (!(cin >> choose)) {
@@ -832,7 +914,10 @@ void ManagementSystem:: mainCan(Candidate& candidate){
                     }
             }
         }
+     }
+        mainCan(candidate);
     }
+
 }
 int ManagementSystem:: searchJob(int* arr){
     int t = -1, h = -1, e = -1, a = -1, age = -1, s = -1, r = -1;

@@ -7,6 +7,8 @@
 #include <string>
 #include <limits>
 #include <iostream>
+#include <sstream>
+
 using namespace std;
 
 
@@ -198,14 +200,14 @@ void Candidate::updateDetails() {
     string newValue;
 
     cout << "For each field enter a new value (or press Enter to skip): \n";
-    cout << "First name: " << fName ;
+    cout << "First name: " << fName<<endl ;
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
     getline(cin, newValue);
     if(!newValue.empty()) {
         delete [] fName;
         fName = new char[newValue.size() + 1];
         strcpy(fName, newValue.c_str());
+        cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
     cout << "Last name: " << lName;
@@ -219,19 +221,96 @@ void Candidate::updateDetails() {
     cout << "Email: " << email;
     getline(cin, newValue);
     if(!newValue.empty()) {
+        bool isValid = false;
+        while (!isValid) {
+            bool hasAt = false;
+            bool hasDot = false;
+            bool noSpaces = true;
+
+            for (int i = 0; newValue[i] != '\0'; ++i) {
+                if (newValue[i] == '@') {
+                    hasAt = true;
+                }
+                if (newValue[i] == '.') {
+                    hasDot = true;
+                }
+                if (newValue[i] == ' ') {
+                    noSpaces = false;
+                }
+            }
+
+            isValid = hasAt && hasDot && noSpaces;
+
+            if (!isValid) {
+                cout << "Invalid email. Try again:" << endl;
+                getline(cin, newValue);
+            }
+        }
         delete [] email;
         email = new char[newValue.size() + 1];
         strcpy(email, newValue.c_str());
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
+
+
+int newAge;
+    cout << "Age: " << age;
+
+    while (true) {
+        std::getline(std::cin, newValue); // Read a line of input
+
+        if (newValue.empty()) {
+            // If the input is empty (user pressed Enter), continue with program logic
+            break;
+        } else {
+            // If the input is not empty, attempt to convert it to an integer
+            std::stringstream ss(newValue);
+            int temp;
+            if (ss >> temp) {
+                // If conversion to integer was successful, update the number variable
+                age = temp;
+                break; // Exit the loop
+            } else {
+                // If input is not a number, prompt the user to enter a valid integer
+                std::cout << "Invalid input. Please enter a valid integer." << std::endl;
+            }
+        }
+    }
+
+    //    getline(cin, newValue);
+//    if(!newValue.empty()) {
+//        for (int i = 0; newValue[i] != '\0'; i++) {
+//            if (newValue[i] < '0' || newValue[i] > '9'|| cin.fail()) {
+//                cout << "Invalid input. Please enter your age:" << endl;
+//                cin.clear();
+//                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+//                getline(cin, newValue);
+//                i = -1;
+//            }
+//        }
+//        age = stoi(newValue);
+////        to_string(age)= new char[newValue.size() + 1];
+////        strcpy(to_string(age), newValue.c_str());
+//        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+//    }
     cout << "Phone: " << phone;
     getline(cin, newValue);
     if(!newValue.empty()) {
+        for (int i = 0; newValue[i] != '\0'; i++) {
+            if (newValue[i] < '0' || newValue[i] > '9'||newValue.length() != 10 || cin.fail()) {
+                cout << "Invalid input. Please enter your phone:" << endl;
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                getline(cin, newValue);
+                i = -1;
+            }
+        }
         delete [] phone;
         phone= new char[newValue.size() + 1];
         strcpy(phone, newValue.c_str());
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
+
     cout << "Address: " << address;
     getline(cin, newValue);
     if(!newValue.empty()) {
@@ -269,6 +348,14 @@ void Candidate::updateDetails() {
     cout << "Age: " << age;
     getline(cin, newValue);
     if(!newValue.empty()) {
+        while (age< 0 || age>200 || cin.fail()) {
+            if (cin.fail()) {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            }
+            cout << "Try again, Your age:" <<endl;
+            getline(cin, newValue);
+        }
         age =  stoi(newValue);
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
