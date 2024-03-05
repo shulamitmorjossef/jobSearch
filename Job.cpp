@@ -244,6 +244,7 @@ bool Job:: getStatus(){
 
 void Job::updateJob(){
     string newValue;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     cout << "For each field enter a new value (or press Enter to skip): \n";
     cout << "Business Name: " << businessName;
     getline(cin, newValue);
@@ -293,9 +294,27 @@ void Job::updateJob(){
         cout << "Part time job.\n";
     cout << "Press 1/2/enter\nFull time job (1)\nPart time job (2)\n";
     getline(cin, newValue);
+
     if(!newValue.empty()) {
-        jobType =  stoi(newValue);
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+//        while ((jobType != 1 && jobType != 2)|| cin.peek() != '\n') {
+//            if (!(cin>>jobType)) {
+//                cin.clear();
+//                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+//                jobType=-2;
+//            }
+//            cout << "Try again, enter your choose:\n" ;
+//            cin >> jobType;
+//        }
+        if(newValue == "1" || newValue == "2"){
+            jobType =  stoi(newValue);
+//            cout<<"The input has been updated, press enter to continue";
+//            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        } else{
+            cout << "Invalid input. The field remains the same, press enter to continue";
+//            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+        }
+
     }
     cout << "Hours of job: " ;
     if(jobHours == 1)
@@ -305,8 +324,15 @@ void Job::updateJob(){
     cout << "Press 1/2/enter\nMorning hours (1)\nEvening hours (2)\n";
     getline(cin, newValue);
     if(!newValue.empty()) {
-        jobHours =  stoi(newValue);
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        if(newValue == "1" || newValue == "2"){
+            jobHours =  stoi(newValue);
+//            cout<<"The input has been updated, press enter to continue";
+//            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        } else{
+            cout << "Invalid input. The field remains the same\n";
+//            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+        }
     }
     cout << "Experience required: ";
     if(experience == 1)
@@ -318,8 +344,15 @@ void Job::updateJob(){
     cout << "Press 1/2/3/enter\nInexperienced (1)\nUp to three years (2)\nThree years or more (3)\n";
     getline(cin, newValue);
     if(!newValue.empty()) {
-        experience =  stoi(newValue);
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        if(newValue == "1" || newValue == "2"|| newValue== "3"){
+            experience =  stoi(newValue);
+//            cout<<"The input has been updated, press enter to continue";
+//            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        } else{
+            cout << "Invalid input. The field remains the same\n";
+//            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+        }
     }
     cout << "Area of job: ";
     if(jobArea == 1)
@@ -331,21 +364,28 @@ void Job::updateJob(){
     cout << "Press 1/2/3/enter\nNorth (1)\nCenter (2)\nSouth (3)\n";
     getline(cin, newValue);
     if(!newValue.empty()) {
-        jobArea =  stoi(newValue);
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        if(newValue == "1" || newValue == "2"||newValue=="3"){
+            jobArea =  stoi(newValue);
+            cout<<"The input has been updated, press enter to continue";
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        } else{
+            cout << "Invalid input. The field remains the same"<< endl;}
     }
     cout << "Age required: " ;
-    if(jobArea == 1)
+    if(age == 1)
         cout << "Up to 18.\n";
-    else if(jobArea == 2)
+    else if(age == 2)
         cout << "18-24.\n";
     else
         cout << "24 and above.\n";
     cout << "Press 1/2/3/enter\nUp to 18 (1)\n18-24 (2)\n24 and above (3)\n";
-    getline(cin, newValue);
     if(!newValue.empty()) {
-        age =  stoi(newValue);
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        if(newValue == "1" || newValue == "2"||newValue=="3"){
+            age =  stoi(newValue);
+//            cout<<"The input has been updated, press enter to continue";
+//            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        } else{
+            cout << "Invalid input. The field remains the same"<< endl;}
     }
     cout << "Suitable for: " ;
     if(jobFor == 1)
@@ -357,10 +397,13 @@ void Job::updateJob(){
     else
         cout << "Not a special job.\n";
     cout << "Press 1/2/3/4/enter\nStudents (1)\nSoldiers (2)\nPupils (3)\nElse (4)\n";
-    getline(cin, newValue);
     if(!newValue.empty()) {
-        jobFor =  stoi(newValue);
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        if(newValue == "1" || newValue == "2"||newValue=="3"||newValue=="4"){
+            jobFor =  stoi(newValue);
+//            cout<<"The input has been updated, press enter to continue";
+//            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        } else{
+            cout << "Invalid input. The field remains the same"<< endl;}
     }
     cout << "Range: " ;
     if(jobRange == 1)
@@ -370,8 +413,12 @@ void Job::updateJob(){
     cout << "Press 1/2/enter\nShort term job (1)\nLong term job (2)\n";
     getline(cin, newValue);
     if(!newValue.empty()) {
-        jobRange =  stoi(newValue);
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        if(newValue == "1" || newValue == "2"){
+            jobRange =  stoi(newValue);
+//            cout<<"The input has been updated, press enter to continue";
+//            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        } else{
+            cout << "Invalid input. The field remains the same"<< endl;}
     }
     if(!status) {
         cout << "The job is not available, click 1 to post it again or enter to continue\n";

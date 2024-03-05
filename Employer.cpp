@@ -5,6 +5,8 @@
 #include "Employer.h"
 #include <iostream>
 #include <cstring>
+#include <limits>
+
 using namespace std;
 
 Employer:: Employer(){
@@ -110,26 +112,37 @@ void Employer:: printJobs(){
 }
 bool Employer:: addJob(int num){
     int id;
-    char businessName [20];
+    char businessName [10];
     char jobProfession [20];
     char address [20];
     char salary [20];
     char about [200];
-    int jobType;
-    int jobHours;
-    int experience;
-    int jobArea;
-    int age;
-    int jobFor;
-    int jobRange;
-    bool status;
+    int jobType=-2;
+    int jobHours=-2;
+    int experience=-2;
+    int jobArea=-2;
+    int age=-2;
+    int jobFor=-2;
+    int jobRange=-2;
+//    bool status;
     id = num + 1;
 
     cout << "Enter business name:\n";
-    cin >> businessName;
+//    cin>>businessName;
+    cin.getline(businessName,10);
+    if(!(cin.get(businessName,10))){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+
 
     cout << "Enter job profession:\n";
-    cin >> jobProfession;
+//    cin>>jobProfession;
+    cin.getline(jobProfession,10);
+    if(!(cin.get(jobProfession,10))){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
 
     cout << "Enter business address:\n";
     cin >> address ;
@@ -139,20 +152,49 @@ bool Employer:: addJob(int num){
     cout << "Tell about the job:\n";
     cin >> about ;
     cout << "The job is:\nFull time job (1)\nPart time job (2)\n";
-    cin >> jobType;
+    while (!(cin >> jobType) || (jobType != 1 && jobType != 2)|| cin.peek() != '\n') {
+        cout << "Invalid input. Please enter again: ";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+
     cout << "The job is:\nIn the morning hours (1)\nIn the evening hours (2)\n";
-    cin >> jobHours;
+    while (!(cin >> jobHours) || (jobHours != 1 && jobHours != 2)|| cin.peek() != '\n') {
+        cout << "Invalid input. Please enter again: ";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+
     cout << "The position requires experience of:\nInexperienced (1)\nUp to three years (2)\nThree years or more (3)\n";
-    cin >> experience;
+    while (!(cin >> experience) || (experience != 1 && experience != 2 && experience != 3)|| cin.peek() != '\n') {
+        cout << "Invalid input. Please enter again: ";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
     cout << "The job is in the:\nNorth (1)\nCenter (2)\nSouth (3)\n";
-    cin >> jobArea;
+    while (!(cin >> jobArea) || (jobArea != 1 && jobArea != 2 && jobArea != 3)|| cin.peek() != '\n') {
+        cout << "Invalid input. Please enter again: ";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
     cout << "The job for ages:\nUp to 18 (1)\n18-24 (2)\n24 and above (3)\n";
-    cin >> age;
+    while (!(cin >> age) || (age != 1 && age != 2 && age != 3)|| cin.peek() != '\n') {
+        cout << "Invalid input. Please enter again: ";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
     cout << "The job is suitable for:\nStudents (1)\nSoldiers (2)\nPupils (3)\nElse (4)\n";
-    cin >> jobFor;
+    while (!(cin >> jobFor) || (jobFor != 1 && jobFor != 2 && jobFor != 3 && jobFor != 4)|| cin.peek() != '\n') {
+        cout << "Invalid input. Please enter again: ";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
     cout << "The job is:\nShort term job (1)\nLong term job (2)\n";
-    cin >> jobRange;
-    status = true;
+    while (!(cin >> jobRange) || (jobRange != 1 && jobRange != 2 )|| cin.peek() != '\n') {
+        cout << "Invalid input. Please enter again: ";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
     Job job(id, businessName, jobProfession, address, salary, about, jobType, jobHours, experience, jobArea, age, jobFor, jobRange);
     Job* tmp = new Job[jobsNum+1];
     for(int i = 0; i < jobsNum; ++i)

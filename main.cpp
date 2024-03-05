@@ -11,6 +11,14 @@ int main() {
     ManagementSystem m;
 //    m.print();
     m.mainMenu();
+//    int jobType;
+//
+//    cout<<"enter\n";
+//    while (!(cin >> jobType) || (jobType != 1 && jobType != 2)|| cin.peek() != '\n') {
+//        cout << "Invalid input. Please enter 1 or 2: ";
+//        cin.clear();
+//        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+//    }
 //    string newValue;
 //    char fName [20] ;
 //    char lName [20];

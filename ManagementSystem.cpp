@@ -392,7 +392,7 @@ void ManagementSystem:: signUpCan(){
     char pass [17];
     char pass1[17];
     int Q ;
-    char A [10];
+    char A [20];
     char fName [20] ;
     char lName [20];
     char email [20];
@@ -472,12 +472,17 @@ void ManagementSystem:: signUpCan(){
     }
 
     //todo print the question
+
     cout << "Enter your answer:" <<endl;
-    cin.getline(A,10);
-    if (!(cin.getline(A,10))) {
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    }
+    fgets(A, 20, stdin);
+    if (A[strlen(A) - 1] != '\n')
+        while (getchar() != '\n');
+    A[strcspn(A,"\n")]='\0';
+//    cin.getline(A,10);
+//    if (!(cin.getline(A,10))) {
+//        cin.clear();
+//        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+//    }
 
     cout << "Your first name:" <<endl;
     fgets(fName, 20, stdin);
@@ -554,21 +559,21 @@ void ManagementSystem:: signUpCan(){
     fgets(address, 30, stdin);
     if (address[strlen(address) - 1] != '\n')
         while (getchar() != '\n');
-    address[strcspn(fName,"\n")]='\0';
+    address[strcspn(address,"\n")]='\0';
 
 
     cout << "Your profession:" <<endl;
     fgets(profession, 15, stdin);
     if (profession[strlen(profession) - 1] != '\n')
         while (getchar() != '\n');
-    profession[strcspn(fName,"\n")]='\0';
+    profession[strcspn(profession,"\n")]='\0';
 
 
     cout << "Tell a little about yourself:" <<endl;
     fgets(about, 200, stdin);
     if (about[strlen(about) - 1] != '\n')
         while (getchar() != '\n');
-    about[strcspn(fName,"\n")]='\0';
+    about[strcspn(about,"\n")]='\0';
 
 
 
@@ -728,7 +733,7 @@ void ManagementSystem:: mainEmp(Employer& employer) {
     }
     if(choice == 0) {
         mainMenu();
-        return;
+//        return;
     }
     if (choice == 1) {
         if (employer.addJob(numOfJobs)) {
@@ -740,98 +745,101 @@ void ManagementSystem:: mainEmp(Employer& employer) {
             employer.printJobs();
     else if (choice == 3)
             employer.sortJobs();
-    while (index <= 0 || index > numOfJobs){
-        cout << "Enter number of job or 0 to exit:\n";
-        if(!(cin>>index)){
-            cin.clear();
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        }
-    }
-    if (index == 0) {
-        mainEmp(employer);
-        return;
-    }
-    else {
-        index--;
-        choice = 4;
-        while (choice != 1 && choice != 2 && choice != 3) {
-            cout << "Delete job (1)\nUpdate job (2)\nSee candidate's profiles (3)\nExit (0)\n";
-            if(!(cin>>choice)){
+    if (choice == 2||choice == 3){
+        while (index <= 0 || index > numOfJobs){
+            cout << "Enter number of job or 0 to exit:\n";
+            if(!(cin>>index)){
                 cin.clear();
                 cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             }
         }
-        if (choice == 0) {
+        if (index == 0) {
             mainEmp(employer);
-            return;
+    //        return;
         }
-        if (choice == 1) {
-            while (choose != 1 && choose != 2 && choose != 0) {
-                cout << "Do you want to delete the job permanently (1) or temporarily (2)?\nExit (0)\n";
-                if(!(cin>>choose)){
+        else {
+            index--;
+            choice = 4;
+            while (choice != 1 && choice != 2 && choice != 3) {
+                cout << "Delete job (1)\nUpdate job (2)\nSee candidate's profiles (3)\nExit (0)\n";
+                if(!(cin>>choice)){
                     cin.clear();
                     cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 }
             }
-            if (choose == 0) {
+            if (choice == 0) {
                 mainEmp(employer);
-                return;
+    //            return;
             }
-            if (choose == 1) {
-                int safe = 0;
-                while (safe != 1 && safe != 2 && safe != 0) {
-                    cout << "Are you sure? (yes (1)/no (2))\nExit (0)\n";
-                    if (!(cin >> safe)) {
+            if (choice == 1) {
+                while (choose != 1 && choose != 2 && choose != 0) {
+                    cout << "Do you want to delete the job permanently (1) or temporarily (2)?\nExit (0)\n";
+                    if(!(cin>>choose)){
                         cin.clear();
                         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                     }
                 }
-                if (safe == 0) {
+                if (choose == 0) {
                     mainEmp(employer);
-                    return;
+    //                return;
                 }
-                if (safe == 1)
-                    employer.deleteJob(index);
-                mainEmp(employer);
-            }
-            else if(choose == 2)
-                employer.jobs[index].setStatus(false);
-        }
-        else if (choice == 2)
-                employer.jobs[index].updateJob();
-        else if (choice == 3) {
-            int prof = -1;
-            employer.jobs[index].printSubPro(candidates, numOfCan);
-
-            while (prof <0 || prof > employer.jobs[index].numOfSub) {
-                cout << "Enter number of profile to reject his request\nExit (0)";
-                if (!(cin >> prof)) {
-                    cin.clear();
-                    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                if (choose == 1) {
+                    int safe = 0;
+                    while (safe != 1 && safe != 2 && safe != 0) {
+                        cout << "Are you sure? (yes (1)/no (2))\nExit (0)\n";
+                        if (!(cin >> safe)) {
+                            cin.clear();
+                            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        }
+                    }
+                    if (safe == 0) {
+                        mainEmp(employer);
+    //                    return;
+                    }
+                    if (safe == 1)
+                        employer.deleteJob(index);
+                    mainEmp(employer);
                 }
+                else if(choose == 2)
+                    employer.jobs[index].setStatus(false);
             }
-            if(prof == 0){
-                mainEmp(employer);
-                return;
+            else if (choice == 2)
+                    employer.jobs[index].updateJob();
+            else if (choice == 3) {
+                int prof = -1;
+                employer.jobs[index].printSubPro(candidates, numOfCan);
+
+                while (prof <0 || prof > employer.jobs[index].numOfSub) {
+                    cout << "Enter number of profile to reject his request\nExit (0)";
+                    if (!(cin >> prof)) {
+                        cin.clear();
+                        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    }
+                }
+                if(prof == 0){
+                    mainEmp(employer);
+    //                return;
+                }
+
+                prof--;
+                for(int i = 0 ; i < numOfCan; ++i)
+                    if(strcmp(candidates[i].id, employer.jobs[index].idOfSub[prof]) == 0)
+                        for(int j = 0; j < candidates[i].numOfSub; ++i)
+                            if(candidates[i].submissions[j].idOfJob == employer.jobs[index].id)
+                                candidates[i].submissions[j].setStatus(false);
+
+                char** tmp = new char* [employer.jobs[index].numOfSub - 1];
+                for(int i = 0; i < prof; ++i)
+                    strcpy(tmp[i], employer.jobs[index].idOfSub[i]);
+                for(int i = prof+1; i < employer.jobs[index].numOfSub; ++i)
+                    strcpy(tmp[i - 1], employer.jobs[index].idOfSub[i]);
+                delete [] employer.jobs[index].idOfSub;
+                employer.jobs[index].idOfSub = tmp;
             }
-
-            prof--;
-            for(int i = 0 ; i < numOfCan; ++i)
-                if(strcmp(candidates[i].id, employer.jobs[index].idOfSub[prof]) == 0)
-                    for(int j = 0; j < candidates[i].numOfSub; ++i)
-                        if(candidates[i].submissions[j].idOfJob == employer.jobs[index].id)
-                            candidates[i].submissions[j].setStatus(false);
-
-            char** tmp = new char* [employer.jobs[index].numOfSub - 1];
-            for(int i = 0; i < prof; ++i)
-                strcpy(tmp[i], employer.jobs[index].idOfSub[i]);
-            for(int i = prof+1; i < employer.jobs[index].numOfSub; ++i)
-                strcpy(tmp[i - 1], employer.jobs[index].idOfSub[i]);
-            delete [] employer.jobs[index].idOfSub;
-            employer.jobs[index].idOfSub = tmp;
         }
     }
 }
+
 void ManagementSystem:: mainCan(Candidate& candidate){
     int choice = -1;
     int choose = -1;
