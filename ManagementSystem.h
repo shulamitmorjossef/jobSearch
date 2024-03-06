@@ -12,12 +12,17 @@
 #include <iostream>
 #include <cstring>
 #include <fstream>
+#include <vector>
+
 
 class ManagementSystem {
 public:
     ManagementSystem();
     ~ManagementSystem();
 
+    char* setPass();
+    void getID();
+    void pushID();
     void getEmp();
     void pushEmp();
     void getCan();
@@ -29,11 +34,11 @@ public:
     void signUpCan();
     void logIn(int type);
     bool forgetPassword(int type, bool exists, int index);
-    int searchJob(int* arr);
-
-    void print();
-
-
+    void searchJob(Candidate& candidate);
+    void addApply(Job* jobs, int num, Candidate& candidate);
+    void printSubOfCan(Candidate& candidate);
+    void printSortSub(Candidate& candidate);
+    void printSub(Apply& sub);
 
 private:
     Employer* employers;
@@ -41,6 +46,7 @@ private:
     Candidate* candidates;
     int numOfCan;
     int numOfJobs;
+    int ID;
 };
 
 

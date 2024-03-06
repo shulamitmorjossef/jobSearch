@@ -183,65 +183,6 @@ Job:: ~Job(){
     delete [] about;
 }
 
-void Job::printForCand(){
-    cout << "ID: " << id;
-    cout << "Business Name: " << businessName <<".\n";
-    cout << "Profession: " << jobProfession << ".\n";
-    cout << "Address: " << address << ".\n";
-    cout << "salary: " << salary << ".\n";
-    cout << "About the job: \n" << about << ".\n";
-    cout << "Type of job: ";
-    if(jobType == 1)
-        cout << "Full time job.\n";
-    else
-        cout << "Part time job.\n";
-    cout << "Hours of job: " ;
-    if(jobHours == 1)
-        cout << "Morning hours.\n";
-    else
-        cout << "Evening hours.\n";
-    cout << "Experience required: ";
-    if(experience == 1)
-        cout << "Inexperienced.\n";
-    else if(experience == 2)
-        cout << "Up to three years.\n";
-    else
-        cout << "Three years or more.\n";
-    cout << "Area of job: ";
-    if(jobArea == 1)
-        cout << "North.\n";
-    else if(jobArea == 2)
-        cout << "Center.\n";
-    else
-        cout << "South.\n";
-    cout << "Age required: " ;
-    if(jobArea == 1)
-        cout << "Up to 18.\n";
-    else if(jobArea == 2)
-        cout << "18-24.\n";
-    else
-        cout << "24 and above.\n";
-    cout << "Suitable for: " ;
-    if(jobFor == 1)
-    cout << "Students.\n";
-    else if(jobFor == 2)
-        cout << "Soldiers.\n";
-    else if(jobFor == 3)
-        cout << "Pupils.\n";
-    else
-        cout << "Not a special job.\n";
-    cout << "Range: " ;
-    if(jobRange == 1)
-        cout << "Short term job.\n";
-    else
-        cout << "Long term job.\n";
-
-}
-
-bool Job:: getStatus(){
-    return status;
-}
-
 void Job::updateJob(){
     string newValue;
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -427,6 +368,8 @@ void Job::updateJob(){
             status = true;
         }
     }
+    cout << "The job details have been successfully updated!\n";
+    cout << "--------------------------------------------------------------------------------------------------------------\n";
 }
 
 void Job::addSub(char *id) {
@@ -463,6 +406,62 @@ void Job::deleteSub(char *id) {
     numOfSub--;
 }
 
+void Job::printForCand(){
+//    cout << "ID: \n" << id << endl << endl;
+    cout << "Business Name: \n" << businessName <<".\n\n";
+    cout << "Profession: \n" << jobProfession << ".\n\n";
+    cout << "Address: \n" << address << ".\n\n";
+    cout << "salary: \n" << salary << ".\n\n";
+    cout << "About the job: \n" << about << ".\n\n";
+    cout << "Type of job: \n";
+    if(jobType == 1)
+        cout << "Full time job.\n\n";
+    else
+        cout << "Part time job.\n\n";
+    cout << "Hours of job: \n" ;
+    if(jobHours == 1)
+        cout << "Morning hours.\n\n";
+    else
+        cout << "Evening hours.\n\n";
+    cout << "Experience required: \n";
+    if(experience == 1)
+        cout << "Inexperienced.\n\n";
+    else if(experience == 2)
+        cout << "Up to three years.\n\n";
+    else
+        cout << "Three years or more.\n\n";
+    cout << "Area of job: \n";
+    if(jobArea == 1)
+        cout << "North.\n\n";
+    else if(jobArea == 2)
+        cout << "Center.\n\n";
+    else
+        cout << "South.\n\n";
+    cout << "Age required: \n" ;
+    if(jobArea == 1)
+        cout << "Up to 18.\n\n";
+    else if(jobArea == 2)
+        cout << "18-24.\n\n";
+    else
+        cout << "24 and above.\n\n";
+    cout << "Suitable for: \n" ;
+    if(jobFor == 1)
+        cout << "Students.\n\n";
+    else if(jobFor == 2)
+        cout << "Soldiers.\n\n";
+    else if(jobFor == 3)
+        cout << "Pupils.\n\n";
+    else
+        cout << "Not a special job.\n\n";
+    cout << "Range: \n" ;
+    if(jobRange == 1)
+        cout << "Short term job.\n\n";
+    else
+        cout << "Long term job.\n\n";
+
+    cout << "--------------------------------------------------------------------------------------------------------------\n";
+}
+
 void Job::printForEmp() {
     cout << "Status: " ;
     if( status )
@@ -481,75 +480,46 @@ void Job::printSubPro(Candidate* candidate, int len) {
             }
 }
 
-void Job::setId(int id)
-{
-    this->id=id;
-
-}
 void Job::setBusinessName( char* businessName)
 {
     delete[]this->businessName;
     this->businessName=new char[strlen(businessName)+1];
     strcpy(this->businessName,businessName);
 }
-void Job::setJobType(int jobType)
-{
-    this->jobType= jobType;
-}
-void Job::setJobHours(int jobHours)
-{
-    this->jobHours=jobHours;
-}
+
 void Job::setJobProfession (char* jobProfession)
 {
     delete[]this->jobProfession;
     this->jobProfession=new char[strlen(jobProfession)+1];
     strcpy(this->jobProfession,jobProfession);
 }
-void Job::setExperience(int experience)
-{
-    this->experience= experience;
-}
-void Job::setJobArea (int jobArea)
-{
-    this->jobArea=jobArea;
-}
+
 void Job::setAddress (char* address)
 {
     delete[]this->address;
     this->address=new char[strlen(address)+1];
     strcpy(this->address,address);
 }
-void Job::setAge (int age)
-{
-    this->age=age;
-}
-void Job::setJobFor(int jobFor)
-{
-    this->jobFor=jobFor;
-}
-void Job::setJobRange(int jobRange)
-{
-    this->jobRange=jobRange;
-}
+
 void Job::setSalary(char* salary)
 {
     delete[]this->salary;
     this->salary=new char[strlen(salary)+1];
     strcpy(this->salary,salary);
 }
+
 void Job::setAbout(char* about)
 {
     delete[]this->about;
     this->about=new char[strlen(about)+1];
     strcpy(this->about,about);
 }
+
 void Job::setStatus(bool status)
 {
     this->status=status;
 }
-void Job::setNumOfSub(int numOfSub)
-{
-    this->numOfSub=numOfSub;
-}
 
+bool Job:: getStatus(){
+    return status;
+}

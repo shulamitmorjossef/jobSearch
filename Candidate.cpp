@@ -11,7 +11,6 @@
 
 using namespace std;
 
-
 Candidate::Candidate(){
     id = NULL ;
     password  = NULL;
@@ -210,6 +209,8 @@ void Candidate::updateDetails() {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
+
+
     cout << "Last name: " << lName;
     getline(cin, newValue);
     if(!newValue.empty()) {
@@ -277,22 +278,6 @@ int newAge;
         }
     }
 
-    //    getline(cin, newValue);
-//    if(!newValue.empty()) {
-//        for (int i = 0; newValue[i] != '\0'; i++) {
-//            if (newValue[i] < '0' || newValue[i] > '9'|| cin.fail()) {
-//                cout << "Invalid input. Please enter your age:" << endl;
-//                cin.clear();
-//                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-//                getline(cin, newValue);
-//                i = -1;
-//            }
-//        }
-//        age = stoi(newValue);
-////        to_string(age)= new char[newValue.size() + 1];
-////        strcpy(to_string(age), newValue.c_str());
-//        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-//    }
     cout << "Phone: " << phone;
     getline(cin, newValue);
     if(!newValue.empty()) {
@@ -359,7 +344,11 @@ int newAge;
         age =  stoi(newValue);
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
+
+    cout<< "Your profile has been successfully updated\n";
+    cout << "--------------------------------------------------------------------------------------------------------------\n";
 }
+
 void Candidate::addApply(int id) {
     Apply a1(id);
     Apply* tmp= new Apply [numOfSub + 1];
@@ -398,36 +387,6 @@ int Candidate::deleteApply(int index){
 
 }
 
-void Candidate::printSub() {
-    if(numOfSub == 0)
-        cout << "You have not applied yet\n";
-    else
-        for(int i = 0; i < numOfSub; ++i){
-            cout << i +1 << ".\n";
-            submissions[i].print();
-        }
-}
-
-void Candidate:: printSortSub(){
-    if(numOfSub == 0){
-//    if (submissions==NULL){
-        cout<<"You have no submissions \n";
-    }
-
-    cout << "The apply In process: \n";
-    for (int i = 0; i < numOfSub ; ++i) {
-        if (submissions[i].isStatus()) {
-            submissions[i].print();
-        }
-    }
-    cout << "The apply Postponed: \n";
-    for (int i = 0; i < numOfSub ; ++i) {
-        if (!submissions[i].isStatus()) {
-            submissions[i].print();
-        }
-    }
-}
-
 void Candidate::printProfile() {
 
     cout << "First name: " << fName << endl;
@@ -441,99 +400,15 @@ void Candidate::printProfile() {
     cout << "CV: " << CV << endl;
 }
 
-void Candidate::printDetails() {
-    cout << "Id: " << id << endl;
-    cout << "Password: " << password << endl;
-    cout << "Question: " << forgetPassQ << endl;
-    cout << "Answer: " << forgetPassA << endl;
-    cout << "First name: " << fName << endl;
-    cout << "Last name: " << lName << endl;
-    cout << "Email: " << email << endl;
-    cout << "Phone: " << phone << endl;
-    cout << "Age: " << age << endl;
-    cout << "Address: " << address << endl;
-    cout << "Profession: " << profession << endl;
-    cout << "About: " << about << endl;
-    cout << "Submissions: \n";
-    this->printSub();
-}
-
-
 char* Candidate:: getId(){
     return id;
 }
-void Candidate::setID(char* id)
-{
-    delete[]this->id;
-    this->id=new char[strlen(id)+1];
-    strcpy(this->id,id);
-}
+
 void Candidate::setPassword(char* password)
 {
     delete[]this->password;
     this->password=new char[strlen(password)+1];
     strcpy(this->password,password);
-}
-void Candidate::setForgetPassQ(int forgetPassQ)
-{
-    this->forgetPassQ= forgetPassQ;
-}
-void Candidate::setForgetPassA (char* forgetPassA)
-{
-    delete[]this->forgetPassA;
-    this->forgetPassA=new char[strlen(forgetPassA)+1];
-    strcpy(this->forgetPassA,forgetPassA);
-
-}
-void Candidate::setFName(char* fName)
-{
-    delete[]this->fName;
-    this->fName=new char[strlen(fName)+1];
-    strcpy(this->fName,fName);
-}
-void Candidate::setLName(char* lName)
-{
-    delete[]this->lName;
-    this->lName=new char[strlen(lName)+1];
-    strcpy(this->lName,lName);
-}
-void Candidate::setEmail(char* email)
-{
-    delete[]this->email;
-    this->email=new char[strlen(email)+1];
-    strcpy(this->email,email);
-}
-void Candidate::setPhone(char* phone)
-{
-    delete[]this->phone;
-    this->phone=new char[strlen(phone)+1];
-    strcpy(this->phone,phone);
-
-}
-void Candidate::setAge(int age)
-{
-    this->age=age;
-}
-void Candidate::setAddress(char* address)
-{
-    delete[]this->address;
-    this->address=new char[strlen(address)+1];
-    strcpy(this->address,address);
-
-}
-void Candidate::setProfession(char* profession)
-{
-    delete[]this->profession;
-    this->profession=new char[strlen(profession)+1];
-    strcpy(this->profession,profession);
-
-}
-void Candidate::setAbout(char* about)
-{
-    delete[]this->about;
-    this->about=new char[strlen(about)+1];
-    strcpy(this->about,about);
-
 }
 
 void Candidate::setCv(char *cv) {

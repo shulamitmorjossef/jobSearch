@@ -90,17 +90,6 @@ Employer::~Employer(){
 }
 
 
-
-void Employer:: printDetails() {
-    cout << "Id: " << id << endl;
-    cout << "Password: " << password << endl;
-    cout << "Question: " << forgetPassQ << endl;
-    cout << "Answer: " << forgetPassA << endl;
-    cout << "Jobs:\n";
-    this->printJobs();
-
-}
-
 void Employer:: printJobs(){
     if(this->jobsNum == 0)
         cout << "No jobs have been posted yet\n";
@@ -110,12 +99,13 @@ void Employer:: printJobs(){
             jobs[i].printForEmp();
         }
 }
+
 bool Employer:: addJob(int num){
     int id;
-    char businessName [10];
-    char jobProfession [20];
-    char address [20];
-    char salary [20];
+    char businessName [200];
+    char jobProfession [200];
+    char address [200];
+    char salary [200];
     char about [200];
     int jobType=-2;
     int jobHours=-2;
@@ -128,29 +118,49 @@ bool Employer:: addJob(int num){
     id = num + 1;
 
     cout << "Enter business name:\n";
-//    cin>>businessName;
-    cin.getline(businessName,10);
-    if(!(cin.get(businessName,10))){
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cin.getline(businessName,100);
+    while (cin.fail()){
+        cout<< "Invalid input, Try again:\n";
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.getline(businessName, 100);
     }
 
-
     cout << "Enter job profession:\n";
-//    cin>>jobProfession;
-    cin.getline(jobProfession,10);
-    if(!(cin.get(jobProfession,10))){
+    cin.getline(jobProfession,100);
+    while (cin.fail()){
+        cout<< "Invalid input, Try again:\n";
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.getline(jobProfession, 100);
     }
 
     cout << "Enter business address:\n";
-    cin >> address ;
+    cin.getline(address,100);
+    while (cin.fail()){
+        cout<< "Invalid input, Try again:\n";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.getline(address, 100);
+    }
 
     cout << "Enter job's salary:\n";
-    cin >> salary ;
+    cin.getline(salary,100);
+    while (cin.fail()){
+        cout<< "Invalid input, Try again:\n";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.getline(salary, 100);
+    }
     cout << "Tell about the job:\n";
-    cin >> about ;
+    cin.getline(about,100);
+    while (cin.fail()){
+        cout<< "Invalid input, Try again:\n";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.getline(about, 100);
+    }
     cout << "The job is:\nFull time job (1)\nPart time job (2)\n";
     while (!(cin >> jobType) || (jobType != 1 && jobType != 2)|| cin.peek() != '\n') {
         cout << "Invalid input. Please enter again: ";
@@ -200,30 +210,37 @@ bool Employer:: addJob(int num){
     for(int i = 0; i < jobsNum; ++i)
         tmp[i] = this->jobs[i];
     tmp[jobsNum] = job;
-//    for(int i = 0 ; i < jobsNum; ++i)
-//        delete jobs[i];
     delete [] this->jobs;
     this->jobs = tmp;
     jobsNum++;
     job.printForCand();
+    cout << "--------------------------------------------------------------------------------------------------------------\n";
+    cout << "Job has been successfully posted\n";
+    cout << "--------------------------------------------------------------------------------------------------------------\n";
     return true;
 }
+
 void Employer:: sortJobs() {
-    if (this->jobsNum == 0)
+    if (this->jobsNum == 0) {
         cout << "No jobs have been posted yet\n";
-    else {
+        cout
+                << "--------------------------------------------------------------------------------------------------------------\n";
+    } else {
         cout << "Available jobs:\n";
         for (int i = 0; i < jobsNum; ++i) {
             if (jobs[i].getStatus())
                 jobs[i].printForCand();
         }
-        cout << "Unavailable jobs:\n";
+
+        cout << "\nUnavailable jobs:\n";
         for (int i = 0; i < jobsNum; ++i) {
             if (!jobs[i].getStatus())
                 jobs[i].printForCand();
         }
     }
-}            //0 1 2 3     0 1 3
+    cout << "--------------------------------------------------------------------------------------------------------------\n";
+}
+
 bool Employer:: deleteJob(int index){
     Job *tmp = new Job[jobsNum - 1];
     for (int i = 0; i < index; ++i)
@@ -236,37 +253,10 @@ bool Employer:: deleteJob(int index){
     return true;
 }
 
-
-
-void Employer::setID(char* id)
-{
-    delete[]this->id;
-    this->id=new char[strlen(id)+1];
-    strcpy(this->id,id);
-}
 void Employer::setPassword (char* password)
 {
     delete[]this->password;
     this->password=new char[strlen(password)+1];
     strcpy(this->password,password);
 }
-void Employer::setForgetPassQ (int forgetPassQ)
-{
-    this->forgetPassQ= forgetPassQ;
-}
-void Employer::setForgetPassA(char* forgetPassA)
-{
-    delete[]this->forgetPassA;
-    this->forgetPassA=new char[strlen(forgetPassA)+1];
-    strcpy(this->forgetPassA,forgetPassA);
 
-}
-void Employer::setJobsNum(int jobsNum)
-{
-    this->jobsNum=jobsNum;
-
-}
-//void Employer::setJobs(Job* jobs)
-//{
-//
-//}

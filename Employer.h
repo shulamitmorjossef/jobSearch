@@ -14,18 +14,12 @@ public:
     Employer(const Employer& employer );
     Employer& operator= (const Employer& employer);
     ~Employer();
-    void printDetails();
     void printJobs();
     bool addJob(int id);
     void sortJobs();
     bool deleteJob(int index);
     void setPassword (char* password);
 
-
-    void setID(char* id);
-    void setForgetPassQ (int forgetPassQ);
-    void setForgetPassA(char* forgetPassA);
-    void setJobsNum(int jobsNum);
 
     friend class ManagementSystem;
 

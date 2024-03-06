@@ -3,9 +3,8 @@
 //
 
 #include "Apply.h"
-
 #include <iostream>
-#include <cstring>
+
 using namespace std;
 
 
@@ -27,21 +26,21 @@ Apply::Apply(const Apply & apply){
 void Apply::print(){
     cout << "Status: ";
     if(status) {
-        cout << "In process";
+        cout << "In process\n";
     }
     else{
-        cout << "Postponed";
+        cout << "Postponed\n";
     }
     cout << "Job details: \n";
 //    finJob(idOfJob);
 
 }
 
-
 void Apply::setStatus(bool status)
 {
     this->status=status;
 }
+
 void Apply::setIdOfJob(int idOfJob)
 {
     this->idOfJob=idOfJob;

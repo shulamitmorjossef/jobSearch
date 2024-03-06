@@ -3,7 +3,7 @@
 //
 #include <limits>
 #include "ManagementSystem.h"
-
+#include <vector>
 using namespace std;
 
 
@@ -14,26 +14,49 @@ ManagementSystem:: ManagementSystem(){
     numOfEmp = 0;
     numOfCan = 0;
     numOfJobs = 0;
-
+    getID();
     getEmp();
     getCan();
 
 }
+
 ManagementSystem:: ~ManagementSystem(){
     pushEmp();
     pushCan();
+    pushID();
     delete [] employers;
     delete [] candidates;
 }
+
+void ManagementSystem:: getID(){
+    ifstream idFile ("Id.txt");
+    if (!idFile) {
+        cout << "The system have a problem" << endl;
+        return;
+    }
+    idFile >> ID ;
+    idFile.close();
+}
+
+void ManagementSystem::pushID() {
+    ofstream oId("Id.txt");
+    if (!oId) {
+        cout << "The system have a big problem" << endl;
+    }
+    oId << ID << endl;
+    oId.close();
+}
+
 void ManagementSystem::getEmp() {
+    char stam [20];
     char id [20];
     char pass [20];
     int q;
     char a[100];
-    char f1 [20];
-    char f2 [20];
-    char f3 [20];
-    char f4 [20];
+    char f1 [200];
+    char f2 [200];
+    char f3 [200];
+    char f4 [200];
     char f5 [200];
     int status;
 
@@ -54,7 +77,8 @@ void ManagementSystem::getEmp() {
         employersFile >> id;
         employersFile >> pass;
         employersFile >> q;
-        employersFile >> a;
+        employersFile.getline(stam, 20);
+        employersFile.getline(a, 100);
 
         Employer employer(id, pass, q, a);
 
@@ -66,20 +90,22 @@ void ManagementSystem::getEmp() {
 
             employersFile >> employer.jobs[j].id;
 
-            employersFile >> f1 ;
-            cout << f1 << endl;
+            employersFile.getline(stam, 20);
+
+            employersFile.getline(f1, 200) ;
+//            cout << f1 << endl;
             employer.jobs[j].setBusinessName(f1);
 
-            employersFile >> f2 ;
+            employersFile.getline(f2, 200) ;
             employer.jobs[j].setAddress(f2);
 
-            employersFile >> f3 ;
+            employersFile.getline(f3, 200) ;
             employer.jobs[j].setSalary(f3);
 
-            employersFile >> f4 ;
+            employersFile.getline(f4, 200) ;
             employer.jobs[j].setAbout(f4);
 
-            employersFile >> f5 ;
+            employersFile.getline(f5, 200) ;
             employer.jobs[j].setJobProfession(f5);
 
             employersFile >> employer.jobs[j].jobType ;
@@ -101,6 +127,7 @@ void ManagementSystem::getEmp() {
 
             for (int k = 0; k < employer.jobs[j].numOfSub; ++k) {
                 char id [20];
+
                 employersFile >> id;
 //                delete [] employer.jobs[j].idOfSub[k];
                 employer.jobs[j].idOfSub[k] = new char [strlen(id)+1];
@@ -111,25 +138,25 @@ void ManagementSystem::getEmp() {
     }
     employersFile.close();
 }
+
 void ManagementSystem::getCan() {
+    char stam[200];
     char id [20];
     char pass [20];
     int q;
-    char a[100];
-    char f1 [20];
-    char f2 [20];
-    char f3 [20];
-    char f4 [20];
+    char a[200];
+    char f1 [200];
+    char f2 [200];
+    char f3 [200];
+    char f4 [200];
     int age;
     char f5 [200];
-    char f6 [20];
-    char f7 [20];
+    char f6 [200];
+    char f7 [200];
     int status;
     char f9 [200];
     int idJ;
     char f8 [200];
-
-
 
 
     ifstream CandidateFile ("Candidates.txt");
@@ -146,15 +173,17 @@ void ManagementSystem::getCan() {
         CandidateFile >> id;
         CandidateFile >> pass;
         CandidateFile >> q;
-        CandidateFile >> a;
-        CandidateFile >> f1 ;
-        CandidateFile >> f2 ;
-        CandidateFile >> f3 ;
-        CandidateFile >> f4 ;
+        CandidateFile.getline(stam, 200) ;
+        CandidateFile.getline(a, 200) ;
+        CandidateFile.getline(f1, 200) ;
+        CandidateFile.getline(f2, 200) ;
+        CandidateFile.getline(f3, 200) ;
+        CandidateFile.getline(f4, 200) ;
         CandidateFile >> age;
-        CandidateFile >> f5 ;
-        CandidateFile >> f6 ;
-        CandidateFile >> f7 ;
+        CandidateFile.getline(stam, 200) ;
+        CandidateFile.getline(f5, 200) ;
+        CandidateFile.getline(f6, 200) ;
+        CandidateFile.getline(f7, 200) ;
 //        CandidateFile >> f8 ;
 
         Candidate candidate(id, pass, q, a, f1,f2, f3, f4, age, f5, f6, f7);
@@ -183,6 +212,7 @@ void ManagementSystem::getCan() {
     }
     CandidateFile.close();
 }
+
 void ManagementSystem::pushEmp() {
 //    this->print();
     ofstream oEmpFile("Employers.txt");
@@ -219,6 +249,7 @@ void ManagementSystem::pushEmp() {
     }
     oEmpFile.close();
 }
+
 void ManagementSystem::pushCan() {
 //    this->print();
     ofstream oCanFile("Candidates.txt");
@@ -228,18 +259,6 @@ void ManagementSystem::pushCan() {
     oCanFile << numOfCan << endl;
     for(int i = 0; i < numOfCan; ++i){
         oCanFile << candidates[i].id << endl;
-//        if (oCanFile.fail()) {
-//            if (oCanFile.bad()) {
-//                // Fatal error occurred, like disk failure
-//                cout << "Fatal error occurred during file operation." << endl;
-//            } else if (oCanFile.fail()) {
-//                // Logical error occurred, like invalid data format
-//                cout << "Logical error occurred during file operation." << endl;
-//            } else if (oCanFile.eof()) {
-//                // End-of-file reached unexpectedly
-//                cout << "End-of-file reached unexpectedly." << endl;
-//            }
-//        }
         oCanFile << candidates[i].password<<endl;
         oCanFile << candidates[i].forgetPassQ<<"\n";
         oCanFile << candidates[i].forgetPassA<<"\n";
@@ -259,30 +278,35 @@ void ManagementSystem::pushCan() {
             oCanFile << candidates[i].submissions[j].idOfJob<<"\n";
             oCanFile << candidates[i].submissions[j].status<<"\n";
         }
-//        candidates[i].printDetails();
-//        oCanFile.flush();
     }
     oCanFile.close();
 }
+
 void ManagementSystem::mainMenu() {
-    int choice = 3;
+    int choice = -2;
+
     while (choice != 0 && choice != 1 && choice != 2) {
         cout << "signUp (1)\nlogIn (2)\nExit (0)\n";
-        if(!(cin >> choice)){
-            cin.clear();
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        if (!(cin >> choice)) {
+            cin.clear(); // Clear the fail state
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignore invalid input
+            choice = -2;
         }
     }
+
     if(choice == 0)
         return;
-    int type = 0;
-    while (type != 1 && type != 2) {
-        cout << "Employer (1) \nCandidate (2)\n";
+    int type = -2;
+    while (type != 0 && type != 1 && type != 2) {
+        cout << "Employer (1) \nCandidate (2)\nExit (0)\n";
         if(!(cin >> type)){
             cin.clear();
             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            type = -2;
         }
     }
+    if(type == 0)
+        return;
     if(choice == 1){
         if(type == 1)
             signUpEmp();
@@ -292,26 +316,10 @@ void ManagementSystem::mainMenu() {
     else
         logIn(type);
 }
-void ManagementSystem:: signUpEmp(){
-    char id [11];
+
+char* ManagementSystem::setPass() {
     char pass [17];
     char pass1[17];
-    int Q ;
-    char A [10];
-
-    cout << "Enter ID:\n" ;
-    cin >> id ;
-
-    for (int i = 0; id[i] != '\0'; i++) {
-        if (id[i] < '0' || id[i] > '9'||strlen(id) != 9 || cin.fail()) {
-            cout << "Invalid input. Please enter your ID including a check digit:" << endl;
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cin >> id;
-            i = -1;
-        }
-    }
-    //todo checking if id exising
 
     cout << "Enter password - At least 1 uppercase letter, 1 lowercase letter, number:\n" ;
     cin >> pass;
@@ -348,59 +356,17 @@ void ManagementSystem:: signUpEmp(){
         cout << "Passwords do not match. Please try again." << endl;
         cin>>pass1;
     }
-    //todo Checking whether the password is according to the rules
-    //todo input password again for verify
+    char* passs = new char [strlen(pass)+1];
+    strcpy(passs, pass);
+    return passs;
 
-    cout << "Choose a question for safety:\n "
-            "1 = The name of your paternal grandfather\n"
-            "2 = Your favorite pet\n"
-            "3 = Date of your birthday\n"
-            "4 = Your favorite color\n"
-            "5 = The date of your wedding anniversary\n";
-    cin >> Q;
-
-    while (Q < 1 || Q > 5 || cin.fail()) {
-        if (cin.fail()) {
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        }
-        cout << "Try again, enter your choose:\n" ;
-        cin >> Q;
-    }
-
-    //todo print the question
-    cout << "Enter your answer:" <<endl;
-    cin.getline(A,10);
-    if (!(cin.getline(A,10))) {
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    }
-
-    Employer e(id, pass, Q, A);
-    Employer* tmp = new Employer[numOfEmp+1];
-    for(int i = 0; i< numOfEmp; ++i){
-        tmp[i] = employers[i];
-    }
-    tmp[numOfEmp] = e;
-    numOfEmp++;
-    delete [] employers;
-    employers = tmp;
-    mainMenu();
 }
-void ManagementSystem:: signUpCan(){
-    char id [11];
-    char pass [17];
-    char pass1[17];
+
+void ManagementSystem:: signUpEmp(){
+    char id [20];
     int Q ;
-    char A [20];
-    char fName [20] ;
-    char lName [20];
-    char email [20];
-    char phone [12];
-    char address [30];
-    char profession [15];
-    int age ;
-    char about [200];
+    char A [100];
+    bool exist = false;
 
     cout << "Enter ID:\n" ;
     cin >> id ;
@@ -414,45 +380,121 @@ void ManagementSystem:: signUpCan(){
             i = -1;
         }
     }
-    //todo checking if id exising
 
-    cout << "Enter password - At least 1 uppercase letter, 1 lowercase letter, number:\n" ;
-    cin >> pass;
-
-    bool ifValid= false;
-       while (!ifValid){
-
-        bool uppercase = false;
-        bool lowercase = false;
-        bool digit = false;
-        for (int i=0;pass[i]!='\0';i++) {
-            if (pass[i]>='A'&& pass[i]<='Z') {
-                uppercase = true;
-            }
-            if (pass[i]>='a'&& pass[i]<='z') {
-                lowercase = true;
-            }
-            if (pass[i]>='0' && pass[i]<='9') {
-                digit = true;
-            }
-        }
-
-        ifValid = uppercase && lowercase && digit;
-
-        if (!ifValid) {
-            cout << "Invalid password. Try again." << endl;
-            cin>>pass;
-        }
-
+    for (int i = 0; i < numOfEmp; ++i) {
+        if(strcmp(employers[i].id, id) == 0)
+            exist = true;
     }
-    cout << "Confirm password: \n";
-    cin >> pass1;
-    while (strcmp(pass,pass1) != 0) {
-        cout << "Passwords do not match. Please try again." << endl;
-        cin>>pass1;
+    if(exist){
+        cout << "User already exists in the system,\n"
+                "Try logging in or registering with a different ID\n";
+        cout << "--------------------------------------------------------------------------------------------------------------\n";
+        mainMenu();
     }
-    //todo Checking whether the password is according to the rules
-    //todo input password again for verify
+
+    char* pass = setPass();
+
+    cout << "Choose a question for safety:\n "
+            "1 - The name of your paternal grandfather\n"
+            "2 - Your favorite pet\n"
+            "3 - Date of your birthday\n"
+            "4 - Your favorite color\n"
+            "5 - The date of your wedding anniversary\n";
+    cin >> Q;
+
+    while (Q < 1 || Q > 5 || cin.fail()) {
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+        cout << "Try again, enter your choose:\n" ;
+        cin >> Q;
+    }
+
+    switch (Q) {
+        case 1:
+            cout << "What name of your paternal grandfather?\n";
+            break;
+        case 2:
+            cout << "What is your favorite pet?\n";
+            break;
+        case 3:
+            cout << "What the date of your birth?\n";
+            break;
+        case 4:
+            cout << "What is your favorite color?\n";
+            break;
+        case 5:
+            cout << "What the date of your wedding anniversary?\n";
+            break;
+    }
+
+    cout << "Enter your answer:" <<endl;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cin.getline(A,100);
+    while (cin.fail()){
+        cout<< "Invalid input, Try again:\n";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.getline(A, 100);
+    }
+
+    Employer e(id, pass, Q, A);
+    Employer* tmp = new Employer[numOfEmp+1];
+    for(int i = 0; i< numOfEmp; ++i){
+        tmp[i] = employers[i];
+    }
+    tmp[numOfEmp] = e;
+    numOfEmp++;
+    delete [] employers;
+    employers = tmp;
+
+    cout <<" The registration was successful\n";
+    cout << "--------------------------------------------------------------------------------------------------------------\n";
+
+    mainMenu();
+}
+
+void ManagementSystem:: signUpCan(){
+    char id [11];
+    int Q ;
+    char A [100];
+    char fName [200] ;
+    char lName [200];
+    char email [200];
+    char phone [12];
+    char address [200];
+    char profession [200];
+    int age ;
+    char about [500];
+    bool exist = false;
+
+
+    cout << "Enter ID:\n" ;
+    cin >> id ;
+
+    for (int i = 0; id[i] != '\0'; i++) {
+        if (id[i] < '0' || id[i] > '9'||strlen(id) != 9 || cin.fail()) {
+            cout << "Invalid input. Please enter your ID including a check digit:" << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin >> id;
+            i = -1;
+        }
+    }
+
+    for (int i = 0; i < numOfCan; ++i) {
+        if(strcmp(candidates[i].id, id) == 0)
+            exist = true;
+    }
+    if(exist){
+        cout << "User already exists in the system,\n"
+                "Try logging in or registering with a different ID\n";
+        cout << "--------------------------------------------------------------------------------------------------------------\n";
+        mainMenu();
+    }
+
+    char* pass = setPass();
 
     cout << "Choose a question for safety:\n"
             "1 = The name of your paternal grandfather\n"
@@ -470,34 +512,51 @@ void ManagementSystem:: signUpCan(){
         cout << "Try again, enter your choose:\n" ;
         cin >> Q;
     }
-
-    //todo print the question
-
+    switch (Q) {
+        case 1:
+            cout << "What name of your paternal grandfather?\n";
+            break;
+        case 2:
+            cout << "What is your favorite pet?\n";
+            break;
+        case 3:
+            cout << "What the date of your birth?\n";
+            break;
+        case 4:
+            cout << "What is your favorite color?\n";
+            break;
+        case 5:
+            cout << "What the date of your wedding anniversary?\n";
+            break;
+    }
     cout << "Enter your answer:" <<endl;
-    fgets(A, 20, stdin);
-    if (A[strlen(A) - 1] != '\n')
-        while (getchar() != '\n');
-    A[strcspn(A,"\n")]='\0';
-//    cin.getline(A,10);
-//    if (!(cin.getline(A,10))) {
-//        cin.clear();
-//        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-//    }
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cin.getline(A,100);
+    while (cin.fail()){
+        cout<< "Invalid input, Try again:\n";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.getline(A, 100);
+    }
 
     cout << "Your first name:" <<endl;
-    fgets(fName, 20, stdin);
-    if (fName[strlen(fName) - 1] != '\n')
-        while (getchar() != '\n');
-    fName[strcspn(fName,"\n")]='\0';
+    cin.getline(fName,200);
+    while (cin.fail()){
+        cout<< "Invalid input, Try again:\n";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.getline(fName, 200);
+    }
 
 
     cout << "Your last name:" <<endl;
-    fgets(lName, 20, stdin);
-    if (lName[strlen(lName) - 1] != '\n')
-        while (getchar() != '\n');
-    lName[strcspn(lName,"\n")]='\0';
-
-
+    cin.getline(lName,200);
+    while (cin.fail()){
+        cout<< "Invalid input, Try again:\n";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.getline(lName, 200);
+    }
 
     cout << "Enter your email:"<<endl;
     cin.get(email, 20);
@@ -553,33 +612,35 @@ void ManagementSystem:: signUpCan(){
         cout << "Try again, Your age:" <<endl;
         cin >> age;
     }
-
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     cout << "Your address:" <<endl;
-    fgets(address, 30, stdin);
-    if (address[strlen(address) - 1] != '\n')
-        while (getchar() != '\n');
-    address[strcspn(address,"\n")]='\0';
+    cin.getline(address,200);
+    while (cin.fail()){
+        cout<< "Invalid input, Try again:\n";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.getline(address, 200);
+    }
 
 
     cout << "Your profession:" <<endl;
-    fgets(profession, 15, stdin);
-    if (profession[strlen(profession) - 1] != '\n')
-        while (getchar() != '\n');
-    profession[strcspn(profession,"\n")]='\0';
+    cin.getline(profession,200);
+    while (cin.fail()){
+        cout<< "Invalid input, Try again:\n";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.getline(profession, 200);
+    }
 
 
     cout << "Tell a little about yourself:" <<endl;
-    fgets(about, 200, stdin);
-    if (about[strlen(about) - 1] != '\n')
-        while (getchar() != '\n');
-    about[strcspn(about,"\n")]='\0';
-
-
-
-
-
-
+    cin.getline(about,500);
+    while (cin.fail()){
+        cout<< "Invalid input, Try again:\n";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.getline(about, 500);
+    }
 
     Candidate c(id, pass, Q, A, fName, lName, email, phone, age, address, profession, about);
 
@@ -605,6 +666,7 @@ void ManagementSystem:: signUpCan(){
 
     mainMenu();
 }
+
 void ManagementSystem:: logIn(int type){
     int ch = 0;
     char pass [17];
@@ -643,19 +705,20 @@ void ManagementSystem:: logIn(int type){
         }
     }
     while (ch != 1 && ch != 2) {
-            cout << "One of the credentials is incorrect\nTry again (1)\nForget password (2)\n";
-            cin >> ch;
+        cout << "One of the credentials is incorrect\nTry again (1)\nForget password (2)\n";
+        cin >> ch;
     }
     if(ch == 1)
         logIn(type);
     else
         forgetPassword(type, exists, index);
 }
+
 bool ManagementSystem:: forgetPassword(int type, bool exists, int index) {
 
     if (exists) {
         char pass [17];
-        char A [17];
+        char A [100];
         if (type == 1) {
             switch (employers[index].forgetPassQ) {
                 case 1:
@@ -674,16 +737,23 @@ bool ManagementSystem:: forgetPassword(int type, bool exists, int index) {
                     cout << "What the date of your wedding anniversary?\n";
                     break;
             }
-            cin >> A ;
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin.getline(A,100);
+            while (cin.fail()){
+                cout<< "Invalid input, Try again:\n";
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cin.getline(A, 100);
+            }
             if (strcmp(A, employers[index].forgetPassA) == 0) {
-                cout << "Enter new password: \n";
-                cin >> pass ;
-                employers[index].setPassword(pass);
-                //todo verify of pass
+                employers[index].setPassword(setPass());
                 cout << "The password has been changed successfully\n";
+                cout << "--------------------------------------------------------------------------------------------------------------\n";
                 mainMenu();
             } else {
                 cout << "The authentication attempt failed\n";
+                cout << "--------------------------------------------------------------------------------------------------------------\n";
+
                 mainMenu();
             }
         } else {
@@ -704,25 +774,33 @@ bool ManagementSystem:: forgetPassword(int type, bool exists, int index) {
                     cout << "What the date of your wedding anniversary?\n";
                     break;
             }
-            cin >> A ;
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin.getline(A,100);
+            while (cin.fail()){
+                cout<< "Invalid input, Try again:\n";
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cin.getline(A, 100);
+            }
             if (strcmp(A, candidates[index].forgetPassA) == 0) {
-                cout << "Enter new password: \n";
-                cin >>pass ;
-                candidates[index].setPassword(pass);
-                //todo verify of pass
+                candidates[index].setPassword(setPass());
                 cout << "The password has been changed successfully\n";
+                cout << "--------------------------------------------------------------------------------------------------------------\n";
                 mainMenu();
             } else {
                 cout << "The authentication attempt failed\n";
+                cout << "--------------------------------------------------------------------------------------------------------------\n";
                 mainMenu();
             }
         }
     }
     else{
         cout << "User does not exist in the system\n";
+        cout << "--------------------------------------------------------------------------------------------------------------\n";
         mainMenu();
     }
 }
+
 void ManagementSystem:: mainEmp(Employer& employer) {
     int choice = 4;
     int choose = -2;
@@ -733,109 +811,113 @@ void ManagementSystem:: mainEmp(Employer& employer) {
     }
     if(choice == 0) {
         mainMenu();
-//        return;
     }
     if (choice == 1) {
-        if (employer.addJob(numOfJobs)) {
+        if (employer.addJob(ID)) {
             numOfJobs++;
+            ID++;
             mainEmp(employer);
         }
     }
-    else if (choice == 2)
+    else if (choice == 3) {
+        employer.sortJobs();
+        mainEmp(employer);
+    }
+    else if (choice == 2){
             employer.printJobs();
-    else if (choice == 3)
-            employer.sortJobs();
-    if (choice == 2||choice == 3){
-        while (index <= 0 || index > numOfJobs){
-            cout << "Enter number of job or 0 to exit:\n";
-            if(!(cin>>index)){
-                cin.clear();
-                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            }
-        }
-        if (index == 0) {
-            mainEmp(employer);
-    //        return;
-        }
-        else {
-            index--;
-            choice = 4;
-            while (choice != 1 && choice != 2 && choice != 3) {
-                cout << "Delete job (1)\nUpdate job (2)\nSee candidate's profiles (3)\nExit (0)\n";
-                if(!(cin>>choice)){
+            while (index < 0 || index > numOfJobs) {
+                cout << "Enter number of job or 0 to exit:\n";
+                if (!(cin >> index)) {
                     cin.clear();
                     cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    index = -3;
                 }
             }
-            if (choice == 0) {
+            if (index == 0) {
                 mainEmp(employer);
-    //            return;
             }
-            if (choice == 1) {
-                while (choose != 1 && choose != 2 && choose != 0) {
-                    cout << "Do you want to delete the job permanently (1) or temporarily (2)?\nExit (0)\n";
-                    if(!(cin>>choose)){
+            else {
+                index--;
+                choice = 4;
+                while (choice != 1 && choice != 2 && choice != 3) {
+                    cout << "Delete job (1)\nUpdate job (2)\nSee candidate's profiles (3)\nExit (0)\n";
+                    if (!(cin >> choice)) {
                         cin.clear();
                         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                     }
                 }
-                if (choose == 0) {
+                if (choice == 0) {
                     mainEmp(employer);
-    //                return;
                 }
-                if (choose == 1) {
-                    int safe = 0;
-                    while (safe != 1 && safe != 2 && safe != 0) {
-                        cout << "Are you sure? (yes (1)/no (2))\nExit (0)\n";
-                        if (!(cin >> safe)) {
+                if (choice == 1) {
+                    while (choose != 1 && choose != 2 && choose != 0) {
+                        cout << "Do you want to delete the job permanently (1) or temporarily (2)?\nExit (0)\n";
+                        if (!(cin >> choose)) {
                             cin.clear();
                             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                         }
                     }
-                    if (safe == 0) {
+                    if (choose == 0) {
                         mainEmp(employer);
-    //                    return;
                     }
-                    if (safe == 1)
-                        employer.deleteJob(index);
-                    mainEmp(employer);
+                    if (choose == 1) {
+                        int safe = 0;
+                        while (safe != 1 && safe != 2 && safe != 0) {
+                            cout << "Are you sure? (yes (1)/no (2))\nExit (0)\n";
+                            if (!(cin >> safe)) {
+                                cin.clear();
+                                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                            }
+                        }
+                        if (safe == 0) {
+                            mainEmp(employer);
+                        }
+                        if (safe == 1) {
+                            employer.deleteJob(index);
+                            numOfJobs--;
+                        }
+                        else
+                            cout << "The job was not deleted\n";
+                        mainEmp(employer);
+                    } else if (choose == 2)
+                        employer.jobs[index].setStatus(false);
                 }
-                else if(choose == 2)
-                    employer.jobs[index].setStatus(false);
-            }
-            else if (choice == 2)
+                else if (choice == 2) {
                     employer.jobs[index].updateJob();
-            else if (choice == 3) {
-                int prof = -1;
-                employer.jobs[index].printSubPro(candidates, numOfCan);
-
-                while (prof <0 || prof > employer.jobs[index].numOfSub) {
-                    cout << "Enter number of profile to reject his request\nExit (0)";
-                    if (!(cin >> prof)) {
-                        cin.clear();
-                        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                    }
-                }
-                if(prof == 0){
                     mainEmp(employer);
-    //                return;
                 }
+                else if (choice == 3) {
+                    int prof = -1;
+                    employer.jobs[index].printSubPro(candidates, numOfCan);
 
-                prof--;
-                for(int i = 0 ; i < numOfCan; ++i)
-                    if(strcmp(candidates[i].id, employer.jobs[index].idOfSub[prof]) == 0)
-                        for(int j = 0; j < candidates[i].numOfSub; ++i)
-                            if(candidates[i].submissions[j].idOfJob == employer.jobs[index].id)
-                                candidates[i].submissions[j].setStatus(false);
+                    while (prof < 0 || prof > employer.jobs[index].numOfSub) {
+                        cout << "Enter number of profile to reject his request\nExit (0)";
+                        if (!(cin >> prof)) {
+                            cin.clear();
+                            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        }
+                    }
+                    if (prof == 0) {
+                        mainEmp(employer);
+                    }
+                    prof--;
+                    for (int i = 0; i < numOfCan; ++i)
+                        if (strcmp(candidates[i].id, employer.jobs[index].idOfSub[prof]) == 0)
+                            for (int j = 0; j < candidates[i].numOfSub; ++i)
+                                if (candidates[i].submissions[j].idOfJob == employer.jobs[index].id)
+                                    candidates[i].submissions[j].setStatus(false);
 
-                char** tmp = new char* [employer.jobs[index].numOfSub - 1];
-                for(int i = 0; i < prof; ++i)
-                    strcpy(tmp[i], employer.jobs[index].idOfSub[i]);
-                for(int i = prof+1; i < employer.jobs[index].numOfSub; ++i)
-                    strcpy(tmp[i - 1], employer.jobs[index].idOfSub[i]);
-                delete [] employer.jobs[index].idOfSub;
-                employer.jobs[index].idOfSub = tmp;
-            }
+                    char **tmp = new char *[employer.jobs[index].numOfSub - 1];
+                    for (int i = 0; i < prof; ++i)
+                        strcpy(tmp[i], employer.jobs[index].idOfSub[i]);
+                    for (int i = prof + 1; i < employer.jobs[index].numOfSub; ++i)
+                        strcpy(tmp[i - 1], employer.jobs[index].idOfSub[i]);
+                    delete[] employer.jobs[index].idOfSub;
+                    employer.jobs[index].idOfSub = tmp;
+
+                    cout<<"You have successfully rejected the request, the candidate will receive your reply as soon as possible\n";
+                    cout << "--------------------------------------------------------------------------------------------------------------\n";
+                }
         }
     }
 }
@@ -857,77 +939,70 @@ void ManagementSystem:: mainCan(Candidate& candidate){
         return;
     }
     if(choice == 1) {
-        int *arrId;
-        int sum = searchJob(arrId);
-        if (sum == 0)
-            mainCan(candidate);
-        while (index < 0 || index >= sum) {
-            cout << "Enter number of job to apply or 0 to exit:\n";
-            if (!(cin >> index)) {
-                cin.clear();
-                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            }
-        }
-        if (index == 0)
-            mainCan(candidate);
-        else {
-            index--;
-            for (int i = 0; i < numOfEmp; ++i)
-                for (int j = 0; j < employers[i].jobsNum; ++j)
-                    if (arrId[index] == employers[i].jobs[j].id) {
-                        candidate.addApply(arrId[index]);
-                        employers[i].jobs[j].addSub(candidate.id);
-                        i = numOfEmp;
-                    }
-        }
+        searchJob(candidate);
     }
     else if(choice == 4){
         candidate.updateDetails();
+        mainCan(candidate);
     }
     else{
         if(choice == 2){
-            candidate.printSub();
+            printSubOfCan(candidate);
         }
-         else if (choice == 3) {
-            candidate.printSortSub();
+        else if (choice == 3) {
+            printSortSub(candidate);
         }
-         if(candidate.numOfSub!=0){
-        while (choose < 0 || choose > candidate.numOfSub) {
-            cout << "Enter number of submission to delete it or 0 to exit:\n";
-            if (!(cin >> choose)) {
-                cin.clear();
-                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            }
-        }
-        if(choose == 0)
-            mainCan(candidate);
-        else{
-            while (safe != 1 && safe != 2) {
-                cout << "Are you sure? (yes (1)/no (2)):\n";
-                if (!(cin >> safe)) {
+        if(candidate.numOfSub!=0){
+            while (choose < 0 || choose > candidate.numOfSub) {
+                cout << "Enter number of submission to delete it or 0 to exit:\n";
+                if (!(cin >> choose)) {
                     cin.clear();
                     cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 }
             }
-            if(safe == 2)
+            if(choose == 0)
                 mainCan(candidate);
-            else {
-//                todo delete sub
-                choose--;
-                int id = candidate.deleteApply(choose);
-                for (int i = 0; i < numOfEmp; ++i)
-                    for (int j = 0; j < employers[i].jobsNum; ++j) {
-                        if (employers[i].jobs[j].id == id)
-                            employers[i].jobs[j].deleteSub(candidate.id);
+            else{
+                while (safe != 1 && safe != 2) {
+                    cout << "Are you sure? (yes (1)/no (2)):\n";
+                    if (!(cin >> safe)) {
+                        cin.clear();
+                        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                     }
+                }
+                if(safe == 2) {
+                    cout << "The submission was not deleted\n";
+                    cout << "--------------------------------------------------------------------------------------------------------------\n";
+                    mainCan(candidate);
+                }
+                else {
+                    choose--;
+                    int id = candidate.deleteApply(choose);
+                    for (int i = 0; i < numOfEmp; ++i)
+                        for (int j = 0; j < employers[i].jobsNum; ++j) {
+                            if (employers[i].jobs[j].id == id)
+                                employers[i].jobs[j].deleteSub(candidate.id);
+                        }
+                    cout << "The submission has been successfully deleted, your profile is no longer available to the employer\n";
+                    cout << "--------------------------------------------------------------------------------------------------------------\n";
+                    mainCan(candidate);
+                }
             }
         }
-     }
         mainCan(candidate);
     }
-
 }
-int ManagementSystem:: searchJob(int* arr){
+
+void ManagementSystem:: searchJob(Candidate& candidate){
+    Job* arr = new Job[numOfJobs];
+    int index = 0;
+    for(int i = 0; i < numOfEmp; ++i){
+        for (int j = 0; j < employers[i].jobsNum; ++j) {
+            if(employers[i].jobs[j].status)
+                arr[index] =  employers[i].jobs[j];
+                ++index;
+        }
+    }
     int t = -1, h = -1, e = -1, a = -1, age = -1, s = -1, r = -1;
 
     cout << "For each field select the desired filter, if you do not want to filter this field, press 0:\n";
@@ -988,36 +1063,113 @@ int ManagementSystem:: searchJob(int* arr){
         }
     }
 
-    int index = 0;
+    int index1 = 0;
 
-    for (int i = 0; i < numOfEmp ; ++i) {
-        for (int j = 0; j < employers[i].jobsNum; ++j)
-            if(employers[i].jobs[j].status)
-                if((employers[i].jobs[j].jobType == t || t == 0) && (employers[i].jobs[j].age == age || age == 0) && (employers[i].jobs[j].experience == e || e == 0))
-                    if((employers[i].jobs[j].jobArea == a || a == 0) && (employers[i].jobs[j].jobFor == s || s == 0) && (employers[i].jobs[j].jobHours == h || h == 0) && (employers[i].jobs[j].jobRange == r || r == 0)){
-                        cout << index + 1 << ".\n";
-                        employers[i].jobs[j].printForCand();
-                        ++index;
-                        int* tmp = new int[index];
-                        for(int k = 0; k < index -1; ++k)
-                            tmp[k] = arr[k];
-                        tmp[index-1] = employers[i].jobs[j].id;
-                        delete [] arr;
-                        arr = tmp;
-                        }
+    for (int i = 0; i < index; ++i) {
+        if((arr[i].jobType == t || t == 0) &&
+        (arr[i].age == age || age == 0) &&
+        (arr[i].experience == e || e == 0) &&
+        (arr[i].jobArea == a || a == 0) &&
+        (arr[i].jobFor == s || s == 0) &&
+        (arr[i].jobHours == h || h == 0) &&
+        (arr[i].jobRange == r || r == 0)){
+            cout << index1 + 1 << ".\n";
+            arr[i].printForCand();
+            ++index1;
+        }
     }
 
-    if (index == 0)
+    if (index1 == 0) {
         cout << "No suitable jobs were found for you\n";
-    return index;
+        mainCan(candidate);
+    }
+    addApply(arr, index, candidate);
 }
-void ManagementSystem::print() {
-    for (int i = 0; i < numOfEmp; ++i) {
-        employers[i].printDetails();
+
+void ManagementSystem::addApply(Job *jobs, int sum, Candidate& candidate) {
+    int index = -1;
+    while (index < 0 || index > sum) {
+        cout << "Enter number of job to apply or 0 to exit:\n";
+        if (!(cin >> index)) {
+            cin.clear();
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+    }
+    if (index == 0)
+        mainCan(candidate);
+    else {
+        index--;
+        candidate.addApply(jobs[index].id);
+        for (int i = 0; i < numOfEmp; ++i) {
+            for (int j = 0; j < employers[j].jobsNum; ++j) {
+                if (jobs[index].id == employers[i].jobs[j].id) {
+                    employers[i].jobs[j].addSub(candidate.id);
+                    i = numOfEmp;
+                }
+            }
+        }
+    }
+    cout << "\nWe have submitted your request,\n"
+            "The employer will contact you soon!\n";
+    cout << "--------------------------------------------------------------------------------------------------------------\n";
+
+    delete [] jobs;
+    mainCan(candidate);
+}
+
+void ManagementSystem::printSubOfCan(Candidate& candidate) {
+    if(candidate.numOfSub == 0)
+        cout << "You have not applied yet\n";
+    else
+        for(int i = 0; i < candidate.numOfSub; ++i){
+            cout << i +1 << ".\n";
+            printSub(candidate.submissions[i]);
+        }
+}
+
+void ManagementSystem::printSortSub(Candidate& candidate){
+    if(candidate.numOfSub == 0){
+        cout<<"You have no submissions \n";
+        return;
     }
 
-    for (int i = 0; i < numOfCan; ++i) {
-        candidates[i].printDetails();
+    cout << "The apply In process: \n";
+    for (int i = 0; i < candidate.numOfSub ; ++i) {
+        if (candidate.submissions[i].isStatus()) {
+            printSub(candidate.submissions[i]);
+        }
     }
+    cout << "The apply Postponed: \n";
+    for (int i = 0; i < candidate.numOfSub ; ++i) {
+        if (!candidate.submissions[i].isStatus()) {
+            printSub(candidate.submissions[i]);
+        }
+    }
+}
 
+void ManagementSystem:: printSub(Apply& sub){
+    Job* arr = new Job[numOfJobs];
+    int index = 0;
+    for(int i = 0; i < numOfEmp; ++i){
+        for (int j = 0; j < employers[i].jobsNum; ++j) {
+            if(employers[i].jobs[j].status) {
+                arr[index] = employers[i].jobs[j];
+                ++index;
+            }
+        }
+    }
+    cout << "Status: ";
+    if(sub.status) {
+        cout << "In process\n";
+    }
+    else{
+        cout << "Postponed\n";
+    }
+    cout << "Job details: \n";
+    for (int i = 0; i < numOfJobs; ++i) {
+        if(arr[i].id == sub.idOfJob){
+            arr[i].printForCand();
+            i = numOfEmp;
+        }
+    }
 }
