@@ -1,43 +1,61 @@
-3
+4
+123456789
+Abc123
 1
+Grandfather
+alice
+Johnson
+alice@example.com
+1234567890
+30
+123 Main St, Anytown
+Software Engineer
+I love coding and exploring new technologies.
 1
+https://www.linkedin.com/in/alicejohnson
 1
+2
 1
+987654321
+Xyz789
+2
+Dog
+Bob
+Smith
+bob@example.com
+4567890123
+35
+456 Oak St, Othertown
+Teacher
+About: I enjoy teaching and helping students learn new things.
 1
-1
-1
-1
-1
-1
-1
-1
+https://www.linkedin.com/in/bobsmith
 0
+555444333
+Hello123
+5
+01011990
+Emily
+Brown
+emily@example.com
+7890123456
+28
+789 Elm St, Anothertown
+ Graphic Designer
+i old, very old.
+1
+https://www.linkedin.com/in/emilybrown
 0
-2
-2
-2
-2
-2
-2
-2
-2
-2
-2
-2
-2
-0
-0
-2
-2
-2
-2
-2
-2
-2
-2
-2
-2
-2
-2
-0
+888777666
+Pass456
+4
+Blue
+Michael
+Davis
+michael@example.com
+0123456789
+40
+987 Pine St, Yetanothertown
+ Doctor
+ I'm dedicated to providing quality healthcare to my 
 0
